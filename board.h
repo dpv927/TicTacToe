@@ -3,9 +3,9 @@
  * como lo son los movimientos y las comprobaciones para ver si algun jugardor ha
  * ganado, hay empate o nanguna de las anteriores. */
 int board[] = {
-  0,0,0,
-  0,0,0,
-  0,0,0
+  0, 0, 0,
+  0, 0, 0,
+  0, 0, 0
 };
 
 int isFull() {
@@ -57,4 +57,22 @@ int evaluateGame() {
 				return result;
 		}
 		return (isFull()==1)? 0 : -2;
+}
+
+void printGame() {
+  char c;
+  printf("+---+---+---+\n");
+  
+  for (int i = 0; i < 9; i++) {
+    c = (board[i] == 1)? 'x' : ((board[i] == -1)? 'o' : ' '); 
+
+    if (i%3 == 0) {
+      printf("| ");
+    }
+    printf("%c | ", c);
+    
+    if ((i + 1) % 3 == 0) {
+      printf("\n+---+---+---+\n");
+    }
+  }
 }
