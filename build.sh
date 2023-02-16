@@ -5,26 +5,18 @@
 
 # Define the names of the source code files
 MAIN_SOURCE="main.c"
-PLR1_SOURCE="player1.c"
-PLR2_SOURCE="player2.c"
 
 # Define the names of the generated executables
 MAIN_EXEC="main"
-PLR1_EXEC="player1"
-PLR2_EXEC="player2"
 
 function cleanf() {
 # Remove old executable files
-  rm -rf "$MAIN_EXEC" "$PLR2_EXEC" "$PLR1_EXEC"
+  rm -rf "$MAIN_EXEC"
 }
 
 function generate() {
   # Compile the main program
   gcc "$MAIN_SOURCE" -o "$MAIN_EXEC"
-  # Compile the player1 program
-  gcc "$PLR1_SOURCE" -o "$PLR1_EXEC"
-  # Compile the player2 program
-  gcc "$PLR2_SOURCE" -o "$PLR2_EXEC"
 }
 
 function install() {
