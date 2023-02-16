@@ -1,7 +1,7 @@
 #!/bin/bash
 # Dont modify the source or executable names at the compilation section.
 # Make your changes at the variables declaration.
-# Filipondios 14-02-2023
+# Filipondios 16-02-2023
 
 # Define the names of the source code files
 MAIN_SOURCE="main.c"
@@ -10,7 +10,7 @@ MAIN_SOURCE="main.c"
 MAIN_EXEC="main"
 
 function cleanf() {
-# Remove old executable files
+  # Remove old executable files
   rm -rf "$MAIN_EXEC"
 }
 
