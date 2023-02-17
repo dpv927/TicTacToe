@@ -19,11 +19,11 @@ int fork();
 int main() {
   int x;
   int y;
-  int game_eval;
-  int process_id;
   int semid;
   int shmid;
   int status;
+  int game_eval;
+  int process_id;
   struct sembuf sem_oper;
  
   struct data {
@@ -45,7 +45,7 @@ int main() {
   semctl(semid, SEM_NUM, SETALL, arg);
   sem_oper.sem_flg = SEM_UNDO;
 
-  shmid = shmget(SEMKEY, sizeof(int)*9, IPC_CREAT | 0700);
+  shmid = shmget(SEMKEY, sizeof(int)*BOARD_LEN, IPC_CREAT | 0700);
   if (shmid == -1) { exit(-1); }
   addr = shmat(shmid, 0, 0);
 
@@ -55,7 +55,7 @@ int main() {
     break;
 
     case 0:
-      process_id = 1;
+      process_id = PLAYER_1;
       addr[0] = used;
 
       while(true) {
@@ -70,7 +70,7 @@ int main() {
 
         printf("\nAfter the last move, the board state is:\n");
         printGame(addr[0].arr);        
-        addr[0].arr[readCoordinates(1)] = 1;
+        addr[0].arr[readCoordinates(PLAYER_2)] = PLAYER_1;
 
         sem_oper.sem_num = SEM1;
         sem_oper.sem_op = 1;
@@ -79,7 +79,7 @@ int main() {
     break;
 
     default:
-      process_id = 2;
+      process_id = PLAYER_2;
 
       while(true) {
         sem_oper.sem_num = SEM1;
@@ -93,7 +93,7 @@ int main() {
 
         printf("\nAfter the last move, the board state is:\n");
         printGame(addr[0].arr);
-        addr[0].arr[readCoordinates(2)] = 2;
+        addr[0].arr[readCoordinates(PLAYER_2)] = PLAYER_2;
 
         sem_oper.sem_num = SEM0;
         sem_oper.sem_op = 1;
@@ -102,7 +102,7 @@ int main() {
     break;
   }
 
-  if(process_id == 1) { 
+  if(process_id == PLAYER_1) { 
     printf("\nAfter the last move, the board state is:\n");
     printGame(addr[0].arr);
     
@@ -122,6 +122,8 @@ int main() {
   return 0; 
 }
 
+/**@brief Reads the coordinates of the next move in
+ * a game**/
 int readCoordinates(int id) {
   int x = -1;
   int y = -1;
