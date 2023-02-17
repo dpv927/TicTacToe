@@ -35,7 +35,7 @@ Let's see an example:
 In the game, player1 is represented by `x`, and player2 is represented by `o`.
 
 ## Compile & Install
-Para compilar y manejar todos los archivos del projecto, se ha creado el script `build.sh`. A este script se le pueden pasar como parámetro distintas instrucciones que comprobará y ejecutara sobre el projecto. Veamos ejemplos:
+To compile and manage all the files of the project, the `build.sh` script has been created. This script can be passed different instructions as parameters, which it will check and execute on the project. Let's see some examples:
 ```bash
 ./build cleanf # Removes the old files like executables and other object files.
 ./build generate # Compiles and generates a executable file.
@@ -44,7 +44,8 @@ Para compilar y manejar todos los archivos del projecto, se ha creado el script 
 ./build cleanf generate install # Does in the same order that is specificated all the commands already described.
 ./build # Cleans and generates an executable. Same as './build cleanf generate' but faster.
 ```
-Knowing that, now you can compile and manage the project as you prefer. For exaple for a quick complilation:
+
+Now that you know this, you can compile and manage the project as you prefer. For example, to perform a quick compilation:
 ```bash
 ./build.sh
 ```
