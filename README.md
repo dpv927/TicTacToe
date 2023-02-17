@@ -7,40 +7,50 @@
 </div>
 
 ## About
-Tic tac toe its a very famous board game, and very easy to implement in code. Because of that, I wanted to do it a bit harder but without changing the basic concepts of the game. To do so, I implemented the game with the `API System 5` semaphores and shared memory of Linux, just to manage both players turns in the game and the board control.
+Tic Tac Toe is a very famous board game, and it is very easy to implement in code. Because of this, I wanted to make it a bit more challenging without changing the basic concepts of the game. To achieve this, I implemented the game using the `API System 5` Semaphores and shared memory of Linux to manage both players' turns and the board control.
 
-## How to use
-The game asks both players for a coordinate of their next move. First, it asks for the row and then the column. Lets say that a coordinate is made up with (row, column), so we have the next board display:
+## How to Use
+
+The game prompts both players for the coordinates of their next move. First, it asks for the row, and then the column. Let's say that a coordinate is made up of (row, column). The board display is as follows:
 ```
 +-------+-------+-------+
 | (0,0) | (0,1) | (0,2) |
-+-------+-------+-------+ This is how the game understands the game board
++-------+-------+-------+ These are the game board
 | (1,0) | (1,1) | (1,2) | coordinates
 +-------+-------+-------+
-| (2,0) | (1,1) | (2,2) |
+| (2,0) | (2,1) | (2,2) |
 +-------+-------+-------+
+
 ```
-Lets see an example:
+Let's see an example:
 ```
 +---+---+---+
 | x |   |   |
-+---+---+---+   We can see that the 'x' player made a move on
-|   |   |   |   (0,0) and the 'o' player did on (2,1)
++---+---+---+   We can see that the 'x' player made a move at
+|   |   |   |   (0,0), and the 'o' player made a move at (2,1).
 +---+---+---+
 |   | o |   |
 +---+---+---+
 ```
-In the game, the `player1` is represented with `x` and `player2` with `o`.
-`
+In the game, player1 is represented by `x`, and player2 is represented by `o`.
+
 ## Compile & Install
-The project has an easy way to compile all the source code to an executable file and install it. To compile run:
+Para compilar y manejar todos los archivos del projecto, se ha creado el script `build.sh`. A este script se le pueden pasar como parámetro distintas instrucciones que comprobará y ejecutara sobre el projecto. Veamos ejemplos:
+```bash
+./build cleanf # Removes the old files like executables and other object files.
+./build generate # Compiles and generates a executable file.
+./build generate-verbose # Compiles and generates a executable file in verbose mode.
+./build install # If a executable exists, then it will copied to the source path.
+./build cleanf generate install # Does in the same order that is specificated all the commands already described.
+./build # Cleans and generates an executable. Same as './build cleanf generate' but faster.
+```
+Knowing that, now you can compile and manage the project as you prefer. For exaple for a quick complilation:
 ```bash
 ./build.sh
 ```
-Explicar las demas funcionalidades de build.sh
 
 ## Uninstall
-To unistall the program, just remove the executable at the source path:
+To unistall the program, just use the `build.sh` script:
 ```bash
-sudo rm /usr/bin/eightgame
+./build uninstall
 ```
