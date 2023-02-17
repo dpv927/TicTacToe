@@ -3,7 +3,7 @@
 # Tic-Tac-Toe
 
 :uk: <a href="#">English</a>
-:es: <a href="https://github.com/dpv927/tic-tac-toe/blob/main/esREADME.md">Español</a>
+:es: <a href="https://github.com/dpv927/tic-tac-toe/blob/main/READMEes.md">Español</a>
 </div>
 
 ## About
