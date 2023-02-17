@@ -1,23 +1,35 @@
 #include <sys/types.h>
+#include <sys/shm.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <fcntl.h>
-#define SEMKEY 100
+#include "board.h"
+#define SEMKEY 185
 #define SEM_NUM 2
 #define SEM0 0
 #define SEM1 1
 
+int readCoordinates(int id);
+int fork();
+
 int main() {
-  int cont;
-  int pos;
+  int x;
+  int y;
+  int game_eval;
+  int process_id;
   int semid;
   int shmid;
   int status;
   struct sembuf sem_oper;
  
+  struct data {
+    int arr[9];
+  }*addr, used;
+
   union semun {
     int val;
     struct semid_ds *semstat;
@@ -25,62 +37,101 @@ int main() {
   } arg;
  
   semid = semget(SEMKEY, SEM_NUM, IPC_CREAT | 0700);
-  if(semid == -1) {
-    printf("Error when creating the semaphores. Exiting...\n");
-    exit(-1);
-  }
+  if(semid == -1) { exit(-1); }
 
   arg.array = (unsigned short *) malloc(sizeof(short) * SEM_NUM);
   arg.array[SEM0] = 1;
   arg.array[SEM1] = 0;
   semctl(semid, SEM_NUM, SETALL, arg);
+  sem_oper.sem_flg = SEM_UNDO;
+
+  shmid = shmget(SEMKEY, sizeof(int)*9, IPC_CREAT | 0700);
+  if (shmid == -1) { exit(-1); }
+  addr = shmat(shmid, 0, 0);
 
   switch(fork()) {
-    case 1:
-      cont = 0;
-      while(cont<5) {
-        sem_oper.sem_num = SEM0;
-        sem_oper.sem_op = -1;
-        sem_oper.sem_flg = SEM_UNDO;
-        semop(semid, &sem_oper, 1);
-
-        printf("1: Write a number: ");
-        scanf("%d", &pos);
-        cont++;
-      
-        sem_oper.sem_num = SEM1;
-        sem_oper.sem_op = 1;
-        sem_oper.sem_flg = SEM_UNDO;
-        semop(semid, &sem_oper, 1);
-      }
+    case -1: 
+      exit(-1);
     break;
 
     case 0:
-      cont = 0;
-      while(cont<5) {
-        sem_oper.sem_num = SEM1;
-        sem_oper.sem_op = -1;
-        sem_oper.sem_flg = SEM_UNDO;
-        semop(semid, &sem_oper, 1);
+      process_id = 1;
+      addr[0] = used;
 
-        printf("2: Write a number: ");
-        scanf("%d", &pos);
-        cont++;
-      
+      while(true) {
         sem_oper.sem_num = SEM0;
+        sem_oper.sem_op = -1;
+        semop(semid, &sem_oper, 1);
+        
+        game_eval = evaluateGame(addr[0].arr);
+        if(boardIsFull(addr[0].arr) || game_eval != -2) {
+          break;
+        }        
+
+        printf("\nAfter the last move, the board state is:\n");
+        printGame(addr[0].arr);        
+        addr[0].arr[readCoordinates(1)] = 1;
+
+        sem_oper.sem_num = SEM1;
         sem_oper.sem_op = 1;
-        sem_oper.sem_flg = SEM_UNDO;
         semop(semid, &sem_oper, 1);
       }
     break;
-    
+
     default:
-      printf("Error when forking the process. EXiting...\n");
-      exit(-1);
+      process_id = 2;
+
+      while(true) {
+        sem_oper.sem_num = SEM1;
+        sem_oper.sem_op = -1;
+        semop(semid, &sem_oper, 1);
+
+        game_eval = evaluateGame(addr[0].arr);
+        if(boardIsFull(addr[0].arr) || game_eval != -2) {
+          break;
+        }
+
+        printf("\nAfter the last move, the board state is:\n");
+        printGame(addr[0].arr);
+        addr[0].arr[readCoordinates(2)] = 2;
+
+        sem_oper.sem_num = SEM0;
+        sem_oper.sem_op = 1;
+        semop(semid, &sem_oper, 1);
+      }
     break;
   }
 
-  wait(&status);
+  if(process_id == 1) { 
+    printf("\nAfter the last move, the board state is:\n");
+    printGame(addr[0].arr);
+    
+    switch (game_eval) {
+      case 1: printf("Player1 wins! :)\n");
+      break;
+      case -1: printf("Player2 wins! :)\n");
+      break;
+      case 0: printf("Its a draw! :O\n");
+    }
+  }
+
   semctl(semid, SEM_NUM, IPC_RMID, 0);
+  free(arg.array);
+  shmdt(addr);
+  shmctl(shmid, IPC_RMID, 0);
   return 0; 
+}
+
+int readCoordinates(int id) {
+  int x = -1;
+  int y = -1;
+
+  while(x<0 || x>2 || y<0 || y>2) {
+    printf("\nPlayer%d ┌──────────── Row: ", id);
+    scanf("%d", &x);
+    printf("────────┤\n        └───────── Column: ");
+    scanf("%d", &y);
+    fflush(stdin);
+  }
+  return x*3+y;
 }
