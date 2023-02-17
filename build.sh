@@ -9,6 +9,9 @@ MAIN_SOURCE="main.c"
 # Define the names of the generated executables
 MAIN_EXEC="tic-tac-toe"
 
+# Define the name of the man documentation
+MAN_FILE="tic-tac-toe.6"
+
 function cleanf() {
   # Remove old executable files
   rm -rf "$MAIN_EXEC"
@@ -30,6 +33,7 @@ function install() {
     exit -1
   fi
   cp -r "$MAIN_EXEC" /usr/bin/
+  cp -r "$MAN_FILE" /usr/share/man/man6/
 }
 
 function uninstall() {
@@ -38,6 +42,7 @@ function uninstall() {
     exit -1
   fi
   rm /usr/bin/"$MAIN_EXEC"
+  rm /usr/share/man/man6/"$MAN_FILE"
 }
 
 # Quick compilation -> No arguments

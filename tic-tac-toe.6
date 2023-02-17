@@ -1,30 +1,40 @@
-.TH 8-PUZZLE-SOLVER 1 "February 10, 2023" "Version 1.2.0" "User Manual"
+.TH TIC-TAC-TOE 1 "February 17, 2023" "Version 1.0.0" "User Manual"
 
 .SH NAME
-8-puzzle-solver \- a puzzle solving app that allows you to specify the initial and goal state of the board of a 8 puzzle game.
+Tic-tac-toe \- an app that allows two players to play the classic tic-tac-toe game.
 
 .SH SYNOPSIS
-8-puzzle-solver [INITIAL_STATE] [FINAL_STATE]
+tic-tac-toe
 
 .SH DESCRIPTION
-Unlike other apps that solve the 8-puzzle, this app allows you to specify the final state of the board and the goal state. The search tree is developed with the A* algorithm, giving the least expensive solution (talking about the number of moves).
+Tic Tac Toe is a very famous board game, and it is very easy to implement in code. Because of this, I wanted to make it a bit more challenging without changing the basic concepts of the game. To achieve this, I implemented the game using the API System 5 Semaphores and shared memory of Linux to manage both players' turns and the board control.
 
 .SH USAGE
-The applicattion expects two arguments (initial and final states of the board). For example, the string "123456780" (Obviously without the quotes "") will represent the following board:
+The game prompts both players for the coordinates of their next move. First, it asks for the row, and then the column. Let's say that a coordinate is made up of (row, column). The board display is as follows:
 
 .PP
 .TS
 tab(@);
 c c c .
-1 2 3
-4 5 6
-7 8 0
+(0,0) (0,1) (0,2) 
+(1,0) (1,1) (1,2)
+(2,0) (2,1) (2,2)
 .TE
 
-An example of execution of the program, you can run '8-puzzle-solver 123456780 012345678', were 123456780 is the initial state of the board and 012345678 is the final state of the board.
+.PP
+For example:
 
 .PP
-Then the solver will show the initial and final states of the board that were specified, the exact path from the given start to the solution with each step depth and some search info like CREATED_NODES, EXPANDED_NODES and SOLUTION_DEPTH.
+.TS
+tab(@);
+c c c .
+x - -  
+- - -
+- o -
+.TE
+
+.PP
+If we ignore the '-' symbols, we can see that the 'x' player made a move at (0,0), and the 'o' player made a move at (2,1). NOTE: In the game, player1 is represented by 'x', and player2 is represented by 'o'.
 
 .SH OPTIONS
 No options are currently supported.

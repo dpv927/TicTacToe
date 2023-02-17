@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include "board.h"
-#define SEMKEY 185
+#define SEMKEY 200
 #define SEM_NUM 2
 #define SEM0 0
 #define SEM1 1
@@ -19,6 +19,7 @@ int fork();
 int main() {
   int x;
   int y;
+  int tmp;
   int semid;
   int shmid;
   int status;
@@ -70,7 +71,12 @@ int main() {
 
         printf("\nAfter the last move, the board state is:\n");
         printGame(addr[0].arr);        
-        addr[0].arr[readCoordinates(PLAYER_2)] = PLAYER_1;
+
+        tmp = readCoordinates(PLAYER_1);
+        while(addr[0].arr[tmp]!=0) {
+          tmp = readCoordinates(PLAYER_1);
+        }
+        addr[0].arr[tmp] = PLAYER_1;
 
         sem_oper.sem_num = SEM1;
         sem_oper.sem_op = 1;
@@ -93,7 +99,12 @@ int main() {
 
         printf("\nAfter the last move, the board state is:\n");
         printGame(addr[0].arr);
-        addr[0].arr[readCoordinates(PLAYER_2)] = PLAYER_2;
+        
+        tmp = readCoordinates(PLAYER_2);
+        while(addr[0].arr[tmp]!=0) {
+          tmp = readCoordinates(PLAYER_2);
+        }
+        addr[0].arr[tmp] = PLAYER_2;
 
         sem_oper.sem_num = SEM0;
         sem_oper.sem_op = 1;
