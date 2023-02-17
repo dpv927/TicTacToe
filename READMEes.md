@@ -11,7 +11,7 @@ El Tres en raya es un juego de mesa muy famoso y es muy fácil de implementar en
 conceptos básicos del juego. Para lograr esto, implementé el juego utilizando los semáforos del sistema y la memoria compartida de `API System 5` de Linux 
 para gestionar los turnos de ambos jugadores y el control del tablero.
 
-## C
+## Cómo usar
 El juego solicita a ambos jugadores las coordenadas de su próximo movimiento. Primero, pide la fila y luego la columna. Digamos que una coordenada está 
 compuesta por (fila, columna). La visualización del tablero es la siguiente:
 ```
