@@ -7,7 +7,7 @@
 MAIN_SOURCE="main.c"
 
 # Define the names of the generated executables
-MAIN_EXEC="main"
+MAIN_EXEC="tic-tac-toe"
 
 function cleanf() {
   # Remove old executable files
@@ -19,12 +19,25 @@ function generate() {
   gcc "$MAIN_SOURCE" -o "$MAIN_EXEC"
 }
 
+function generate-verbose() {
+  # Compile the main program with the verbose option
+  gcc "$MAIN_SOURCE" -o "$MAIN_EXEC" -v
+}
+
 function install() {
   if [ $(id -u) != 0 ]; then
     echo "You must be a superuser to do this action."
     exit -1
   fi
   cp -r "$MAIN_EXEC" /usr/bin/
+}
+
+function uninstall() {
+  if [ $(id -u) != 0 ]; then
+    echo "You must be a superuser to do this action."
+    exit -1
+  fi
+  rm /usr/bin/"$MAIN_EXEC"
 }
 
 # Quick compilation -> No arguments
@@ -42,7 +55,7 @@ args=()
 # then exit the script
 for arg in "$@"; do
   case "$arg"  in
-    "cleanf" | "install" | "generate")
+    "cleanf" | "install" | "generate" | "uninstall" | "generate-verbose")
       args+=($arg)
       ;;
     *)
