@@ -1,6 +1,6 @@
 <div class="languages" align="center">
 
-# Tic-Tac-Toe
+# Tres en Raya
 
 :uk: <a href="https://github.com/dpv927/tic-tac-toe">English</a>
 :es: <a href="#">Español</a>
