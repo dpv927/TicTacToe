@@ -2,16 +2,16 @@
 
 # Tic-Tac-Toe
 
-:uk: <a href="#">English</a>
-:es: <a href="https://github.com/dpv927/tic-tac-toe/blob/main/esREADME.md">Español</a>
+:uk: <a href="https://github.com/dpv927/tic-tac-toe">English</a>
+:es: <a href="#">Español</a>
 </div>
 
-## About
+## Sobre el projecto
 El Tres en raya es un juego de mesa muy famoso y es muy fácil de implementar en código. Debido a esto, quería hacerlo un poco más desafiante sin cambiar los
 conceptos básicos del juego. Para lograr esto, implementé el juego utilizando los semáforos del sistema y la memoria compartida de `API System 5` de Linux 
 para gestionar los turnos de ambos jugadores y el control del tablero.
-## How to Use
 
+## C
 El juego solicita a ambos jugadores las coordenadas de su próximo movimiento. Primero, pide la fila y luego la columna. Digamos que una coordenada está 
 compuesta por (fila, columna). La visualización del tablero es la siguiente:
 ```
@@ -36,7 +36,7 @@ Veamos un ejemplo:
 ```
 La aplicación, para representar el juego, utiliza el símbolo `x` para el jugador1 y `o` para el jugador2. 
 
-## Compile & Install
+## Compila e Instala
 Para compilar y gestionar todos los archivos del proyecto, se ha creado el script `build.sh`. Este script puede recibir diferentes instrucciones como
 parámetros, las cuales serán verificadas y ejecutadas en el proyecto. Veamos algunos ejemplos:
 ```bash
@@ -58,7 +58,7 @@ Ahora que conoces los detalles, puedes compilar y gestionar el proyecto como pre
 ./build.sh
 ```
 
-## Uninstall
+## Desinstalar
 Para desinstalar el programa, simplemente utiliza el script `build.sh`:
 ```bash
 ./build uninstall
