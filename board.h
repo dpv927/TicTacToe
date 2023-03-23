@@ -1,5 +1,5 @@
 #include "game.h"
-#define BOARD_LEN 9
+#include "utils.h"
 
 /** @brief Returns 0 if the board it not full, 1 if it is.
  * @param board Array that represents the game board */
@@ -30,11 +30,11 @@ int evaluateInStep(int start, int step, int board[]) {
 		return 0;
 }
 
-/* @brief Evaluates the actual state of a board.
+/** @brief Evaluates the actual state of a board.
  * @param board Array that represents the game board.
  * @return -1 if player2 wins, 1 if player1 does, 0 if 
  * there is a tie and -2 if no one wins and there are more
- * posible moves for the players. */
+ * posible moves for the players. **/
 int evaluateGame(int board[]) {
   // Diagonal left up - right down
 		int result = evaluateInStep(4, 4, board);
@@ -59,24 +59,24 @@ int evaluateGame(int board[]) {
 			if (result != PLAYER_N)
 				return result;
 		}
-		return (boardIsFull(board))? COND_DRAW : COND_NOTH;
+		return (boardIsFull(board))? COND_DRAW : COND_KEEP;
 }
 
-/**@brief Prints the board of a game**/
-void printGame(int board[]) {
-  char c;
-  printf("+---+---+---+\n");
-  
-  for (int i = 0; i < 9; i++) {
-    c = (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '); 
+/**@brief Generates the sucessors of a state of a board.
+ * The sucessors are made by marking the empty spots of
+ * the board with the player parameter ID.
+ * @param board Board to generate the sucessors.
+ * @param player Player that is doing the move
+ * @return Array of boards. **/
+int** generateSucessors(int board[], int player) {
+  int** sucessors = (int**) malloc(sizeof(int*)*BOARD_LEN);
 
-    if (i%3 == 0) {
-      printf("| ");
-    }
-    printf("%c | ", c);
-    
-    if ((i + 1) % 3 == 0) {
-      printf("\n+---+---+---+\n");
+  for (int i = 0; i < BOARD_LEN; i++) {
+    if(board[i] == PLAYER_N) {
+      board[i] = player;
+      sucessors[i] = arrayCpy(board);
+      board[i] = PLAYER_N;
     }
   }
+  return sucessors;
 }
