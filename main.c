@@ -13,7 +13,8 @@
 #define SEM0 0
 #define SEM1 1
 
-int readCoordinates(int id);
+int readCoordinates(int);
+void giveAndExit(int, int*, int);
 int fork();
 
 int main() {
@@ -67,7 +68,7 @@ int main() {
         semop(semid, &sem_oper, 1);
         
         game_eval = evaluateGame(addr[0].arr);
-        if(boardIsFull(addr[0].arr) || game_eval != COND_NOTH) {
+        if(boardIsFull(addr[0].arr) || game_eval != COND_KEEP) {
           break;
         }        
 
@@ -96,7 +97,7 @@ int main() {
         semop(semid, &sem_oper, 1);
 
         game_eval = evaluateGame(addr[0].arr);
-        if(boardIsFull(addr[0].arr) || game_eval != COND_NOTH) {
+        if(boardIsFull(addr[0].arr) || game_eval != COND_KEEP) {
           break;
         }
 
@@ -117,43 +118,10 @@ int main() {
     break;
   }
 
-  if(process_id == PLAYER_1) { 
-    printf("\nAfter the last move, the board state is:\n");
-    printGame(addr[0].arr);
-    
-    switch (game_eval) {
-      case PLAYER_1: printf("Player1 wins! :)\n");
-      break;
-      case PLAYER_2: printf("Player2 wins! :)\n");
-      break;
-      case COND_DRAW: printf("Its a draw! :O\n");
-    }
-  }
-
+  giveAndExit(process_id, addr[0].arr, game_eval);
   semctl(semid, SEM_NUM, IPC_RMID, 0);
   free(arg.array);
   shmdt(addr);
   shmctl(shmid, IPC_RMID, 0);
   return 0; 
-}
-
-/**@brief Reads the coordinates of a player's next move.
- * Depending on the player id, the output for the player will be
- * different.
- * The function asks for the row and column of the move, repeating
- * itself if the output is less than 0 and greater than 2 (the rows
- * and columns go from 0 to 2). * 
- * @param id Player id**/
-int readCoordinates(int id) {
-  int x = -1;
-  int y = -1;
-
-  while(x<0 || x>2 || y<0 || y>2) {
-    printf("\nPlayer%d ┌──────────── Row: ", id);
-    scanf("%d", &x);
-    printf("────────┤\n        └───────── Column: ");
-    scanf("%d", &y);
-    fflush(stdin);
-  }
-  return x*3+y;
 }
