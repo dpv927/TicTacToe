@@ -67,7 +67,7 @@ int main() {
         semop(semid, &sem_oper, 1);
         
         game_eval = evaluateGame(addr[0].arr);
-        if(boardIsFull(addr[0].arr) || game_eval != -2) {
+        if(boardIsFull(addr[0].arr) || game_eval != COND_NOTH) {
           break;
         }        
 
@@ -75,7 +75,7 @@ int main() {
         printGame(addr[0].arr);
         
         target_pos = readCoordinates(PLAYER_1);
-        while(addr[0].arr[target_pos] != 0) {
+        while(addr[0].arr[target_pos] != PLAYER_N) {
           target_pos = readCoordinates(PLAYER_1);
         }
   
@@ -96,7 +96,7 @@ int main() {
         semop(semid, &sem_oper, 1);
 
         game_eval = evaluateGame(addr[0].arr);
-        if(boardIsFull(addr[0].arr) || game_eval != -2) {
+        if(boardIsFull(addr[0].arr) || game_eval != COND_NOTH) {
           break;
         }
 
@@ -104,7 +104,7 @@ int main() {
         printGame(addr[0].arr);
 
         target_pos = readCoordinates(PLAYER_2);
-        while(addr[0].arr[target_pos] != 0) {
+        while(addr[0].arr[target_pos] != PLAYER_N) {
           target_pos = readCoordinates(PLAYER_2);
         }
   
@@ -122,11 +122,11 @@ int main() {
     printGame(addr[0].arr);
     
     switch (game_eval) {
-      case 1: printf("Player1 wins! :)\n");
+      case PLAYER_1: printf("Player1 wins! :)\n");
       break;
-      case -1: printf("Player2 wins! :)\n");
+      case PLAYER_2: printf("Player2 wins! :)\n");
       break;
-      case 0: printf("Its a draw! :O\n");
+      case COND_DRAW: printf("Its a draw! :O\n");
     }
   }
 
