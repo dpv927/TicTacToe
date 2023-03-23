@@ -1,11 +1,11 @@
-#include "player.h"
+#include "game.h"
 #define BOARD_LEN 9
 
 /** @brief Returns 0 if the board it not full, 1 if it is.
  * @param board Array that represents the game board */
 int boardIsFull(int board[]) {
   for (int i=0; i< BOARD_LEN; i++)
-	  if (board[i] == PLAYER_NONE)
+	  if (board[i] == PLAYER_N)
 		  return 0;
 	return 1;
 }
@@ -22,10 +22,10 @@ int evaluateInStep(int start, int step, int board[]) {
 
   for (int i = start; i <= end; i += step) {
 			pre_owner = board[i-step];
-			if (pre_owner == PLAYER_NONE || board[i] != pre_owner)
-				return 0;
+			if (pre_owner == PLAYER_N || board[i] != pre_owner)
+				return PLAYER_N;
 			if (i == end)
-				return (pre_owner == PLAYER_1)? 1 : -1;
+				return (pre_owner == PLAYER_1)? PLAYER_1 : PLAYER_2;
 		}
 		return 0;
 }
@@ -38,28 +38,28 @@ int evaluateInStep(int start, int step, int board[]) {
 int evaluateGame(int board[]) {
   // Diagonal left up - right down
 		int result = evaluateInStep(4, 4, board);
-		if (result != 0)
+		if (result != PLAYER_N)
 			return result;
 
 		// Diagonal right up - left down
 		result = evaluateInStep(4, 2, board);
-		if (result != 0)
+		if (result != PLAYER_N)
 			return result;
 
 		// All the rows
 		for (int i = 1; i <= 7; i += 3) {
 			result = evaluateInStep(i, 1, board);
-			if (result != 0)
+			if (result != PLAYER_N)
 				return result;
 		}
 
 		// All the columns
 		for (int i = 3; i <= 5; i += 1) {
 			result = evaluateInStep(i, 3, board);
-			if (result != 0)
+			if (result != PLAYER_N)
 				return result;
 		}
-		return (boardIsFull(board)==1)? 0 : -2;
+		return (boardIsFull(board))? COND_DRAW : COND_NOTH;
 }
 
 /**@brief Prints the board of a game**/
