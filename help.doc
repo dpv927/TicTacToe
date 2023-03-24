@@ -1,0 +1,11 @@
+Usage: ttt <option> ... <option>
+Options:
+  --ai-mode
+  --player-mode
+  --best-move [] <player>
+  --worst-move [] <player>
+  --minimax
+  --alpha-beta
+  --cores=<number>                   
+  --version                Display ttt version information.
+  --help                       

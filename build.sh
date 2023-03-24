@@ -7,7 +7,7 @@
 MAIN_SOURCE="main.c"
 
 # Define the names of the generated executables
-MAIN_EXEC="tic-tac-toe"
+MAIN_EXEC="ttt"
 
 function cleanf() {
   # Remove old executable files
