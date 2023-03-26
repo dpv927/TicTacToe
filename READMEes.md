@@ -37,29 +37,39 @@ Veamos un ejemplo:
 La aplicación, para representar el juego, utiliza el símbolo `x` para el jugador1 y `o` para el jugador2. 
 
 ## Compila e Instala
-Para compilar y gestionar todos los archivos del proyecto, se ha creado el script `build.sh`. Este script puede recibir diferentes instrucciones como
+Para compilar y gestionar todos los archivos del proyecto, se ha creado el script `Makefile`. Este script puede recibir diferentes instrucciones como
 parámetros, las cuales serán verificadas y ejecutadas en el proyecto. Veamos algunos ejemplos:
+
 ```bash
-./build cleanf # Elimina los archivos antiguos como ejecutables y otros archivos objeto.
-./build generate # Compila y genera un archivo ejecutable.
-./build generate-verbose # Compila y genera un archivo ejecutable en modo detallado.
-./build install # Si existe un ejecutable, lo copia a la ruta de programas.
-./build cleanf generate install # Realiza en el mismo orden que se especifican todos los comandos ya descritos.
-./build # Limpia y genera un ejecutable. Es lo mismo que './build cleanf generate' pero más rápido.
-```
-Otra característica de este script es que puedes indicarle cuantos comandos como necesites, y en el orden que desees. El script eliminará las ordenes
-repetidas y las ejecutará en el orden en el que se han indicado como parámetro. Por ejemplo:
-```bash
-./build cleanf generate # Es lo mismo que ./build cleanf generate generate o ./build cleanf generate cleanf ...
+make clean # Borra los archivos .o y el antiguo ejecutable del directorio actual
+make # Compila el proyecto
 ```
 
-Ahora que conoces los detalles, puedes compilar y gestionar el proyecto como prefieras. Por ejemplo, para realizar una compilación rápida:
-```bash
-./build.sh
-```
+## Estructura
 
-## Desinstalar
-Para desinstalar el programa, simplemente utiliza el script `build.sh`:
-```bash
-./build uninstall
+```
+tic-tac-toe/
+├── CONTRIBUTORS
+├── doc
+│   ├── help.txt
+│   └── version.txt
+├── LICENSE
+├── READMEes.md
+├── README.md
+├── src
+│   ├── board.c
+│   ├── board.h
+│   ├── constants.h
+│   ├── dependencies.txt
+│   ├── main.c
+│   ├── Makefile
+│   ├── resources.c
+│   ├── resources.h
+│   ├── search.c
+│   ├── search.h
+│   ├── utils.c
+│   └── utils.h
+└── tic-tac-toe.6
+
+3 directorios, 19 archivos
 ```

@@ -34,24 +34,37 @@ Let's see an example:
 ```
 In the game, player1 is represented by `x`, and player2 is represented by `o`.
 
-## Compile & Install
-To compile and manage all the files of the project, the `build.sh` script has been created. This script can be passed different instructions as parameters, which it will check and execute on the project. Let's see some examples:
+## Compile
+To compile and manage all the files of the project, the `Makefile` script has been created. This script can be passed different instructions as parameters, which it will check and execute on the project. Let's see some examples:
 ```bash
-./build cleanf # Removes the old files like executables and other object files.
-./build generate # Compiles and generates a executable file.
-./build generate-verbose # Compiles and generates a executable file in verbose mode.
-./build install # If a executable exists, then it will copied to the source path.
-./build cleanf generate install # Does in the same order that is specificated all the commands already described.
-./build # Cleans and generates an executable. Same as './build cleanf generate' but faster.
+make clean # Cleans all the .o files and the old executable
+make # Compiles the project
 ```
 
-Now that you know this, you can compile and manage the project as you prefer. For example, to perform a quick compilation:
-```bash
-./build.sh
+## Structure
 ```
+tic-tac-toe/
+├── CONTRIBUTORS
+├── doc
+│   ├── help.txt
+│   └── version.txt
+├── LICENSE
+├── READMEes.md
+├── README.md
+├── src
+│   ├── board.c
+│   ├── board.h
+│   ├── constants.h
+│   ├── dependencies.txt
+│   ├── main.c
+│   ├── Makefile
+│   ├── resources.c
+│   ├── resources.h
+│   ├── search.c
+│   ├── search.h
+│   ├── utils.c
+│   └── utils.h
+└── tic-tac-toe.6
 
-## Uninstall
-To unistall the program, just use the `build.sh` script:
-```bash
-./build uninstall
+3 directories, 19 files
 ```
