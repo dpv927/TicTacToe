@@ -2,7 +2,10 @@
   <h3>Tic-Tac-Toe</h3>
   <img src="readme/ttt-logo.png" width="150">
   
-  A simple and strong Tic-Tac-Toe app.
+  A simple and strong Tic-Tac-Toe app<br>
+  ***Designed for Linux***.
+  <br>
+  <br>
   
   [![License][license-badge]][license-link]
   <br>
@@ -57,6 +60,8 @@ tic-tac-toe/
 │   ├── help.txt
 │   └── version.txt
 ├── LICENSE
+├── readme
+│   └── ttt-logo.png
 ├── READMEes.md
 ├── README.md
 ├── src
@@ -74,7 +79,7 @@ tic-tac-toe/
 │   └── utils.h
 └── tic-tac-toe.6
 
-3 directories, 19 files
+4 directories, 20 files
 ```
 
 [wiki-link]:          https://github.com/dpv927/tic-tac-toe/wiki
