@@ -1,0 +1,37 @@
+Author @dpv927 03/26/2023.
+
+constants.h
+  -
+
+utils.h
+  - <stdio.h>
+  - <stdlib.h>
+  - constants.h
+
+board.h
+  - <stdlib.h>
+  - constants.h
+  - utils.h
+  
+search.h
+  - <limits.h>
+  - <stdlib.h>
+  - constants.h
+  - utils.h
+  - board.h
+
+resources.h
+  - 
+
+main.c
+  - <sys/types.h>
+  - <sys/shm.h>
+  - <sys/ipc.h>
+  - <sys/sem.h>
+  - <stdlib.h>
+  - <string.h>
+  - <stdio.h>
+  - <fcntl.h>
+  - constants.h
+  - utils.h
+  - board.h

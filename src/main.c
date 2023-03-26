@@ -2,11 +2,12 @@
 #include <sys/shm.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include "constants.h"
+#include "utils.h"
 #include "board.h"
 #define SEMKEY 185
 #define SEM_NUM 2
@@ -18,11 +19,8 @@ void giveAndExit(int, int*, int);
 int fork();
 
 int main() {
-  int x;
-  int y;
   int semid;
   int shmid;
-  int status;
   int game_eval;
   int target_pos;
   int process_id;
@@ -62,7 +60,7 @@ int main() {
       
       printf("New game just started...");
 
-      while(true) {
+      while(1) {
         sem_oper.sem_num = SEM0;
         sem_oper.sem_op = -1;
         semop(semid, &sem_oper, 1);
@@ -91,7 +89,7 @@ int main() {
     default:
       process_id = PLAYER_2;
 
-      while(true) {
+      while(1) {
         sem_oper.sem_num = SEM1;
         sem_oper.sem_op = -1;
         semop(semid, &sem_oper, 1);
