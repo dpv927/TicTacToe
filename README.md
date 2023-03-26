@@ -39,6 +39,9 @@ Let's see an example:
 ```
 In the game, player1 is represented by `x`, and player2 is represented by `o`.
 
+## Modes
+With the current version of `ttt v1.0.0`, you can play the famous game with another person or by yourself in the same terminal, automatically switching turns so both players can participate. The current version does not accept arguments since it only has one game mode, although it is expected to have more modes in the future and therefore will require some arguments.
+
 ## Compile
 To compile and manage all the files of the project, the `Makefile` script has been created. This script can be passed different instructions as parameters, which it will check and execute on the project. Let's see some examples:
 ```bash
