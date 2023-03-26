@@ -1,6 +1,6 @@
 <div align="center">
   <h3>Tic-Tac-Toe</h3>
-  <img src="readme/logo.png" width="150">
+  <img src="readme/ttt-logo.png" width="150">
   
   A simple and strong Tic-Tac-Toe app.
   
