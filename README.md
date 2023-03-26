@@ -1,15 +1,14 @@
-<div class="presentation" align="center">
+<div align="center">
+  <h3>Tic-Tac-Toe</h3>
+  <img src="readme/logo.png" width="150">
+  
+  A simple and strong Tic-Tac-Toe app.
+  
+  [![License][license-badge]][license-link]
+  <br>
+  [![Release][release-badge]][release-link]
+  [![Commits][commits-badge]][commits-link]
 
-# Tic-Tac-Toe
-
-<img src="https://img.shields.io/github/stars/dpv927/tic-tac-toe?color=b1ee86">
-<img src="https://img.shields.io/github/last-commit/dpv927/tic-tac-toe?color=b1ee86">
-<img src="https://img.shields.io/github/license/dpv927/tic-tac-toe?color=b1ee86">
-<img src="https://img.shields.io/github/repo-size/dpv927/tic-tac-toe?color=b1ee86">
-<img src="https://img.shields.io/github/forks/dpv927/tic-tac-toe?color=b1ee86">
-
-:uk: <a href="#">English</a>
-:es: <a href="https://github.com/dpv927/tic-tac-toe/blob/main/READMEes.md">Español</a>
 </div>
 
 ## About
@@ -74,3 +73,16 @@ tic-tac-toe/
 
 3 directories, 19 files
 ```
+
+[wiki-link]:          https://github.com/dpv927/tic-tac-toe/wiki
+[issue-link]:         https://github.com/dpv927/tic-tac-toe/issues
+[discussions-link]:   https://github.com/official-stockfish/Stockfish/actions/workflows/stockfish.yml
+[releases-link]:      https://github.com/official-stockfish/Stockfish/actions/workflows/stockfish.yml
+
+[license-link]:       https://github.com/official-stockfish/Stockfish/actions/workflows/stockfish.yml
+[release-link]:       https://github.com/official-stockfish/Stockfish/actions/workflows/stockfish.yml
+[commits-link]:       https://github.com/official-stockfish/Stockfish/actions/workflows/stockfish.yml
+
+[commits-badge]:      https://img.shields.io/github/commits-since/dpv927/tic-tac-toe/latest?style=for-the-badge&color=f5f5f5
+[license-badge]:      https://img.shields.io/github/license/dpv927/tic-tac-toe?style=for-the-badge&label=license&color=7f848e
+[release-badge]:      https://img.shields.io/github/v/release/dpv927/tic-tac-toe?style=for-the-badge&label=official%20release&color=f5f5f5
