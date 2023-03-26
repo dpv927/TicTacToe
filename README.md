@@ -1,6 +1,12 @@
-<div class="languages" align="center">
+<div class="presentation" align="center">
 
 # Tic-Tac-Toe
+
+<img src="https://img.shields.io/github/stars/dpv927/tic-tac-toe?color=b1ee86">
+<img src="https://img.shields.io/github/last-commit/dpv927/tic-tac-toe?color=b1ee86">
+<img src="https://img.shields.io/github/license/dpv927/tic-tac-toe?color=b1ee86">
+<img src="https://img.shields.io/github/repo-size/dpv927/tic-tac-toe?color=b1ee86">
+<img src="https://img.shields.io/github/forks/dpv927/tic-tac-toe?color=b1ee86">
 
 :uk: <a href="#">English</a>
 :es: <a href="https://github.com/dpv927/tic-tac-toe/blob/main/READMEes.md">Español</a>
