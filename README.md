@@ -52,36 +52,6 @@ make clean # Cleans all the .o files and the old executable
 make # Compiles the project
 ```
 
-## Structure
-```
-tic-tac-toe/
-├── CONTRIBUTORS
-├── doc
-│   ├── help.txt
-│   └── version.txt
-├── LICENSE
-├── readme
-│   └── ttt-logo.png
-├── READMEes.md
-├── README.md
-├── src
-│   ├── board.c
-│   ├── board.h
-│   ├── constants.h
-│   ├── dependencies.txt
-│   ├── main.c
-│   ├── Makefile
-│   ├── resources.c
-│   ├── resources.h
-│   ├── search.c
-│   ├── search.h
-│   ├── utils.c
-│   └── utils.h
-└── tic-tac-toe.6
-
-4 directories, 20 files
-```
-
 [wiki-link]:          https://github.com/dpv927/tic-tac-toe/wiki
 [issue-link]:         https://github.com/dpv927/tic-tac-toe/issues
 [discussions-link]:   https://github.com/official-stockfish/Stockfish/actions/workflows/stockfish.yml
