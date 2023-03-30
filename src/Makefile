@@ -3,14 +3,14 @@ CFLAGS = -Wall -Wextra -std=c99
 OBJS = board.o search.o utils.o main.o
 DEPS = board.h constants.h search.h utils.h
 
-all: my_program
+all: ttt
 
-my_program: $(OBJS)
+ttt: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
 
 %.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) my_program
+	rm -f $(OBJS) ttt
 

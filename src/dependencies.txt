@@ -6,6 +6,7 @@ constants.h
 utils.h
   - <stdio.h>
   - <stdlib.h>
+  - <pthread.h>
   - constants.h
 
 board.h
@@ -16,12 +17,14 @@ board.h
 search.h
   - <limits.h>
   - <stdlib.h>
+  - <pthread.h>
   - constants.h
   - utils.h
   - board.h
 
 resources.h
-  - 
+  - <stdio.h>
+  - <stdlib.h>
 
 main.c
   - <sys/types.h>

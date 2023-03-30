@@ -1,5 +1,6 @@
 #include <limits.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include "constants.h"
 #include "utils.h"
 #include "board.h"
@@ -31,6 +32,9 @@ int minimax(int* board, int is_maximizing, int player) {
         value = min(value, minimax(sucessors[i], 1, player));
     }
   }
+  pthread_t tid;
+  pthread_create(&tid, NULL, freeSucessorsMem, sucessors);
+  pthread_join(tid, NULL);
   return value;
 }
 
@@ -64,5 +68,8 @@ int alphabeta(int* board, int alpha, int beta, int is_maximizing, int player) {
       beta = min(beta, value);
     }
   }
+  pthread_t tid;
+  pthread_create(&tid, NULL, freeSucessorsMem, sucessors);
+  pthread_join(tid, NULL);
   return value;
 }

@@ -34,3 +34,13 @@ void giveAndExit(int id, int* board, int game_eval);
  * @return Copy of the parameter array.
  * */
 int* arrayCpy(int array[]);
+
+/**
+ * @brief Frees the memory of a sucessors matrix. This function is called
+ * in all the search functions because we need to free all the memory that its
+ * occupied with the sucessors of a board state (they wont be used again).
+ * To do so, we use new thread to be more efficient in the process, so This
+ * function must delete the thread when finished.
+ * @param array sucessors matrix. 
+ * */
+void* freeSucessorsMem(void* arg);
