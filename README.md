@@ -84,3 +84,10 @@ some of the links that we use in this file.
 [commits-badge]:      https://img.shields.io/github/commits-since/dpv927/tic-tac-toe/latest?style=for-the-badge&color=f5f5f5
 [license-badge]:      https://img.shields.io/github/license/dpv927/tic-tac-toe?style=for-the-badge&label=license&color=7f848e
 [release-badge]:      https://img.shields.io/github/v/release/dpv927/tic-tac-toe?style=for-the-badge&label=official%20release&color=f5f5f5
+
+<!--
+  Next Updates:
+    - Add the new modes of the application.
+    - Add new help at the "How to use" section.
+    - Add new commands at the compile section.
+-->
