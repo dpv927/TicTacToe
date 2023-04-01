@@ -1,50 +1,31 @@
-Author @dpv927 03/31/2023.
+# Author @dpv927 01/04/2023.
+# In this file you will find the ependencies that every file in the program needs
+# to work properly. 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+
+ai-asker.c
+  - constants.h
+  - search.h
+
+board.c
+  - constants.h
 
 constants.h
   -
 
-utils.h
-  - <stdio.h>
-  - <stdlib.h>
-  - <pthread.h>
+game.c
   - constants.h
-
-board.h
-  - <stdlib.h>
-  - constants.h
-  - utils.h
-  
-search.h
-  - <limits.h>
-  - <stdlib.h>
-  - <pthread.h>
-  - constants.h
-  - utils.h
-  - board.h
-
-resources.h
-  - <stdio.h>
-  - <stdlib.h>
-
-main.c
-  - <sys/types.h>
-  - <sys/shm.h>
-  - <sys/ipc.h>
-  - <sys/sem.h>
-  - <stdlib.h>
-  - <string.h>
-  - <stdio.h>
-  - <fcntl.h>
-  - constants.h
-  - utils.h
-  - board.h
-
-ai-asker.c
-  - <limits.h>
-  - constants.h
-  - utils.h
-  - search.h
+  - player-asker.h
 
 player-asker.c
   - constants.h
-  - utils.h
+
+resources.c
+  -
+
+search.c
+  - constants.h
+  - board.h
+
+ttt.c
+  - resources.h
