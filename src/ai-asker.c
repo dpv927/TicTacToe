@@ -1,8 +1,7 @@
 #include <limits.h>
-#include "../constants.h"
-#include "../utils.h"
+#include "constants.h"
+#include "search.h"
 #include "ai-asker.h"
-#include "../search.h"
 
 int ai_asker(int player_id, int* board) {
   int bestScore = INT_MIN;
