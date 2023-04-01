@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string>
 #include "resources.h"
-#include "1v1.h"
+#include "game.h"
 
 int main(int argc, char *argv[]) {
 
