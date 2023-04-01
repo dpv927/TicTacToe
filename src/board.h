@@ -1,3 +1,10 @@
+/**
+ * @brief Copies a int array.
+ * @param array Array to copy
+ * @return Copy of the parameter array.
+ * */
+int* arrayCpy(int array[]);
+
 /** @brief Returns 0 if the board it not full, 1 if it is.
  * @param board Array that represents the game board */
 int boardIsFull(int board[]);
