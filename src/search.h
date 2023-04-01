@@ -1,3 +1,17 @@
+/** Macros **/
+#define max(a, b) ((a) > (b) ? (a) : (b))
+#define min(a, b) ((a) < (b) ? (a) : (b))
+
+/**
+ * @brief Frees the memory of a sucessors matrix. This function is called
+ * in all the search functions because we need to free all the memory that its
+ * occupied with the sucessors of a board state (they wont be used again).
+ * To do so, we use new thread to be more efficient in the process, so This
+ * function must delete the thread when finished.
+ * @param array sucessors matrix. 
+ * */
+void* freeSucessorsMem(void* arg);
+
 /**
  * @brief Calculates the minimax algorithm over a board. Depending if the 
  * algorithm is maximizing returns the best or worst possible move for the `ñayer to move.

@@ -2,9 +2,17 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include "constants.h"
-#include "utils.h"
 #include "board.h"
 #include "search.h"
+
+void* freeSucessorsMem(void* arg) {
+  int **matrix = (int **) arg;
+  for (int i = 0; i < BOARD_LEN; i++) {
+    free(matrix[i]);
+  }
+  free(matrix);
+  pthread_exit(NULL);
+}
 
 int minimax(int* board, int is_maximizing, int player) {
   int eval;
