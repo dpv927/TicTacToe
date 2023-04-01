@@ -1,16 +1,45 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
-OBJS = board.o search.o utils.o main.o
-DEPS = board.h constants.h search.h utils.h
+CC=gcc
+CFLAGS=-Wall -Wextra -Werror -std=c99 -O3 -march=native -mtune=native
 
-all: ttt
+SRCS=ai-asker.c board.c game.c player-asker.c resources.c search.c ttt.c
+OBJS=$(SRCS:.c=.o)
+TARGET=ttt
 
-ttt: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@
+all: $(TARGET)
 
-%.o: %.c $(DEPS)
+$(TARGET): $(OBJS)
+	@echo "Compiling the source files: $(SRCS)"
+	@echo "Executable Target: $(TARGET)"
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+	@echo "Finished."
+
+%.o: %.
+	@echo "Compiling .o files..."
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) ttt
+	@echo "Cleaning old files..."
+	@echo "Targets: $(OBJS) $(TARGET)"
+	rm -f $(OBJS) $(TARGET)
+	@echo "Finished."
 
+clean-build:
+	clean all
+
+help:
+	@echo ""
+	@echo "To compile $(TARGET), type: "
+	@echo "make [OPT=option]"
+	@echo ""
+	@echo "Supported options:"
+	@echo ""
+	@echo "help                    > Display this message."
+	@echo "all					   > Only compile."
+	@echo "clean		           > Clean the Makefile directory from old files."
+	@echo "clean-build			   > Clean and complile."
+	@echo "install                 > Install executable."
+	@echo ""
+	@echo "Do you have any doubts? See the Makefile."
+	@echo ""
+
+.PHONY: clean clean-build help
