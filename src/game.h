@@ -1,7 +1,7 @@
-s/**
- * @brief Prints the board of a game
- * @param board Game board
- **/
+/**
+* @brief Prints the board of a game
+* @param board Game board
+**/
 void printGame(int board[]);
 
 /**

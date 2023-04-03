@@ -2,14 +2,16 @@
 #include <sys/shm.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include "constants.h"
+#include "board.h"
 #include "player-asker.h"
 #include "game.h"
-#define SEMKEY 185
+#define SEMKEY 102
 #define SEM_NUM 2
 #define SEM0 0
 #define SEM1 1
@@ -18,11 +20,10 @@ void start_game(int mode) {
   int semid;
   int shmid;
   int game_eval;
-  int target_pos;
   int process_id;
   struct sembuf sem_oper;
-  int (*asker_plr1)(int, int);
-  int (*asker_plr2)(int, int);
+  int (*asker_plr1)(int, int*);
+  int (*asker_plr2)(int, int*);
 
   struct data {
     int arr[9];
@@ -80,7 +81,7 @@ void start_game(int mode) {
         printf("\nThe actual board state is:\n");
         printGame(addr[0].arr);
         
-        int pos = (asker_plr1*)(PLAYER_1, addr[0].arr);
+        int pos = (*asker_plr1)(PLAYER_1, addr[0].arr);
         addr[0].arr[pos] = PLAYER_1;
 
         sem_oper.sem_num = SEM1;
@@ -105,7 +106,7 @@ void start_game(int mode) {
         printf("\nThe actual board state is:\n");
         printGame(addr[0].arr);
 
-        int pos = (asker_plr2*)(PLAYER_2, addr[0].arr);
+        int pos = (*asker_plr2)(PLAYER_2, addr[0].arr);
         addr[0].arr[pos] = PLAYER_2;
 
         sem_oper.sem_num = SEM0;
