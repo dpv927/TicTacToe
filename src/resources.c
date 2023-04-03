@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "resources.h"
 
-void printDoc(char* path) {
+void printdoc(char* path) {
   FILE *fptr;
   char c;
 
-  fptr = fopen(filename, "r");
+  fptr = fopen(path, "r");
   if(fptr == NULL) {
     exit(0);
   }
@@ -16,7 +15,6 @@ void printDoc(char* path) {
     printf("%c", c);
     c = fgetc(fptr);
   }
-
   fclose(fptr);
-  return 0;
 }
+
