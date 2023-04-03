@@ -13,4 +13,4 @@ int readCoordinates(int id);
  * movimiento a un jugador. 
  * @return Numero de casilla que ocupara el siguiente movimiento.
  */
-int player_asker();
+int player_asker(int player_id, int* board);
