@@ -11,7 +11,7 @@
 #include "board.h"
 #include "player-asker.h"
 #include "game.h"
-#define SEMKEY 102
+#define SEMKEY 108
 #define SEM_NUM 2
 #define SEM0 0
 #define SEM1 1
@@ -103,8 +103,8 @@ void start_game(int mode) {
           break;
         }
 
-        printf("\nThe actual board state is:\n");
-        printGame(addr[0].arr);
+        //printf("\nThe actual board state is:\n");
+        //printGame(addr[0].arr);
 
         int pos = (*asker_plr2)(PLAYER_2, addr[0].arr);
         addr[0].arr[pos] = PLAYER_2;

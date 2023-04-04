@@ -1,59 +1,43 @@
 #include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
-//#include <pthread.h>
 #include "constants.h"
 #include "board.h"
 #include "search.h"
 
-/*
-void* freeSucessorsMem(void* arg) {
-  int **matrix = (int **) arg;
-  for (int i = 0; i < BOARD_LEN; i++) {
-    free(matrix[i]);
-  }
-  free(matrix);
-  //pthread_exit(NULL);
-  return NULL;
-}
-*/
-
-int minimax(int* board, int is_maximizing, int player) {
-  printf("Llega a minimaxº\n");
-
-  int eval;
-  int value;
-  int** sucessors;
+int minimax(int* board, int is_maximizing) {
+  int score;
+  int best_score;
   
-  eval = evaluateGame(board);
-  if(eval != COND_KEEP) return eval;
+  score = evaluateGame(board);
+  if(score != COND_KEEP) return score;
 
   if(is_maximizing) {
-    value = INT_MIN;
-    sucessors = generateSucessors(board, player);
-
+    best_score = INT_MIN;
+    
     for (int i = 0; i < BOARD_LEN; i++) {
-      if(sucessors[i] != NULL)
-        printf("No es null\n");
-        //value = max(value, minimax(sucessors[i], 0, player));
+      if(board[i] == PLAYER_N) {
+        board[i] = PLAYER_2;
+        score = minimax(board, 0);
+        board[i] = PLAYER_N;
+        best_score = max(score, best_score);
+      }
     }
-    exit(0);
   }
   else{
-    value = INT_MAX;
-    sucessors = generateSucessors(board, player);
+    best_score = INT_MAX;
 
     for (int i = 0; i < BOARD_LEN; i++) {
-      if(sucessors[i] != NULL)
-        value = min(value, minimax(sucessors[i], 1, player));
+      if (board[i] == PLAYER_N) {
+        board[i] = PLAYER_1;
+        score = minimax(board, 1);
+        board[i] = PLAYER_N;
+        best_score = min(score, best_score);
+      }
     }
   }
-  //pthread_t tid;
-  //pthread_create(&tid, NULL, freeSucessorsMem, sucessors);
-  //pthread_join(tid, NULL);
-  return value;
+  return best_score;
 }
 
+/*
 int alphabeta(int* board, int alpha, int beta, int is_maximizing, int player) {
   int eval;
   int value;
@@ -84,8 +68,6 @@ int alphabeta(int* board, int alpha, int beta, int is_maximizing, int player) {
       beta = min(beta, value);
     }
   }
-  //pthread_t tid;
-  //pthread_create(&tid, NULL, freeSucessorsMem, sucessors);
-  //pthread_join(tid, NULL);
   return value;
 }
+  */
