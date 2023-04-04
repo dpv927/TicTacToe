@@ -82,7 +82,7 @@ some of the links that we use in this file.
 [commits-link]:       https://github.com/dpv927/tic-tac-toe
 
 [commits-badge]:      https://img.shields.io/github/commits-since/dpv927/tic-tac-toe/latest?style=for-the-badge&color=f5f5f5
-[license-badge]:      https://img.shields.io/github/license/dpv927/tic-tac-toe?style=for-the-badge&label=license&color=7f848e
+[license-badge]:      https://img.shields.io/github/license/dpv927/tic-tac-toe?style=for-the-badge&label=license&color=fbe09f
 [release-badge]:      https://img.shields.io/github/v/release/dpv927/tic-tac-toe?style=for-the-badge&label=official%20release&color=f5f5f5
 
 <!--
