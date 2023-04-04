@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror -std=c99 -O3 -march=native -mtune=native
 
-SRCS=ai-asker.c board.c game.c player-asker.c resources.c search.c ttt.c
+SRCS=game-asker.c board.c game.c resources.c search.c ttt.c
 OBJS=$(SRCS:.c=.o)
 TARGET=ttt
 
@@ -33,11 +33,11 @@ help:
 	@echo ""
 	@echo "Supported options:"
 	@echo ""
-	@echo "help                    > Display this message."
-	@echo "all					   > Only compile."
-	@echo "clean		           > Clean the Makefile directory from old files."
-	@echo "clean-build			   > Clean and complile."
-	@echo "install                 > Install executable."
+	@echo "help 				> Display this message."
+	@echo "all 				> Only compile."
+	@echo "clean 				> Clean the Makefile directory from old files."
+	@echo "clean-build 			> Clean and complile."
+	@echo "install 			> Install executable."
 	@echo ""
 	@echo "Do you have any doubts? See the Makefile."
 	@echo ""

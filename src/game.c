@@ -7,33 +7,38 @@
 #include <string.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <signal.h>
 #include "constants.h"
 #include "board.h"
-#include "player-asker.h"
+#include "game-asker.h"
 #include "game.h"
-#define SEMKEY 108
+#define SEMKEY 185
 #define SEM_NUM 2
 #define SEM0 0
 #define SEM1 1
 
+int semid;
+int shmid;
+
+union semun {
+    int val;
+    struct semid_ds *semstat;
+    unsigned short *array;
+} arg;
+
+struct data {
+    int arr[9];
+}*addr, used;
+
 void start_game(int mode) {
-  int semid;
-  int shmid;
   int game_eval;
   int process_id;
   struct sembuf sem_oper;
   int (*asker_plr1)(int, int*);
   int (*asker_plr2)(int, int*);
 
-  struct data {
-    int arr[9];
-  }*addr, used;
-
-  union semun {
-    int val;
-    struct semid_ds *semstat;
-    unsigned short *array;
-  } arg;
+  signal(SIGINT, sigint_handler);
+  signal(SIGTERM, sigterm_handler);
  
   semid = semget(SEMKEY, SEM_NUM, IPC_CREAT | 0700);
   if(semid == -1) { exit(-1); }
@@ -52,7 +57,6 @@ void start_game(int mode) {
     asker_plr1 = &player_asker;
     asker_plr2 = &player_asker;
   }else {
-    #include "ai-asker.h"
     asker_plr1 = &player_asker;
     asker_plr2 = &ai_asker;
   }
@@ -126,11 +130,7 @@ void start_game(int mode) {
       case COND_DRAW: printf("Its a draw! :O\n\n");   break;
     }
   }
-
-  semctl(semid, SEM_NUM, IPC_RMID, 0);
-  free(arg.array);
-  shmdt(addr);
-  shmctl(shmid, IPC_RMID, 0);
+  delete_resources();
 }
 
 void printGame(int board[]) {
@@ -142,4 +142,24 @@ void printGame(int board[]) {
     if ((i + 1) % 3 == 0) 
       printf("|\n+---+---+---+\n");
   }
+}
+
+void delete_resources() {
+  semctl(semid, SEM_NUM, IPC_RMID, 0);
+  free(arg.array);
+  shmdt(addr);
+  shmctl(shmid, IPC_RMID, 0);
+}
+
+void sigint_handler(int signum) {
+    printf("The user terminated the execution unexpectedly...\n");
+    delete_resources();
+    exit(signum);
+}
+
+void sigterm_handler(int signum) {
+    printf("The user terminated the execution via kill.\nIf you \
+experienced any errors, please contact with thw ttt owner (@dpv927). ");
+    delete_resources();
+    exit(signum);
 }
