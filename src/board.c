@@ -72,14 +72,14 @@ int evaluateGame(int board[]) {
 
 int** generateSucessors(int board[], int player) {
   int** sucessors = (int**) malloc(sizeof(int*)*BOARD_LEN);
-
+  
   for (int i = 0; i < BOARD_LEN; i++) {
-    if(board[i] == PLAYER_N) {
-      board[i] = player;
-      sucessors[i] = arrayCpy(board);
-      board[i] = PLAYER_N;
-      printgames(sucessors[i]);
+    if(board[i] != PLAYER_N) {
+      sucessors[i] = NULL;
+	  continue;
     }
+	sucessors[i] = arrayCpy(board);
+	sucessors[i][i] = player;
   }
   return sucessors;
 }
