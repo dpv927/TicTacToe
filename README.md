@@ -60,7 +60,11 @@ Modes section: Here we explain the different modes that the application
 has (1vs1, person vs AI...)
 -->
 ## Modes
-With the current version of `ttt v1.0.0`, you can play the famous game with another person or by yourself in the same terminal, automatically switching turns so both players can participate. The current version does not accept arguments since it only has one game mode, although it is expected to have more modes in the future and therefore will require some arguments.
+With the current version of `ttt v2.0.0`, you can play the famous game with another person or by yourself in the same terminal, automatically switching turns so both players can participate. You can also play with an AI that uses minimax, that seeks for its best move. Lets see both options:
+```bash
+ttt --player-mode # Play a 1vs1 game
+ttt --ai-mode     # Play against the AI
+```
 
 <!--
   Compile section: How can the user compile the project if the source code is
