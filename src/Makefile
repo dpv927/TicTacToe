@@ -3,6 +3,7 @@ CFLAGS=-Wall -Wextra -Werror -std=c99 -O3 -march=native -mtune=native
 
 SRCS=game-asker.c board.c game.c resources.c search.c ttt.c
 OBJS=$(SRCS:.c=.o)
+MAN=../ttt.6
 TARGET=ttt
 
 all: $(TARGET)
@@ -25,6 +26,13 @@ clean:
 
 clean-build:
 	clean all
+
+install:
+	@echo "Copying the man page..."
+	sudo cp -r $(MAN) /usr/share/man/man6
+	@echo "Copying the executable to /usr/bin/..."
+	sudo cp -r $(TARGET) /usr/bin
+	@echo "Finished."
 
 help:
 	@echo ""
