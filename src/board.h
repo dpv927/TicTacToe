@@ -24,11 +24,3 @@ int evaluateInStep(int start, int step, int board[]);
  * there is a tie and -2 if no one wins and there are more
  * posible moves for the players. **/
 int evaluateGame(int board[]);
-
-/**@brief Generates the sucessors of a state of a board.
- * The sucessors are made by marking the empty spots of
- * the board with the player parameter ID.
- * @param board Board to generate the sucessors.
- * @param player Player that is doing the move
- * @return Array of boards. **/
-int** generateSucessors(int board[], int player);

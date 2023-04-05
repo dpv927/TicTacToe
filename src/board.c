@@ -4,16 +4,15 @@
 #include "board.h"
 
 void printgames(int board[]) {
-  printf("+---+---+---+\n");
-  
+  printf("┌───┬───┬───┐\n");
+
   for (int i = 0; i < BOARD_LEN; i++) {
-    printf("| %c ", (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '));
+    printf("│ %c ", (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '));
     
     if ((i + 1) % 3 == 0) 
-      printf("|\n+---+---+---+\n");
+      printf("│\n└───┴───┴───┘\n");
   }
 }
-
 
 int* arrayCpy(int array[]) {
   int* copy = (int*) malloc(sizeof(int)*BOARD_LEN);
@@ -44,7 +43,7 @@ int evaluateInStep(int start, int step, int board[]) {
 }
 
 int evaluateGame(int board[]) {
-  // Diagonal left up - right down
+  		// Diagonal left up - right down
 		int result = evaluateInStep(4, 4, board);
 		if (result != PLAYER_N)
 			return result;
@@ -68,18 +67,4 @@ int evaluateGame(int board[]) {
 				return result;
 		}
 		return (boardIsFull(board))? COND_DRAW : COND_KEEP;
-}
-
-int** generateSucessors(int board[], int player) {
-  int** sucessors = (int**) malloc(sizeof(int*)*BOARD_LEN);
-  
-  for (int i = 0; i < BOARD_LEN; i++) {
-    if(board[i] != PLAYER_N) {
-      sucessors[i] = NULL;
-	  continue;
-    }
-	sucessors[i] = arrayCpy(board);
-	sucessors[i][i] = player;
-  }
-  return sucessors;
 }

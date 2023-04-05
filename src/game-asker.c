@@ -19,7 +19,7 @@ int readCoordinates(int id) {
   return x*3+y;
 }
 
-int player_asker(int player_id, int* board) {
+int player_asker(int player_id, int board[]) {
   int targetPos = readCoordinates(player_id);
   
   while (board[targetPos] != PLAYER_N) {
@@ -28,7 +28,7 @@ int player_asker(int player_id, int* board) {
   return targetPos;
 }
 
-int ai_asker(int player_id, int* board) {
+int ai_asker(int player_id, int board[]) {
   int best_score = INT_MIN;
   int move;
   int score;

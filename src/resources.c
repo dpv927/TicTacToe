@@ -17,4 +17,3 @@ void printdoc(char* path) {
   }
   fclose(fptr);
 }
-
