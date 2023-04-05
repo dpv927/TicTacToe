@@ -19,6 +19,7 @@
 
 int semid;
 int shmid;
+int process_id;
 
 union semun {
     int val;
@@ -32,7 +33,6 @@ struct data {
 
 void start_game(int mode) {
   int game_eval;
-  int process_id;
   struct sembuf sem_oper;
   int (*asker_plr1)(int, int*);
   int (*asker_plr2)(int, int*);
@@ -81,7 +81,8 @@ void start_game(int mode) {
         if(boardIsFull(addr[0].arr) || game_eval != COND_KEEP) {
           break;
         }        
-
+        
+        system("clear");
         printf("\nThe actual board state is:\n");
         printGame(addr[0].arr);
         
@@ -106,9 +107,10 @@ void start_game(int mode) {
         if(boardIsFull(addr[0].arr) || game_eval != COND_KEEP) {
           break;
         }
-
-        //printf("\nThe actual board state is:\n");
-        //printGame(addr[0].arr);
+        
+        system("clear");
+        printf("\nThe actual board state is:\n");
+        printGame(addr[0].arr);
 
         int pos = (*asker_plr2)(PLAYER_2, addr[0].arr);
         addr[0].arr[pos] = PLAYER_2;
@@ -134,14 +136,16 @@ void start_game(int mode) {
 }
 
 void printGame(int board[]) {
-  printf("+---+---+---+\n");
-  
+  printf("┌───┬───┬───┐\n");
+
   for (int i = 0; i < BOARD_LEN; i++) {
-    printf("| %c ", (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '));
+    printf("│ %c ", (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '));
     
-    if ((i + 1) % 3 == 0) 
-      printf("|\n+---+---+---+\n");
+    if (i == 2 || i == 5) 
+      printf("│\n├───┼───┼───┤\n");
   }
+
+  printf("│\n└───┴───┴───┘\n");
 }
 
 void delete_resources() {
@@ -152,14 +156,13 @@ void delete_resources() {
 }
 
 void sigint_handler(int signum) {
-    printf("The user terminated the execution unexpectedly...\n");
+    if(process_id == PLAYER_2) return;
     delete_resources();
     exit(signum);
 }
 
 void sigterm_handler(int signum) {
-    printf("The user terminated the execution via kill.\nIf you \
-experienced any errors, please contact with thw ttt owner (@dpv927). ");
+    if(process_id == PLAYER_2) return;
     delete_resources();
     exit(signum);
 }

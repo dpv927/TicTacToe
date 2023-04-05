@@ -3,17 +3,6 @@
 #include "constants.h"
 #include "board.h"
 
-void printgames(int board[]) {
-  printf("┌───┬───┬───┐\n");
-
-  for (int i = 0; i < BOARD_LEN; i++) {
-    printf("│ %c ", (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '));
-    
-    if ((i + 1) % 3 == 0) 
-      printf("│\n└───┴───┴───┘\n");
-  }
-}
-
 int* arrayCpy(int array[]) {
   int* copy = (int*) malloc(sizeof(int)*BOARD_LEN);
   for (int i = 0; i < BOARD_LEN; i++) {
