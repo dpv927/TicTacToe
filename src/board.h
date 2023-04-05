@@ -24,3 +24,9 @@ int evaluateInStep(int start, int step, int board[]);
  * there is a tie and -2 if no one wins and there are more
  * posible moves for the players. **/
 int evaluateGame(int board[]);
+
+/**
+* @brief Prints the board of a game
+* @param board Game board
+**/
+void printBoard(int board[]);

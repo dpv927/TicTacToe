@@ -57,3 +57,16 @@ int evaluateGame(int board[]) {
 		}
 		return (boardIsFull(board))? COND_DRAW : COND_KEEP;
 }
+
+void printBoard(int board[]) {
+  printf("┌───┬───┬───┐\n");
+
+  for (int i = 0; i < BOARD_LEN; i++) {
+    printf("│ %c ", (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '));
+    
+    if (i == 2 || i == 5) 
+      printf("│\n├───┼───┼───┤\n");
+  }
+
+  printf("│\n└───┴───┴───┘\n");
+}

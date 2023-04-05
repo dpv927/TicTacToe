@@ -84,7 +84,7 @@ void start_game(int mode) {
         
         system("clear");
         printf("\nThe actual board state is:\n");
-        printGame(addr[0].arr);
+        printBoard(addr[0].arr);
         
         int pos = (*asker_plr1)(PLAYER_1, addr[0].arr);
         addr[0].arr[pos] = PLAYER_1;
@@ -110,7 +110,7 @@ void start_game(int mode) {
         
         system("clear");
         printf("\nThe actual board state is:\n");
-        printGame(addr[0].arr);
+        printBoard(addr[0].arr);
 
         int pos = (*asker_plr2)(PLAYER_2, addr[0].arr);
         addr[0].arr[pos] = PLAYER_2;
@@ -124,7 +124,7 @@ void start_game(int mode) {
 
   if(process_id == PLAYER_1) {
     printf("\nAfter the last move, the board state is:\n");
-    printGame(addr[0].arr);
+    printBoard(addr[0].arr);
 
     switch (game_eval) {
       case PLAYER_1: printf("Player1 wins! :)\n\n");  break;
@@ -133,19 +133,6 @@ void start_game(int mode) {
     }
   }
   delete_resources();
-}
-
-void printGame(int board[]) {
-  printf("┌───┬───┬───┐\n");
-
-  for (int i = 0; i < BOARD_LEN; i++) {
-    printf("│ %c ", (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '));
-    
-    if (i == 2 || i == 5) 
-      printf("│\n├───┼───┼───┤\n");
-  }
-
-  printf("│\n└───┴───┴───┘\n");
 }
 
 void delete_resources() {

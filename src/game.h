@@ -29,12 +29,6 @@ void sigterm_handler(int signum);
 void delete_resources();
 
 /**
-* @brief Prints the board of a game
-* @param board Game board
-**/
-void printGame(int board[]);
-
-/**
 * @brief Empieza una nueva partida entre dos jugadores.
 * Los juagdores pueden ser dos personas o una persona contra la AI.
 * @param mode Modo de juego que se le especifica a la funcion. Si mode
