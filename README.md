@@ -34,25 +34,15 @@ Tic Tac Toe is a very famous board game, and it is very easy to implement in cod
 ## How to Use
 The game prompts the players for the coordinates of their next move. First, it asks for the row, and then the column. Let's say that a coordinate is made up of (row, column). The board display is as follows:
 ```
-+-------+-------+-------+
-| (0,0) | (0,1) | (0,2) |
-+-------+-------+-------+ These are the game board
-| (1,0) | (1,1) | (1,2) | coordinates
-+-------+-------+-------+
-| (2,0) | (2,1) | (2,2) |
-+-------+-------+-------+
+┌───────┬───────┬───────┐                              |    ┌───┬───┬───┐
+│ (0,0) │ (0,1) │ (0,2) │                              |    │ x │   │   │             Example:
+├───────┼───────┼───────┤   These are the game board   |    ├───┼───┼───┤ We can see that the 'x' player made
+│ (1,0) │ (1,1) │ (1,2) │         coordinates.         |    │   │   │   │ a move at (0,0) and the 'o' player
+├───────┼───────┼───────┤                              |    ├───┼───┼───┤          did it at (2,1).
+│ (2,0) │ (2,1) │ (2,2) │                              |    │   │ o │   │
+└───────┴───────┴───────┘                              |    └───┴───┴───┘
+```
 
-```
-Let's see an example:
-```
-+---+---+---+
-| x |   |   |
-+---+---+---+   We can see that the 'x' player made a move at
-|   |   |   |   (0,0), and the 'o' player made a move at (2,1).
-+---+---+---+
-|   | o |   |
-+---+---+---+
-```
 In the game, player1 is represented by `x`, and player2 is represented by `o`.
 
 <!--
@@ -73,9 +63,14 @@ ttt --ai-mode     # Play against the AI
 ## Compile
 To compile and manage all the files of the project, the `Makefile` script has been created. This script can be passed different instructions as parameters, which it will check and execute on the project. Let's see some examples:
 ```bash
-make clean # Cleans all the .o files and the old executable
-make # Compiles the project
+make clean        # Cleans all the .o files and the old executable
+make all          # Compiles the project
+make clean-build  # Same as 'make clean all
+make install      # Install the man page and the executable
 ```
+
+For a fresh install, we recomend `make all install`. If you compiled the code at least once, we recomend you to use `make clean install` or `make clean-build`.
+
 
 <!--
 Like we said at the top of the document, near the title and badges, here we define
