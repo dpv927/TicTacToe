@@ -20,10 +20,12 @@ int evaluateInStep(int start, int step, int board[]);
 
 /** @brief Evaluates the actual state of a board.
  * @param board Array that represents the game board.
- * @return -1 if player2 wins, 1 if player1 does, 0 if 
- * there is a tie and -2 if no one wins and there are more
- * posible moves for the players. **/
-int evaluateGame(int board[]);
+ * @param bias Bias applied to the evaluation.
+ * @return -INF if the player that has a different ID that the bias 
+ * parameter wins, INF if player with an ID same as the bias does, 0 
+ * if there is a tie and -2 if no one wins and there are more posible
+ * moves for the players. **/
+int evaluateGame(int board[], int bias);
 
 /**
 * @brief Prints the board of a game
