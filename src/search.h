@@ -11,4 +11,4 @@
  * False (0) = worst.
  * @param player ID of the player to perform the move.
  * **/
-int minimax(int* board, int is_maximizing/*, int player*/);
+int minimax(int board[], int is_maximizing, int depth, int player_id);

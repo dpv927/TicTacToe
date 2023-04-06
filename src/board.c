@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <string.h>
 #include "constants.h"
 #include "board.h"
 
@@ -20,7 +21,7 @@ int boardIsFull(int board[]) {
 }
 
 int evaluateInStep(int start, int step, int board[], int bias) {
- int pre_owner;
+ int pre_owner = 0;
 
   for (int i = start; i <= start + step; i += step) {
 			pre_owner = board[i-step];
@@ -32,7 +33,7 @@ int evaluateInStep(int start, int step, int board[], int bias) {
 
 int evaluateGame(int board[], int bias) {
   		// Diagonal left up - right down
-		int result = evaluateInStep(4, 4, board);
+		int result = evaluateInStep(4, 4, board, bias);
 		if (result != PLAYER_N)
 			return result;
 
@@ -58,13 +59,14 @@ int evaluateGame(int board[], int bias) {
 }
 
 void printBoard(int board[]) {
-  printf("%s┌───┬───┬───┐\n", BOARD_COLOR);
+  printf("┌───┬───┬───┐\n");
 
   for (int i = 0; i < BOARD_LEN; i++) {
-    printf("│ %s%c ", ANSI_RESET, (board[i] == PLAYER_1)? P1_ALIAS : ((board[i] == PLAYER_2)? P2_ALIAS : ' '));
+    printf("│ %c ", (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '));
     
     if (i == 2 || i == 5) 
-      printf("%s│\n├───┼───┼───┤\n");
+      printf("│\n├───┼───┼───┤\n");
   }
-  printf("%s│\n└───┴───┴───┘%s\n", BOARD_COLOR, ANSI_RESET);
+  printf("│\n└───┴───┴───┘\n");
 }
+

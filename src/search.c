@@ -3,7 +3,7 @@
 #include "board.h"
 #include "search.h"
 
-int minimax(int* board, int is_maximizing, int depth, int player_id) {
+int minimax(int board[], int is_maximizing, int depth, int player_id) {
   int score;
   int best_score;
 

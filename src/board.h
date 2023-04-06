@@ -16,7 +16,7 @@ int boardIsFull(int board[]);
  * @param board Array that represents the game board.
  * @returns -1 if player 2 wins, 1 if player 1 does and 
  * 0 if no player wins at this point. */
-int evaluateInStep(int start, int step, int board[]);
+int evaluateInStep(int start, int step, int board[], int bias);
 
 /** @brief Evaluates the actual state of a board.
  * @param board Array that represents the game board.
