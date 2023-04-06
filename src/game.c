@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <limits.h>
 #include "constants.h"
 #include "board.h"
 #include "game-asker.h"
@@ -17,6 +18,7 @@
 #define SEM0 0
 #define SEM1 1
 
+/* global variables definition */
 int semid;
 int shmid;
 int process_id;
@@ -30,6 +32,7 @@ union semun {
 struct data {
     int arr[9];
 }*addr, used;
+/* global variables definition */
 
 void start_game(int mode) {
   int game_eval;
@@ -69,7 +72,6 @@ void start_game(int mode) {
     case 0:
       process_id = PLAYER_1;
       addr[0] = used;
-      
       printf("New game just started...");
 
       while(1) {
@@ -77,7 +79,7 @@ void start_game(int mode) {
         sem_oper.sem_op = -1;
         semop(semid, &sem_oper, 1);
         
-        game_eval = evaluateGame(addr[0].arr);
+        game_eval = evaluateGame(addr[0].arr, PLAYER_1);
         if(boardIsFull(addr[0].arr) || game_eval != COND_KEEP) {
           break;
         }        
@@ -103,7 +105,7 @@ void start_game(int mode) {
         sem_oper.sem_op = -1;
         semop(semid, &sem_oper, 1);
 
-        game_eval = evaluateGame(addr[0].arr);
+        game_eval = evaluateGame(addr[0].arr, PLAYER_2);
         if(boardIsFull(addr[0].arr) || game_eval != COND_KEEP) {
           break;
         }
@@ -127,8 +129,8 @@ void start_game(int mode) {
     printBoard(addr[0].arr);
 
     switch (game_eval) {
-      case PLAYER_1: printf("Player1 wins! :)\n\n");  break;
-      case PLAYER_2: printf("Player2 wins! :)\n\n");  break;
+      case INT_MAX: printf("Player1 wins! :)\n\n");  break;
+      case INT_MIN: printf("Player2 wins! :)\n\n");  break;
       case COND_DRAW: printf("Its a draw! :O\n\n");   break;
     }
   }
