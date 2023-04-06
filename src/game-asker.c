@@ -4,28 +4,30 @@
 #include "search.h"
 #include "game-asker.h"
 
-int readCoordinates(int id) {
-  int alias = (id == PLAYER_1)? 1 : 2;
-  int x = -1;
-  int y = -1;
-
-  while(x<0 || x>2 || y<0 || y>2) {
-    printf("\nPlayer%d ┌──────────── Row: ", alias);
-    scanf("%d", &x);
-    printf("────────┤\n        └───────── Column: ");
-    scanf("%d", &y);
-    fflush(stdin);
-  }
-  return x*3+y;
-}
-
 int player_asker(int player_id, int board[]) {
-  int targetPos = readCoordinates(player_id);
-  
-  while (board[targetPos] != PLAYER_N) {
-    targetPos = readCoordinates(player_id);
+  int target_pos = -1, row, col;
+  char* name = "";
+  char alias;
+
+  if(player_id == PLAYER_1) {
+    name = P1_NAME;
+    alias = P1_ALIAS;
   }
-  return targetPos;
+  else {
+    name = P2_NAME;
+    alias = P2_ALIAS;
+  }
+  
+  while(target_pos < 0 || board[target_pos] != PLAYER_N) {
+
+    printf("┌─ %s, (alias '%c') type your next move.\n│\n├───[Row]: ", name, alias);
+    scanf("%d", &row);
+    printf("└[Column]: ");
+    scanf("%d", &col);
+    fflush(stdin);
+    target_pos = row*3+col;
+  }
+  return target_pos;
 }
 
 int ai_asker(int player_id, int board[]) {
@@ -38,7 +40,7 @@ int ai_asker(int player_id, int board[]) {
   for (int i = 0; i < BOARD_LEN; i++) {
     if(board[i] == PLAYER_N) {
       board[i] = PLAYER_2;
-      score = minimax(board, 0);
+      score = minimax(board, 0, DEF_DEPTH, PLAYER_2);
       board[i] = PLAYER_N;
 
       if(score > best_score) {
