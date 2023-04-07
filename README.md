@@ -51,3 +51,6 @@ cd ttt-search
 make clean all # alternatively: make clean-build
 ```
 
+### License
+The entire ttt project (ttt-play and ttt-search) are under the [GNU General Public License v2.0](LICENSE). Be shure that you
+read the requisites before doing any changes to this project.
