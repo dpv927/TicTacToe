@@ -9,48 +9,41 @@
     - Linux API System 5 Shared Memory
 
 ### Usage
-Ttt is a really easy-to-use application, as it uses quite intuitive and simple parameters. You should know that
-both the multiplayer and search modes have parameters (the latter obviously having many more). The multiplayer 
-application is named ttt-play and the search application is named ttt-search. These two are very different from
-each other, as the first one is solely dedicated to the game modes between human-human and human-machine, while
-the second application is dedicated to searching for game moves and statistics.
+ttt is an easy-to-use application that uses intuitive and simple parameters. Both the multiplayer and search modes have parameters, with the latter having many more. The multiplayer application is called ttt-play, while the search application is called ttt-search. These two applications are very different from each other. The first one is solely dedicated to game modes between humans and machines, while the second application is dedicated to searching for game moves and statistics.
 
 ### Ttt-play
-As mentioned before, this is an application dedicated to playing games between people or machines. Knowing this,
-we must introduce the existing options in the application:
+As mentioned before, this application is dedicated to playing games between humans and machines. The available options in the application are:
 
-- `--player-mode`: Play against another person or with yourself.
+- `--player-mode`: Play against another human or with yourself.
 - `--ai-mode`: Play against the machine.
-- `--depth=<depth>`: Limit the depth to a certain number. It must be in the range [0-9].
-- `--help`: Show the help file.
+- `--depth=<depth>`: Limit the search depth to a certain number. The depth must be in the range [0-9].
+- `--help`:  Show the help file.
 - `--version`: Show the current version of ttt-play.
 
 ### Compiling ttt-play
-The compiling process is only available at Linux because of the use of the API System 5 semaphores and shared memory.
-I made a custom makefile, so you can do it like this:
+The compilation process is only available on Linux due to the use of the System V semaphores and shared memory API. A custom makefile has been created, and you can compile the program using the following command:
+
 ```bash
 cd ttt-play
-make clean all # alternatively: make clean-build
+make clean all # Alternatively, use 'make clean-build'
 ```
 
 ### Ttt-search
-As mentioned before, this application is dedicated to searching for game moves and statistics. Knowing this, we must
-introduce the existing options in the application:
+As mentioned before, this application is dedicated to searching for game moves and statistics. The available options in the application are:ce the existing options in the application:
 
-- `--game=[, , ,...]`: Specify a game board in an 'array' notation. Player1 must be '1', Player2 '2' and none '0'.
-- `--depth=<depth>`: Limit the depth to a certain number. It must be in the range [0-9].
+- `--game=[, , ,...]`: Specify a game board in an 'array' notation. Player 1 must be represented by '1', player 2 by '2', and empty spaces by '0'.
+- `--depth=<depth>`: Limit the search depth to a certain number. The depth must be in the range [0-9].
 - `--algorithm=<name>`: Specify the search algorithm to use in the search.
-- `--best=<bool>`: Specify if the move to search is the best or worse. Options= true, false.
+- `--best=<bool>`: Specify whether to search for the best or worst move. Options are 'true' or 'false'.
 - `--help`: Show the help file.
-- `--version`: Show the current version of ttt-play.
+- `--version`: Show the current version of ttt-search.
 
 ### Compiling ttt-search
-The compiling process is available at every system.I made a custom makefile, so you can do it like this:
+The compilation process is available on all systems. A custom makefile has been created, and you can compile the program using the following command:
 ```bash
 cd ttt-search
-make clean all # alternatively: make clean-build
+make clean all # Alternatively, use 'make clean-build'
 ```
 
 ### License
-The entire ttt project (ttt-play and ttt-search) are under the [GNU General Public License v2.0](LICENSE). Be shure that you
-read the requisites before doing any changes to this project.
+The entire ttt project, including both ttt-play and ttt-search, is licensed under the [GNU General Public License v2.0](LICENSE). Please make sure that you read the requirements before making any changes to this project.
