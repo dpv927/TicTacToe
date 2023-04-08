@@ -1,25 +1,24 @@
-ttt-search - tic-tac-toe search
-============================
-ttt-search is a fast searcher fot tic-tac-toe games made for all platforms
-and systems.
+ttt-search - Tic-Tac-Toe Search
+===============================
+ttt-search is a fast Tic-Tac-Toe game searcher designed for all platforms and systems.
 
 Requirements
 ------------
-The basic rust-lang program and cargo in order to compile the applicattion.
+To compile the application, you need to have Rust programming language and Cargo 
+installed.
 
 Installation
 ------------
-In order to install ttt-search, you must compile it first:
+To install ttt-search, you must first compile it:
 $ cargo build
 
-Then just move it to your system path:
-$ /usr/bin # Linux - Unix
+Then move it to your system's path:
+$ /usr/bin # Linux-Unix
 $ C://Program Files/ # Windows
 
-Running dwm
------------
-Maybe you are only interested to make some tests on ttt-search without installing it.
-If you want so, type this cargo command:
+Running ttt-search
+------------------
+If you only want to test ttt-search without installing it, use the following Cargo command:
 $ cargo run
 
-If you have it already compiled, you can found the executable at ./build/ttt-search
+If you have already compiled it, you can find the executable at ./build/ttt-search.
