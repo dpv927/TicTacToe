@@ -3,8 +3,8 @@ CFLAGS=-Wall -Wextra -Werror -std=c99 -O3 -march=native -mtune=native
 
 SRCS=game-asker.c board.c game.c resources.c search.c ttt.c
 OBJS=$(SRCS:.c=.o)
-MAN=../ttt.6
-TARGET=ttt
+MAN=../doc/ttt.6
+TARGET=ttt-play
 
 all: $(TARGET)
 
