@@ -5,4 +5,3 @@ static const int PLAYER_N  = 0;
 static const int COND_DRAW = 0;
 static const int COND_KEEP = 1;
 static const int BOARD_LEN = 9;
-static const unsigned int DEF_DEPTH = 9;

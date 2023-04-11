@@ -1,17 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <limits.h>
-#include <string.h>
 #include "constants.h"
 #include "board.h"
-
-int* arrayCpy(int array[]) {
-  int* copy = (int*) malloc(sizeof(int)*BOARD_LEN);
-  for (int i = 0; i < BOARD_LEN; i++) {
-    copy[i] = array[i];
-  }
-  return copy;
-}
 
 int boardIsFull(int board[]) {
   for (int i=0; i< BOARD_LEN; i++)
@@ -69,4 +59,3 @@ void printBoard(int board[]) {
   }
   printf("│\n└───┴───┴───┘\n");
 }
-

@@ -37,7 +37,7 @@ int ai_asker(int player_id, int board[]) {
   for (int i = 0; i < BOARD_LEN; i++) {
     if(board[i] == PLAYER_N) {
       board[i] = PLAYER_2;
-      score = minimax(board, 0, DEF_DEPTH, PLAYER_2);
+      score = minimax(board, 0, PLAYER_2);
       board[i] = PLAYER_N;
 
       if(score > best_score) {
