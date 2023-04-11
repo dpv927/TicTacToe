@@ -28,6 +28,7 @@ clean-build:
 	clean all
 
 install:
+	all
 	@echo "Copying the man page..."
 	sudo cp -r $(MAN) /usr/share/man/man6
 	@echo "Copying the executable to /usr/bin/..."
