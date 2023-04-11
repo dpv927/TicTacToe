@@ -1,0 +1,4 @@
+ttt-play (tic-tac-toe) 1.0.0 30-03-2023
+Copyright (c) 2023 dpv927. All Rights Reserved.
+This is free software; see the source code for copying conditions. There is
+no warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

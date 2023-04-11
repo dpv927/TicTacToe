@@ -1,0 +1,8 @@
+Usage: ttt <option> ... <option>
+Options:
+  --ai-mode                Play 1v1 with an AI.
+  --player-mode            Play 1v1 with physical players.
+  --depth=<depth>          Limits the search depth to a specific
+                           number (Min 0, max 9)    
+  --version                Display ttt version information.
+  --help                   Display this message.
