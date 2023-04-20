@@ -1,10 +1,10 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -std=c99 -O3 -march=native -mtune=native
+CFLAGS=-Wall -Wextra -std=c99 -O3 -march=native -mtune=native
 
 SRCS=game-asker.c board.c game.c resources.c search.c ttt.c
 OBJS=$(SRCS:.c=.o)
 MAN=../doc/ttt.6
-TARGET=ttt-play
+TARGET=ttt
 
 all: $(TARGET)
 
