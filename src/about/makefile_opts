@@ -1,0 +1,5 @@
+all: compile the project
+clean: clean all the object files (*.o) and old executables that were generated at previous compilations.
+clean-build: this is a short and smart option to clean and compile the project at once. This is the same as 'clean all'
+install: compiles the project and copies it to some source folder such as /usr/bin/.
+help: With this command you can display a message that indicates this commands.
