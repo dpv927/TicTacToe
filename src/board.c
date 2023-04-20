@@ -49,13 +49,16 @@ int evaluateGame(int board[], int bias) {
 }
 
 void printBoard(int board[]) {
-  printf("┌───┬───┬───┐\n");
+  printf("    0   1   2\n  ┌───┬───┬───┐\n");
 
   for (int i = 0; i < BOARD_LEN; i++) {
+    if(i%3 == 0)
+      printf("%d ", i/3);
+
     printf("│ %c ", (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '));
     
     if (i == 2 || i == 5) 
-      printf("│\n├───┼───┼───┤\n");
+      printf("│\n  ├───┼───┼───┤\n");
   }
-  printf("│\n└───┴───┴───┘\n");
+  printf("│\n  └───┴───┴───┘\n");
 }

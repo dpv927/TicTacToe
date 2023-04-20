@@ -85,10 +85,10 @@ void start_game(int mode) {
         }        
         
         system("clear");
-        printf("\nThe actual board state is:\n");
+        printf("\nThe actual board state is:\n\n");
         printBoard(addr[0].arr);
         
-        int pos = (*asker_plr1)(PLAYER_1, addr[0].arr);
+        int pos = (*asker_plr1)(process_id, addr[0].arr);
         addr[0].arr[pos] = PLAYER_1;
 
         sem_oper.sem_num = SEM1;
@@ -114,7 +114,7 @@ void start_game(int mode) {
         printf("\nThe actual board state is:\n");
         printBoard(addr[0].arr);
 
-        int pos = (*asker_plr2)(PLAYER_2, addr[0].arr);
+        int pos = (*asker_plr2)(process_id, addr[0].arr);
         addr[0].arr[pos] = PLAYER_2;
 
         sem_oper.sem_num = SEM0;
