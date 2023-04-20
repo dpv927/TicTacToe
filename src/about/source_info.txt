@@ -1,0 +1,38 @@
+board.c       Implementation of the board functions
+              (evaluation, representation, etc).
+
+board.h       Documentation and definition of all the
+              board functions. 
+
+constants.h   Definition of almost all the constants
+              that are used in the application. 
+
+game-asker.c  Implementation of the functions that 
+              are responsable of generating moves
+              for the players.
+
+game-asker.h  Documentation and definition of all the
+              game-asker functions.
+
+game.c        Implementation of the mechanic of the game.
+              The game loops and management are done here.
+
+game.h        Documentation and definition of all of the
+              functions of game.c
+
+Makefile      Makefile of the project. See the README.md 
+              file or this file for compile options.
+
+resources.c   Implementation of some functions that load 
+              resources such as file contents and others. 
+
+resources.h   Documentation and deeefinition of all the 
+              functions at resources.c
+
+search.c      Functions that are used for the AI's best-move
+              search (minimax, alpha-beta, ...). 
+
+search.h      Documentation and deeefinition of all the 
+              functions at search.c
+
+ttt.c         
