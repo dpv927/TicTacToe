@@ -1,0 +1,24 @@
+In this file will be shown the different upgrades that can be added in the
+future, with a order of preference or urgency.
+
+1) Implementation of the board as a estruct with the next fields:
+   - int* board   -> game board
+   - player* p1   -> player 1
+   - player* p1   -> player 2
+
+2) Implementation of a player as a struct with the next fields:
+   - int id
+   - char pl_rep  -> player 1 representation (x, o,...)
+
+3) Better AI: Currently theres a very poor evaluation of the game
+   and heuristic, so the AI makes stupid errors.
+
+4) Player chooser: Currently the player 1 can only be a human, and 
+   the player 2 can be a human or the AI. A upgrade could be letting
+   the user choose its own player.
+
+5) More info at the display: When the current state of the board is 
+   displayed at the console, the only info that is shown is the board 
+   representation. 
+   A good idea could be showing more info, such as the players IDs,
+   their representation ('x', 'o', ...) and status (choosing, waiting).
