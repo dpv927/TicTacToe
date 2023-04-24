@@ -1,24 +1,26 @@
-In this file will be shown the different upgrades that can be added in the
-future, with a order of preference or urgency.
+In this file, the different upgrades that can be added in the future will be shown, with an order of preference or urgency.
 
-1) Implementation of the board as a estruct with the next fields:
-   - int* board   -> game board
-   - player* p1   -> player 1
-   - player* p1   -> player 2
+    1) Implementation of the board as a struct with the following fields:
+        int* board -> game board
+        player* p1 -> player 1
+        player* p2 -> player 2
 
-2) Implementation of a player as a struct with the next fields:
-   - int id
-   - char pl_rep  -> player 1 representation (x, o,...)
+    2) Implementation of a player as a struct with the following fields:
+        int id
+        char pl_rep -> player 1 representation (x, o,...)
 
-3) Better AI: Currently theres a very poor evaluation of the game
-   and heuristic, so the AI makes stupid errors.
+    3) Substitution of some of the basic game constants that are currently
+    defined as numbers (unnecessary) with Enumerations.
 
-4) Player chooser: Currently the player 1 can only be a human, and 
-   the player 2 can be a human or the AI. A upgrade could be letting
-   the user choose its own player.
+    4) Better AI: Currently, there's a very poor evaluation of the game
+    and heuristic, so the AI makes stupid errors.
 
-5) More info at the display: When the current state of the board is 
-   displayed at the console, the only info that is shown is the board 
-   representation. 
-   A good idea could be showing more info, such as the players IDs,
-   their representation ('x', 'o', ...) and status (choosing, waiting).
+    5) Player chooser: Currently, player 1 can only be a human, and
+    player 2 can be a human or the AI. An upgrade could be letting
+    the user choose their own player.
+
+    6) More info at the display: When the current state of the board is
+    displayed on the console, the only info shown is the board
+    representation. A good idea could be showing more info, such as the
+    players' IDs, their representation ('x', 'o', ...), and status 
+    (choosing, waiting).
