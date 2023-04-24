@@ -1,26 +1,27 @@
-## Tic-tac-toe (ttt)
+# Tic-tac-toe (ttt)
 
-### Features
+## Features
+
 - No dependencies
 - Multiplayer game (Only for Linux)
-    - Linux API System 5 Semaphores
-    - Linux API System 5 Shared Memory
+    - Linux API System V Semaphores
+    - Linux API System V Shared Memory
 
-### Ttt-play
-As mentioned before, this application is dedicated to playing games between humans and machines. The available options in the application are:
+## About
+This application is dedicated to playing games between humans and machines. The available options in the application are:
 
-- `--player-mode`: Play against another human or with yourself.
-- `--ai-mode`: Play against the machine.
-- `--help`:  Show the help file.
-- `--version`: Show the current version of ttt-play.
+    `--player-mode`: Play against another human or play with yourself.
+    `--ai-mode`: Play against the machine.
+    `--help`: Show the help file.
+    `--version`: Show the current version of ttt-play.
 
-### Compiling ttt-play
-The compilation process is only available on Linux due to the use of the System V semaphores and shared memory API. A custom makefile has been created, and you can compile the program using the following command:
+# Compiling ttt
+The compilation process is only available on Linux due to the use of System V semaphores and shared memory API. A custom makefile has been created, and you can compile the program using the following command:
 
 ```bash
-cd ttt-play
+cd tic-tac-toe
 make clean all # Alternatively, use 'make clean-build'
 ```
 
-### License
-The entire ttt project, including both ttt-play and ttt-search, is licensed under the [GNU General Public License v2.0](LICENSE). Please make sure that you read the requirements before making any changes to this project.
+## License
+The entire ttt project is licensed under the [GNU General Public License v2.0](License). Please make sure to read the requirements before making any changes to this project.
