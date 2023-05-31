@@ -1,3 +1,4 @@
+#pragma once
 /**
  * @brief Detects a exit signal with Ctrl+C.
  *

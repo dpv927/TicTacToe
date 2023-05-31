@@ -1,2 +1,2 @@
-/* Defines the number of cells in a board. */
+#pragma once
 #define BOARD_LEN 9

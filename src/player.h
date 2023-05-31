@@ -1,3 +1,4 @@
+#pragma once
 /* Player IDs constants. This ones are used to represent
  * a player in a game board. */
 static const int PLAYER_1  = 1;

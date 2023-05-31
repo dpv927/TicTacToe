@@ -1,3 +1,4 @@
+#pragma once
 #include "player.h"
 
 /* Enumeration that defines a game status. The three possible states are:
