@@ -108,7 +108,7 @@ void start_game(int mode) {
         }        
         
         system("clear");
-        printf("The actual board state is:\n");
+        printf("The actual board state is:\n\n");
         printBoard(addr[0]);
       
         // Ask player1 the next move and apply it
@@ -145,7 +145,7 @@ void start_game(int mode) {
         }
         
         system("clear");
-        printf("The actual board state is:\n");
+        printf("The actual board state is:\n\n");
         printBoard(addr[0]);
 
         // Ask player2 the next move and apply it 
