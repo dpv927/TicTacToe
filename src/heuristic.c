@@ -1,53 +1,40 @@
 #include "heuristic.h"
 #include "board.h"
 
-int heuristicInStep(int* board, int start, int step, int end, int bias) {
-  int max_counter = 0;
-  int min_counter = 0;
+int heuristicInStep(int start, int step, int* board, int bias) {
+ int pre_owner = 0;
 
-  for (int i = start; i <= end; i += step) {
-    int val = board[i];
-    if(val == bias) { max_counter++; }
-    else if (val != PLAYER_N) { min_counter++; }
-  }
-  if(max_counter == 3) { 
-    return MAX_EVAL; 
-  } else if(min_counter == 3) { return MIN_EVAL; };
-  return max_counter * Pscores[max_counter] + min_counter * Pscores[min_counter];
+  for (int i = start; i <= start + step; i += step) {
+			pre_owner = board[i-step];
+			if (pre_owner == PLAYER_N || board[i] != pre_owner)
+				return EVAL_KEEP;
+		}
+		return (pre_owner == bias)? MAX_EVAL : MIN_EVAL;
 }
 
-int heuristic(int *board, int bias) {
-  if(boardIsFull(board)) return NO_EVAL;
+int heuristic(int* board, int bias) {
+  	// Diagonal left up - right down
+		int result = heuristicInStep(4, 4, board, bias);
+		if (result != EVAL_KEEP)
+			return result;
 
-  int sum = 0;
-  int score;
+		// Diagonal right up - left down
+		result = heuristicInStep(4, 2, board, bias);
+		if (result != EVAL_KEEP)
+			return result;
 
-  // Diagonal left up - right down
-  score = heuristicInStep(board, 0, 4, 8, bias);
-  if (score == MAX_EVAL || score == MIN_EVAL)
-			return score;
-  sum += score;
+		// All the rows
+		for (int i = 1; i <= 7; i += 3) {
+			result = heuristicInStep(i, 1, board, bias);
+			if (result != EVAL_KEEP)
+				return result;
+		}
 
-	// Diagonal right up - left down
-	score = heuristicInStep(board, 2, 2, 6, bias);
-  if (score == MAX_EVAL || score == MIN_EVAL)
-			return score;
-  sum += score;
-
-	// All the rows
-	for (int i = 0; i <= 6; i += 3) {
-		score = heuristicInStep(board, i, 1, i+2, bias);
-		if (score == MAX_EVAL || score == MIN_EVAL)
-			return score;
-    sum += score;
-	}
-
-	// All the columns
-	for (int i = 0; i <= 2; i ++) {
-		score = heuristicInStep(board, i, 3, i+6, bias);
-		if (score == MAX_EVAL || score == MIN_EVAL)
-			return score;
-    sum += score;
-	}
-  return sum + score;
+		// All the columns
+		for (int i = 3; i <= 5; i += 1) {
+			result = heuristicInStep(i, 3, board, bias);
+			if (result != EVAL_KEEP)
+				return result;
+		}
+		return (boardIsFull(board))? NO_EVAL : result;
 }
