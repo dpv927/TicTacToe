@@ -4,16 +4,14 @@
 #include <sys/sem.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <signal.h>
-#include <limits.h>
-#include "constants.h"
-#include "board.h"
-#include "game-asker.h"
 #include "game.h"
-#define SEMKEY 185
+#include "board.h"
+#include "board_info.h"
+#include "game_asker.h"
+#define SEMKEY 175
 #define SEM_NUM 2
 #define SEM0 0
 #define SEM1 1
@@ -29,68 +27,96 @@ union semun {
     unsigned short *array;
 } arg;
 
-struct data {
-    int arr[9];
-}*addr, used;
+struct Game game;
+struct Game* addr;
 /* global variables definition */
 
 void start_game(int mode) {
-  int game_eval;
+  int join;
+  enum GameState g_state;
   struct sembuf sem_oper;
-  int (*asker_plr1)(int, int*);
-  int (*asker_plr2)(int, int*);
 
+  // Create signal handlers (Ctrl+c, kill...)
   signal(SIGINT, sigint_handler);
   signal(SIGTERM, sigterm_handler);
  
+  // Try to Create the semaphores
   semid = semget(SEMKEY, SEM_NUM, IPC_CREAT | 0700);
   if(semid == -1) { exit(-1); }
 
+  // Initialize all the semaphores. The created semaphores will work
+  // as binary semaphores.
   arg.array = (unsigned short *) malloc(sizeof(short) * SEM_NUM);
   arg.array[SEM0] = 1;
   arg.array[SEM1] = 0;
   semctl(semid, SEM_NUM, SETALL, arg);
   sem_oper.sem_flg = SEM_UNDO;
 
-  shmid = shmget(SEMKEY, sizeof(int)*BOARD_LEN, IPC_CREAT | 0700);
+  // Create the shared memory
+  shmid = shmget(SEMKEY, sizeof(struct Game), IPC_CREAT | 0700);
   if (shmid == -1) { exit(-1); }
   addr = shmat(shmid, 0, 0);
-  
+
+  // Create the players. Player1 is human by default, Player2 can be 
+  // changed with the arguments that are passed to the program.
+  enum PlyrType p2_type;
+  int (*p2_asker)(int,int*);
+
   if(mode) {
-    asker_plr1 = &player_asker;
-    asker_plr2 = &player_asker;
+    p2_asker = &player_asker;
+    p2_type = Human;
   }else {
-    asker_plr1 = &player_asker;
-    asker_plr2 = &ai_asker;
+    p2_asker = &ai_asker;
+    p2_type = Ai;
   }
 
+  struct Player p1 = { &player_asker, Human, DEF_P1_REP, PLAYER_1 };
+  struct Player p2 = { p2_asker, p2_type, DEF_P2_REP, PLAYER_2 };
+
+  // Initialize the board and game
+  game.t_index = 1;
+  game.players[0] = p1;
+  game.players[1] = p2;
+
+  // With fork we create two separated processes. Those processes
+  // are used to manage the players turns.
   switch(fork()) {
     case -1: 
       exit(-1);
     break;
 
     case 0:
-      process_id = PLAYER_1;
-      addr[0] = used;
-      printf("New game just started...");
+      // Player1 process (child) - Its the first to move
+      process_id = p1.id;
+      addr[0] = game;
 
       while(1) {
+        // Do a WAIT to the semaphore0
         sem_oper.sem_num = SEM0;
         sem_oper.sem_op = -1;
         semop(semid, &sem_oper, 1);
         
-        game_eval = evaluateGame(addr[0].arr, PLAYER_1);
-        if(boardIsFull(addr[0].arr) || game_eval != COND_KEEP) {
-          break;
+        // Get the actual evaluation of the game and check if the
+        // game is over (Anything else than G_Keep).
+        g_state = evaluateGame(addr[0].board);
+        if(g_state != G_Keep) { 
+          // Do a SIGNAL to semaphore1
+          sem_oper.sem_num = SEM1;
+          sem_oper.sem_op = 1;
+          semop(semid, &sem_oper, 1);  
+          break; 
         }        
         
         system("clear");
-        printf("\nThe actual board state is:\n\n");
-        printBoard(addr[0].arr);
+        printf("The actual board state is:\n\n");
+        printBoard(addr[0]);
+      
+        // Ask player1 the next move and apply it
+        int pos = p1.asker(process_id, addr[0].board);
+        addr[0].board[pos] = p1.id;
+        addr[0].t_index ^= 1;
         
-        int pos = (*asker_plr1)(process_id, addr[0].arr);
-        addr[0].arr[pos] = PLAYER_1;
-
+        // Do a SIGNAL to semaphore1
         sem_oper.sem_num = SEM1;
         sem_oper.sem_op = 1;
         semop(semid, &sem_oper, 1);
@@ -98,43 +124,55 @@ void start_game(int mode) {
     break;
 
     default:
-      process_id = PLAYER_2;
+      // Player2 process (child) - Is the second to move 
+      process_id = p2.id;
 
       while(1) {
+        // Make a WAIT to semaphore1
         sem_oper.sem_num = SEM1;
         sem_oper.sem_op = -1;
         semop(semid, &sem_oper, 1);
 
-        game_eval = evaluateGame(addr[0].arr, PLAYER_2);
-        if(boardIsFull(addr[0].arr) || game_eval != COND_KEEP) {
-          break;
+        // Get the actual evaluation of the game and check if the
+        // game is over (Anything else than G_Keep). 
+        g_state = evaluateGame(addr[0].board);
+        if(g_state != G_Keep) {
+          // Make a SIGNAL to semaphore0 
+          sem_oper.sem_num = SEM0;
+          sem_oper.sem_op = 1;
+          semop(semid, &sem_oper, 1);
+          break; 
         }
         
         system("clear");
-        printf("\nThe actual board state is:\n");
-        printBoard(addr[0].arr);
+        printf("The actual board state is:\n\n");
+        printBoard(addr[0]);
 
-        int pos = (*asker_plr2)(process_id, addr[0].arr);
-        addr[0].arr[pos] = PLAYER_2;
-
+        // Ask player2 the next move and apply it 
+        int pos = p2.asker(process_id, addr[0].board);
+        addr[0].board[pos] = p2.id;
+        addr[0].t_index ^= 1;
+        
+        // Make a SIGNAL to semaphore0 
         sem_oper.sem_num = SEM0;
         sem_oper.sem_op = 1;
         semop(semid, &sem_oper, 1);
       }
+
+      // Finish the game 
+      system("clear");
+      printf("The final board state is:\n");
+      printBoard(addr[0]);
+   
+      if(g_state == G_Draw) {
+        printf("There was a draw!");
+      } else {
+        printf("Player%d won!", (addr[0].t_index)+1);
+      }
+      delete_resources();
+      wait(&join);
     break;
   }
-
-  if(process_id == PLAYER_1) {
-    printf("\nAfter the last move, the board state is:\n");
-    printBoard(addr[0].arr);
-
-    switch (game_eval) {
-      case INT_MAX: printf("Player1 wins! :)\n\n");  break;
-      case INT_MIN: printf("Player2 wins! :)\n\n");  break;
-      case COND_DRAW: printf("Its a draw! :O\n\n");   break;
-    }
-  }
-  delete_resources();
 }
 
 void delete_resources() {
@@ -145,13 +183,11 @@ void delete_resources() {
 }
 
 void sigint_handler(int signum) {
-    if(process_id == PLAYER_2) return;
     delete_resources();
     exit(signum);
 }
 
 void sigterm_handler(int signum) {
-    if(process_id == PLAYER_2) return;
     delete_resources();
     exit(signum);
 }

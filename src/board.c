@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <limits.h>
-#include "constants.h"
 #include "board.h"
+#include "board_info.h"
 
 int boardIsFull(int board[]) {
   for (int i=0; i< BOARD_LEN; i++)
@@ -10,55 +9,77 @@ int boardIsFull(int board[]) {
 	return 1;
 }
 
-int evaluateInStep(int start, int step, int board[], int bias) {
- int pre_owner = 0;
+enum GameState evaluateInStep(int start, int step, int end, int* board) {
+  int counter = 1;
+  int player = board[start];
+  int actual;
 
-  for (int i = start; i <= start + step; i += step) {
-			pre_owner = board[i-step];
-			if (pre_owner == PLAYER_N || board[i] != pre_owner)
-				return PLAYER_N;
-		}
-		return (pre_owner == bias)? INT_MAX : INT_MIN;
+  for (int i = start + step; i <= end; i += step) {
+	  actual = board[i];
+
+    if(actual == PLAYER_N) {
+      counter = 0;
+      continue;
+    }
+    if(actual != player) {
+      counter = 1;
+      player = actual;
+      continue;
+    }
+    if(++counter == 3) {
+      return G_Victory;
+    }
+  }
+  return G_Keep;
 }
 
-int evaluateGame(int board[], int bias) {
-  		// Diagonal left up - right down
-		int result = evaluateInStep(4, 4, board, bias);
-		if (result != PLAYER_N)
+enum GameState evaluateGame(int* board) {
+		enum GameState result;
+
+    // Diagonal left up - right down
+    result = evaluateInStep(0, 4, 8, board);
+		if (result != G_Keep)
 			return result;
 
 		// Diagonal right up - left down
-		result = evaluateInStep(4, 2, board, bias);
-		if (result != PLAYER_N)
+		result = evaluateInStep(2, 2, 6, board);
+		if (result != G_Keep)
 			return result;
 
 		// All the rows
-		for (int i = 1; i <= 7; i += 3) {
-			result = evaluateInStep(i, 1, board, bias);
-			if (result != PLAYER_N)
+		for (int i = 0; i <= 6; i += 3) {
+			result = evaluateInStep(i, 1, i+2, board);
+			if (result != G_Keep)
 				return result;
 		}
 
 		// All the columns
-		for (int i = 3; i <= 5; i += 1) {
-			result = evaluateInStep(i, 3, board, bias);
-			if (result != PLAYER_N)
+		for (int i = 0; i <= 2; i ++) {
+			result = evaluateInStep(i, 3, i+6, board);
+			if (result != G_Keep)
 				return result;
 		}
-		return (boardIsFull(board))? COND_DRAW : COND_KEEP;
+		return (boardIsFull(board))? G_Draw : G_Keep;
 }
 
-void printBoard(int board[]) {
-  printf("    0   1   2\n  ┌───┬───┬───┐\n");
+void printBoard(struct Game g) {
+  struct Player* p1 = &g.players[0];
+  struct Player* p2 = &g.players[1]; 
+
+  printf("     0   1   2\n   ┌───┬───┬───┐ Player1: '%c' \n", p1->pl_rep);
 
   for (int i = 0; i < BOARD_LEN; i++) {
-    if(i%3 == 0)
-      printf("%d ", i/3);
+    if(i%3 == 0) { printf(" %d ", i/3); }
 
-    printf("│ %c ", (board[i] == PLAYER_1)? 'x' : ((board[i] == PLAYER_2)? 'o' : ' '));
+    printf("│ %c ", (g.board[i] == p1->id)? p1->pl_rep : 
+           ((g.board[i] == p2->id)? p2->pl_rep : ' '));  
     
-    if (i == 2 || i == 5) 
-      printf("│\n  ├───┼───┼───┤\n");
+    if(i == 5) {
+      printf("│\n   ├───┼───┼───┤\n");
+    }
+    if (i == 2) { 
+      printf("│ Player2: '%c'\n   ├───┼───┼───┤\n", p2->pl_rep); 
+    }
   }
-  printf("│\n  └───┴───┴───┘\n");
+  printf("│\n   └───┴───┴───┘\n");
 }

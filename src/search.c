@@ -1,22 +1,27 @@
 #include <limits.h>
-#include "constants.h"
-#include "board.h"
 #include "search.h"
+#include "game_info.h"
+#include "board_info.h"
+#include "board.h"
+#include "heuristic.h"
 
-int minimax(int board[], int is_maximizing, int player_id) {
+int minimax(int* board, int is_maximizing, int pmaxId, int pminId) {
+  int eval = heuristic(board, pmaxId); 
+  if(eval != EVAL_KEEP /*|| depth == maxdepth*/) { // Terminal node
+    return (eval == MAX_EVAL)? MAX_EVAL /* -depth */ :
+      ((eval == MIN_EVAL)? MIN_EVAL /* +depth */ : NO_EVAL);
+  }
+
   int score;
   int best_score;
-
-  score = evaluateGame(board, player_id);
-  if(score != COND_KEEP) return score;
 
   if(is_maximizing) {
     best_score = INT_MIN;
     
     for (int i = 0; i < BOARD_LEN; i++) {
       if(board[i] == PLAYER_N) {
-        board[i] = PLAYER_2;
-        score = minimax(board, 0, player_id);
+        board[i] = pmaxId;
+        score = minimax(board, 0, pmaxId, pminId);
         board[i] = PLAYER_N;
         best_score = max(score, best_score);
       }
@@ -27,8 +32,8 @@ int minimax(int board[], int is_maximizing, int player_id) {
 
     for (int i = 0; i < BOARD_LEN; i++) {
       if (board[i] == PLAYER_N) {
-        board[i] = PLAYER_1;
-        score = minimax(board, 1, player_id);
+        board[i] = pminId;
+        score = minimax(board, 1, pmaxId, pminId);
         board[i] = PLAYER_N;
         best_score = min(score, best_score);
       }

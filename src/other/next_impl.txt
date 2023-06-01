@@ -6,8 +6,11 @@ In this file, the different upgrades that can be added in the future will be sho
         player* p2 -> player 2
 
     2) Implementation of a player as a struct with the following fields:
-        int id
-        char pl_rep -> player 1 representation (x, o,...)
+        int asker* (int*, Player)
+        char pl_rep -> player representation ('x', 'o',...)
+
+    3) Implementation of a enum that tells the actual status of the game
+    instead of raw constants.
 
     3) Substitution of some of the basic game constants that are currently
     defined as numbers (unnecessary) with Enumerations.
