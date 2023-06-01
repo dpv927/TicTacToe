@@ -25,9 +25,8 @@ The compilation process is only available on Linux due to the use of System V se
 cd tic-tac-toe
 make clean all # Alternatively, use 'make clean-build'
 ```
-
-If wou want to modify any value or see more compilation commands, just check the makefile. This file is well documented, so everything should be 
-very easy to understand to a basic C or Linux user.
+> **Note**
+> If wou want to modify any value or see more compilation commands, just check the makefile. This file is well documented, so everything should be very easy to understand to a basic C or Linux user.
 
 ## License
 The entire ttt project is licensed under the [GNU General Public License v2.0](License). Please make sure to read the requirements before making any changes to this project.
