@@ -16,7 +16,7 @@ enum PlyrType { Ai, Human };
 
 /* We need a way to represent the role of a player into the 
  * console, so its human readable. */
-// static const char* PTypes[] = { "Ai","Human" };
+static const char* PTypes[] = { "Ai","Human" };
 
 /* Struct that represents a player in the program.
  * asker: Pointer to a function that gets a move from the player 

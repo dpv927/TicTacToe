@@ -27,9 +27,10 @@ void sigterm_handler(int signum);
 void delete_resources();
 
 /**
-* @brief Empieza una nueva partida entre dos jugadores.
-* Los juagdores pueden ser dos personas o una persona contra la AI.
-* @param mode Modo de juego que se le especifica a la funcion. Si mode
-* es 0, entonces se creará un juego entre la AI y un jugador, mientras que si
-* mode es 1, se creara una partida para dos jugadores. **/
+* @brief Starts a new game between two players.
+* The players can be two people or one person against the AI.
+
+* @param mode Game mode specified for the function. If mode
+* is 0, then a game between the AI and a player will be created, while if
+* mode is 1, a game for two players will be created. **/
 void start_game(int mode);

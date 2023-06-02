@@ -4,15 +4,8 @@ board.c       Implementation of the board functions
 board.h       Documentation and definition of all the
               board functions. 
 
-constants.h   Definition of almost all the constants
-              that are used in the application. 
-
-game-asker.c  Implementation of the functions that 
-              are responsable of generating moves
-              for the players.
-
-game-asker.h  Documentation and definition of all the
-              game-asker functions.
+board_info.h  Information, constants and more items related
+              to a tic-tac-toe board.
 
 game.c        Implementation of the mechanic of the game.
               The game loops and management are done here.
@@ -20,8 +13,27 @@ game.c        Implementation of the mechanic of the game.
 game.h        Documentation and definition of all of the
               functions of game.c
 
+game_asker.c  Implementation of the functions that 
+              are responsable of generating moves
+              for the players.
+
+game_asker.h  Documentation and definition of all the
+              game-asker functions.
+
+game_info.h   Definition of game constants, and the
+              structure that represents a Game.
+
+heuristic.c   Definition of the functions that calculates a
+              heuristic value over a state of a Game board.
+
+heuristic.h   Definition of the heuristic functions and constants
+              that define the values returned by those functions.
+
 Makefile      Makefile of the project. See the README.md 
               file or this file for compile options.
+
+player.h      Definition of player constants, and the
+              structure that represents a player.
 
 resources.c   Implementation of some functions that load 
               resources such as file contents and others. 
@@ -35,4 +47,6 @@ search.c      Functions that are used for the AI's best-move
 search.h      Documentation and deeefinition of all the 
               functions at search.c
 
-ttt.c         
+ttt.c         Main source file of the program. It contais the main() 
+              function that manages different scenarios by the parameters
+              that are given to the application.

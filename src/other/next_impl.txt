@@ -1,29 +1,7 @@
 In this file, the different upgrades that can be added in the future will be shown, with an order of preference or urgency.
 
-    1) Implementation of the board as a struct with the following fields:
-        int* board -> game board
-        player* p1 -> player 1
-        player* p2 -> player 2
+    1) A new parameter for the application that allows to specify the 
+    maximun depth for the AI search.
 
-    2) Implementation of a player as a struct with the following fields:
-        int asker* (int*, Player)
-        char pl_rep -> player representation ('x', 'o',...)
-
-    3) Implementation of a enum that tells the actual status of the game
-    instead of raw constants.
-
-    3) Substitution of some of the basic game constants that are currently
-    defined as numbers (unnecessary) with Enumerations.
-
-    4) Better AI: Currently, there's a very poor evaluation of the game
-    and heuristic, so the AI makes stupid errors.
-
-    5) Player chooser: Currently, player 1 can only be a human, and
-    player 2 can be a human or the AI. An upgrade could be letting
-    the user choose their own player.
-
-    6) More info at the display: When the current state of the board is
-    displayed on the console, the only info shown is the board
-    representation. A good idea could be showing more info, such as the
-    players' IDs, their representation ('x', 'o', ...), and status 
-    (choosing, waiting).
+    2) A new function in the application that allows to get the best move
+    from a player in a specified game state.
