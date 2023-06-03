@@ -1,7 +1,0 @@
-In this file, the different upgrades that can be added in the future will be shown, with an order of preference or urgency.
-
-    1) A new parameter for the application that allows to specify the 
-    maximun depth for the AI search.
-
-    2) A new function in the application that allows to get the best move
-    from a player in a specified game state.

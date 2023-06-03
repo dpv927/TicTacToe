@@ -31,7 +31,7 @@ struct Game game;
 struct Game* addr;
 /* global variables definition */
 
-void start_game(int mode) {
+void start_game(int mode, int maxAidepth) {
   int join;
   enum GameState g_state;
   struct sembuf sem_oper;
@@ -60,7 +60,7 @@ void start_game(int mode) {
   // Create the players. Player1 is human by default, Player2 can be 
   // changed with the arguments that are passed to the program.
   enum PlyrType p2_type;
-  int (*p2_asker)(int,int*);
+  int (*p2_asker)(int,int*, int);
 
   if(mode) {
     p2_asker = &player_asker;
@@ -112,7 +112,7 @@ void start_game(int mode) {
         printBoard(addr[0]);
       
         // Ask player1 the next move and apply it
-        int pos = p1.asker(process_id, addr[0].board);
+        int pos = p1.asker(process_id, addr[0].board, maxAidepth);
         addr[0].board[pos] = p1.id;
         addr[0].t_index ^= 1;
         
@@ -149,7 +149,7 @@ void start_game(int mode) {
         printBoard(addr[0]);
 
         // Ask player2 the next move and apply it 
-        int pos = p2.asker(process_id, addr[0].board);
+        int pos = p2.asker(process_id, addr[0].board, maxAidepth);
         addr[0].board[pos] = p2.id;
         addr[0].t_index ^= 1;
         
