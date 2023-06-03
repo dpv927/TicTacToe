@@ -15,7 +15,7 @@ This application is dedicated to playing games between humans and machines. The 
 
 `--player-mode`: Play against another human or play with yourself.<br>
 `--ai-mode`: Play against the machine.<br>
-`--max-depth`: Specify the maximum depth of the AI's search tree.
+`--max-depth`: Specify the maximum depth of the AI's search tree.<br>
 `--help`: Show the help file.<br>
 `--version`: Show the current version of ttt-play.<br>
 
