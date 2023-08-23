@@ -37,13 +37,24 @@ x - -
 If we ignore the '-' symbols, we can see that the 'x' player made a move at (0,0), and the 'o' player made a move at (2,1). NOTE: In the game, player1 is represented by 'x', and player2 is represented by 'o'.
 
 .SH OPTIONS
---ai-mode                Play 1v1 with an AI.
-.br
---player-mode            Play 1v1 with physical players.
-.br
---version                Display ttt version information.
-.br
---help                   Display a help message like this section.    
+
+.PP
+--ai-mode                Play 1v1 with an AI. This command can be followed only by
+                         the '--max-depth' command and a number after this last
+                         command one. Example: "--ai-mode --max-depth 9" (Only in 
+                         this specific order).
+.PP
+--player-mode            Play 1v1 with physical players. No more
+                         parameters are available after this command.
+.PP
+--max-depth <num>        Specify the maximum search depth for the AI. This can be
+                         the third argument, being a number between 1 and 9.
+.PP
+--version                Display ttt version information. No more
+                         parameters are available after this command.
+.PP
+--help                   Display a help message. No more parammeters are 
+                         available after this command.
 
 .SH SEE ALSO
 No related manuals are available.

@@ -1,14 +1,16 @@
 Usage: ttt <option> ... <option>
-Options:
+
+Options/Parameters:
   --ai-mode                Play 1v1 with an AI. This command can be followed only by
                            the '--max-depth' command and a number after this last
-                           command one. Example: "--ai-mode --max-depth 9" 
+                           command one. Example: "--ai-mode --max-depth 9" (Only in 
+                           this specific order).
 
   --player-mode            Play 1v1 with physical players. No more
                            parameters are available after this command.
 
-  --max-depth <num>        Specify the maximum search depth for the AI. 
-                           This must be the third argment.
+  --max-depth <num>        Specify the maximum search depth for the AI. This can be
+                           the third argument, being a number between 1 and 9.
 
   --version                Display ttt version information. No more
                            parameters are available after this command.
