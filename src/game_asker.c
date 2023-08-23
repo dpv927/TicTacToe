@@ -1,24 +1,44 @@
 #include <stdio.h>
 #include <limits.h>
+#include <stdlib.h>
 #include "game_asker.h"
 #include "player.h"
 #include "search.h"
 #include "board_info.h"
 
 int player_asker(int player_id, int* board, int depth) {
+  char input[100]; 
+  char* endptr; 
+  long int num;
+
   int targetPos;
   int x = -1;
   int y = -1;
 
   while(x<0 || x>2 || y<0 || y>2 || board[targetPos] != PLAYER_N) {
     printf("\nPlayer%d ┌──────────── Row: ", player_id);
-    int errX = scanf("%d", &x);
+    scanf("%s", input);
+    num = strtol(input, &endptr, 10);
     printf("────────┤\n        └───────── Column: ");
-    int errY = scanf("%d", &y);
-    fflush(stdin);
 
-    if(errX != 1 || errY !=1) { x = y = -1; }
-    targetPos = x*3+y;
+    if (*endptr == '\0') { //Valid number
+      x = atoi(input);
+    } else { // Not a number
+      printf("-\n");
+      continue;
+    }
+
+    scanf("%s", input);
+    num = strtol(input, &endptr, 10);
+
+    if (*endptr == '\0') { //Valid number
+      y = atoi(input);
+    } else { // Not a number
+      continue;
+    }
+
+    fflush(stdin);
+    targetPos = x*3+y; 
   }
   return targetPos;
 }
