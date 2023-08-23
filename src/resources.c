@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 void printdoc(char* path) {
+  char *home_dir = getenv("HOME");
   FILE *fptr;
   char c;
 
