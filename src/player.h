@@ -32,7 +32,7 @@ static const char* PTypes[] = { "Ai","Human" };
  * id: Integer that represents a player in a board. Check the PLAYER_*
  * constants for more info. */
 struct Player {
-  int (*asker)(int, int*);
+  int (*asker)(int, int*, int);
   enum PlyrType type;
   char pl_rep;
   int id; 

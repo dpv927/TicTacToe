@@ -33,4 +33,4 @@ void delete_resources();
 * @param mode Game mode specified for the function. If mode
 * is 0, then a game between the AI and a player will be created, while if
 * mode is 1, a game for two players will be created. **/
-void start_game(int mode);
+void start_game(int mode, int maxAidepth);
