@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[]) {
 
-  if(argc > 4) {
+  if(argc > 4 || argc < 2) {
     fprintf(stderr, "\033[1;37mttt: \033[1;31mfatal error: \
 \033[0mInvalid number of arguments!\nexiting...\n");
     exit(1);
@@ -14,11 +14,13 @@ int main(int argc, char *argv[]) {
 
   if(argc == 2) {
     if (strcmp(argv[1], "--version") == 0){
-      printdoc("../doc/version.txt"); 
+      printdoc("/etc/ttt/doc/version.txt"); // release path
+      //printdoc("../doc/version.txt"); // testing path 
       exit(0);
     } 
     if (strcmp(argv[1], "--help") == 0){
-      printdoc("../doc/help.txt");
+      printdoc("/etc/ttt/doc/help.txt"); // release path
+      //printdoc("../doc/help.txt"); // testing path 
       exit(0);
     }
     if(strcmp(argv[1], "--player-mode") == 0) {

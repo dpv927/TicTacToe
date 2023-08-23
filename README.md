@@ -2,12 +2,14 @@
 
 ## Features
 
+- Only for Linux!
 - No dependencies
-- Multiplayer game (Only for Linux)
+- Multiplayer game
+    - PLayers turns syncronization with API Systemm V
     - Linux API System V Semaphores
     - Linux API System V Shared Memory
 - Blazingly fast AI
-- Its made in C -> lightweight
+- Its made in C → lightweight
 - Easy to understand documentation
 
 ## About

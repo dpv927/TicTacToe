@@ -27,12 +27,24 @@ clean:
 clean-build:
 	clean all
 
-install:
-	all
+install: all
 	@echo "Copying the man page..."
-	sudo cp -r $(MAN) /usr/share/man/man6
+	sudo cp -r $(MAN) /usr/share/man/man6/
 	@echo "Copying the executable to /usr/bin/..."
-	sudo cp -r $(TARGET) /usr/bin
+	sudo cp -r $(TARGET) /usr/bin/
+	@echo "Copiying the documentation to /etc/ttt..."
+	sudo mkdir -p /etc/ttt/doc/
+	sudo cp -r ../doc/help.txt /etc/ttt/doc/
+	sudo cp -r ../doc/version.txt /etc/ttt/doc/
+	@echo "Finished."
+
+uninstall:
+	@echo "Removing the man page..."
+	sudo rm /usr/share/man/man6/ttt.6
+	@echo "Removing the executable from /usr/bin/..."
+	sudo rm /usr/bin/$(TARGET)
+	@echo "Removing the documentation..."
+	rm -rf /etc/ttt/
 	@echo "Finished."
 
 help:
@@ -51,4 +63,4 @@ help:
 	@echo "Do you have any doubts? See the Makefile."
 	@echo ""
 
-.PHONY: clean clean-build help
+.PHONY: clean clean-build help install uninstall
