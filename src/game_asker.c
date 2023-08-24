@@ -54,7 +54,7 @@ int ai_asker(int player_id, int* board, int depth) {
   for (int i = 0; i < BOARD_LEN; i++) {
     if(board[i] == PLAYER_N) {
       board[i] = pmax;
-      score = minimax(board, 0, pmax, pmin, 1, depth);
+      score = alphabeta(board, 0, pmax, pmin, 1, depth, INT_MIN, INT_MAX);
       board[i] = PLAYER_N;
 
       if(score > best_score) {
