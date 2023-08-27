@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     } else if(strcmp(argv[1], "--ai-mode") == 0) {
       start_game(0, 9);
     } else {
-      printf(stderr, "\033[1;37mttt: \033[1;31mfatal error: \
+      fprintf(stderr, "\033[1;37mttt: \033[1;31mfatal error: \
 \033[0mUnrecognized option: %s\nexiting...\n", argv[1]);
     }
   }
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     if(strcmp(argv[1], "--search") == 0) {
        // call analysis func with argv[2] as FEN
     }else {
-      printf(stderr, "\033[1;37mttt: \033[1;31mfatal error: \
+      fprintf(stderr, "\033[1;37mttt: \033[1;31mfatal error: \
 \033[0mUnrecognized option: %s\nexiting...\n", argv[1]);
     }
   }
@@ -55,11 +55,11 @@ int main(int argc, char *argv[]) {
         // as depth.
       }
       else {
-        printf(stderr, "\033[1;37mttt: \033[1;31mfatal error: \
+        fprintf(stderr, "\033[1;37mttt: \033[1;31mfatal error: \
 \033[0mUnrecognized option: %s\nexiting...\n", argv[3]);
       }
     }else {
-      printf(stderr, "\033[1;37mttt: \033[1;31mfatal error: \
+      fprintf(stderr, "\033[1;37mttt: \033[1;31mfatal error: \
 \033[0mUnrecognized option: %s\nexiting...\n", argv[1]);
     }
   }
