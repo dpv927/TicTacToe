@@ -47,6 +47,6 @@ search.c      Functions that are used for the AI's best-move
 search.h      Documentation and deeefinition of all the 
               functions at search.c
 
-ttt.c         Main source file of the program. It contais the main() 
+main.c        Main source file of the program. It contais the main() 
               function that manages different scenarios by the parameters
               that are given to the application.
