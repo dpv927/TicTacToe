@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -std=c99 -Ofast -march=native -mtune=native
 CEXTRAFLAGS=-funroll-loops -finline-functions -fomit-frame-pointer -falign-loops -falign-labels
-SRCS=analysis.c board.c game.c game_asker.c heuristic.c resources.c search.c main.c
+SRCS=parameters.c analysis.c board.c game.c game_asker.c heuristic.c resources.c search.c main.c
 OBJS=$(SRCS:.c=.o)
 MAN=../doc/ttt.6
 TARGET=ttt
