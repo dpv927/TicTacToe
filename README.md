@@ -20,6 +20,7 @@ This application is dedicated to playing games between humans and machines. The 
 `--max-depth`: Specify the maximum depth of the AI's search tree.<br>
 `--help`: Show the help file.<br>
 `--version`: Show the current version of ttt-play.<br>
+`--search`: Search the best move for a player given a game state. <br>
 
 ## Compiling ttt
 The compilation process is only available on Linux due to the use of System V semaphores and shared memory API. A custom makefile has been created, and you can compile the program using the following command:
