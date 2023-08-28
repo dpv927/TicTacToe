@@ -83,7 +83,7 @@ void start_game(int mode, int maxAidepth) {
   // are used to manage the players turns.
   switch(fork()) {
     case -1: 
-      exit(-1);
+      exit(1);
     break;
 
     case 0:
