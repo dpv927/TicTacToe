@@ -1,7 +1,7 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -std=c99 -O3 -march=native -mtune=native
-
-SRCS=heuristic.c game_asker.c board.c game.c resources.c search.c ttt.c
+CFLAGS=-Wall -Wextra -std=c99 -Ofast -march=native -mtune=native
+CEXTRAFLAGS=-funroll-loops -finline-functions -fomit-frame-pointer -falign-loops -falign-labels
+SRCS=parameters.c analysis.c board.c game.c game_asker.c heuristic.c resources.c search.c main.c
 OBJS=$(SRCS:.c=.o)
 MAN=../doc/ttt.6
 TARGET=ttt
@@ -11,7 +11,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	@echo "Compiling the source files: $(SRCS)"
 	@echo "Executable Target: $(TARGET)"
-	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+	$(CC) $(CFLAGS) $(CEXTRAFLAGS) $(OBJS) -o $(TARGET)
 	@echo "Finished."
 
 %.o: %.

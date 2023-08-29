@@ -4,7 +4,8 @@ Options/Parameters:
   --ai-mode                Play 1v1 with an AI. This command can be followed only by
                            the '--max-depth' command and a number after this last
                            command one. Example: "--ai-mode --max-depth 9" (Only in 
-                           this specific order).
+                           this specific order). The Ai's search depth in this case will
+                           be the default (9 nodes = max).
 
   --player-mode            Play 1v1 with physical players. No more
                            parameters are available after this command.
@@ -17,3 +18,44 @@ Options/Parameters:
 
   --help                   Display this message. No more parammeters are 
                            available after this command.
+
+  --search <state>         Search for the best move from a given state of a game board,
+                           which also indicates what player has to move.
+
+
+
+                                        --- EXAMPLES ---
+
+ttt --ai-mode --depth 8    Play a 1vs1 game against the Ai. The Ai can search at a 
+                           maximum depth of 8 nodes in the search tree.
+
+ttt --search '1---122-- 1' Search for the best move at the given game state. The game state
+                           string has two parts. The first describes the current moves over
+                           the board, where each caracter defines the player that is allocated
+                           in that cell of the board ('1' = player1, '2' = player2, and '-'
+                           means that the cell is empty). 
+
+                           This part describes each row of the board, from top to bottom and from 
+                           left to right. If you didn't understand this last part, the board 
+                           representation of '1---122-- 1' it's the following one:
+                                                  
+                                                      ┌───┬───┬───┐ 
+                                                      │ x │   │   │ 
+                                                      ├───┼───┼───┤
+                                                      │   │ x │ o │
+                                                      ├───┼───┼───┤
+                                                      │ o │   │   │
+                                                      └───┴───┴───┘
+                            
+                           The second part of the string, is separated by a space and tells what 
+                           player has to move next. The search will look for the best move for 
+                           this player with the default search depth (9 nodes = max).
+
+ttt --search '2---211-- 2' --depth 6   Same as the last command, but this time we add the depth 
+                                       option to limit the search at a specific node depth, such
+                                       as you can do at the '--ai-mode --depth 8' command shown 
+                                       before.
+
+IMPORTANT NOTE: Every command must be typed in the shown order at this guide. Otherwise, ttt will
+                  tell the user that the typed command is not valid.
+

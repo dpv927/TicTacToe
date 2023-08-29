@@ -1,12 +1,13 @@
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/shm.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <signal.h>
 #include <stdio.h>
 #include <fcntl.h>
-#include <signal.h>
 #include "game.h"
 #include "board.h"
 #include "board_info.h"
@@ -82,7 +83,7 @@ void start_game(int mode, int maxAidepth) {
   // are used to manage the players turns.
   switch(fork()) {
     case -1: 
-      exit(-1);
+      exit(1);
     break;
 
     case 0:

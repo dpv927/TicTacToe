@@ -9,16 +9,15 @@
 int player_asker(int player_id, int* board, int depth) {
   char input[100]; 
   char* endptr; 
-  long int num;
 
-  int targetPos;
+  int targetPos = 0;
   int x = -1;
   int y = -1;
 
   while(x<0 || x>2 || y<0 || y>2 || board[targetPos] != PLAYER_N) {
     printf("\nPlayer%d ┌──────────── Row: ", player_id);
     scanf("%s", input);
-    num = strtol(input, &endptr, 10);
+    strtol(input, &endptr, 10);
     printf("────────┤\n        └───────── Column: ");
 
     if (*endptr == '\0') { //Valid number
@@ -29,7 +28,7 @@ int player_asker(int player_id, int* board, int depth) {
     }
 
     scanf("%s", input);
-    num = strtol(input, &endptr, 10);
+    strtol(input, &endptr, 10);
 
     if (*endptr == '\0') { //Valid number
       y = atoi(input);
@@ -47,14 +46,14 @@ int ai_asker(int player_id, int* board, int depth) {
   int pmax = player_id;
   int pmin = (pmax == PLAYER_2)? PLAYER_1 : PLAYER_2; 
   int best_score = INT_MIN;
+  int score = 0, aux = 0;
   int move = -1;
-  int score;
-  int aux;
 
   for (int i = 0; i < BOARD_LEN; i++) {
     if(board[i] == PLAYER_N) {
       board[i] = pmax;
-      score = minimax(board, 0, pmax, pmin, 1, depth);
+      score = alphabeta(board, 0, pmax, pmin, 1, 
+                        (depth > 9 || depth < 1)? 9 : depth, INT_MIN, INT_MAX);
       board[i] = PLAYER_N;
 
       if(score > best_score) {
