@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -std=c99 -Ofast -march=native -mtune=native
-CEXTRAFLAGS=-funroll-loops -finline-functions -fomit-frame-pointer -falign-loops -falign-labels
+#CEXTRAFLAGS=-funroll-loops -finline-functions -fomit-frame-pointer -falign-loops -falign-labels
 SRCS=parameters.c analysis.c board.c game.c game_asker.c heuristic.c resources.c search.c main.c
 OBJS=$(SRCS:.c=.o)
 MAN=../doc/ttt.6
@@ -27,7 +27,7 @@ clean:
 clean-build:
 	clean all
 
-install: all
+install: clean all
 	@echo "Copying the man page..."
 	sudo cp -r $(MAN) /usr/share/man/man6/
 	@echo "Copying the executable to /usr/bin/..."
@@ -58,7 +58,8 @@ help:
 	@echo "all 				> Only compile."
 	@echo "clean 				> Clean the Makefile directory from old files."
 	@echo "clean-build 			> Clean and complile."
-	@echo "install 			> Install executable."
+	@echo "install 			> Compiles and installs ttt in the system."
+	@echo "uninstall			> Removes ttt if it is installed in the system."
 	@echo ""
 	@echo "Do you have any doubts? See the Makefile."
 	@echo ""

@@ -50,3 +50,9 @@ search.h      Documentation and deeefinition of all the
 main.c        Main source file of the program. It contais the main() 
               function that manages different scenarios by the parameters
               that are given to the application.
+
+analysis.c    Functions that are used to analize a game state and search for
+              the best possible move for a player.
+
+analysis.h    Documentation and deeefinition of all the 
+              functions at analysis.c

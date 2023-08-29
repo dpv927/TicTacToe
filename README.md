@@ -4,12 +4,12 @@
 
 - Only for Linux!
 - No dependencies
+- Best move finder
 - Multiplayer game
     - PLayers turns syncronization with API Systemm V
     - Linux API System V Semaphores
     - Linux API System V Shared Memory
 - Blazingly fast AI
-- Its made in C → lightweight
 - Easy to understand documentation
 
 ## About
@@ -31,6 +31,11 @@ make clean all # Alternatively, use 'make clean-build'
 ```
 > **Note**
 > If wou want to modify any value or see more compilation commands, just check the makefile or the file named 'makefile_opts.txt' at tic-tac-toe/src/about/. This files are well documented, so everything should be very easy to understand to a basic C or Linux user.
+
+If you want to do a quick check to the Make options, you can use the next command;
+```bash
+make help
+```
 
 ## License
 The entire ttt project is licensed under the [GNU General Public License v2.0](License). Please make sure to read the requirements before making any changes to this project.

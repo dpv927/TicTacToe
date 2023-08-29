@@ -1,4 +1,4 @@
-.TH TIC-TAC-TOE 1 "April 5, 2023" "Version 2.0.0" "User Manual"
+.TH TIC-TAC-TOE 1 "August 29, 2023" "Version 3.0.0" "User Manual"
 
 .SH NAME
 Tic-tac-toe \- an app that allows one or two players to play the classic tic-tac-toe game.
@@ -7,7 +7,7 @@ Tic-tac-toe \- an app that allows one or two players to play the classic tic-tac
 ttt [OPTION]
 
 .SH DESCRIPTION
-Tic Tac Toe is a very famous board game, and it is very easy to implement in code. Because of this, I wanted to make it a bit more challenging without changing the basic concepts of the game. To achieve this, I implemented the game using the API System 5 Semaphores and shared memory of Linux to manage both players' turns and the board control. There is also a new feature available at the version 2.0.0 that allows you to play with an AI.
+Tic Tac Toe is a very famous board game, and it is very easy to implement in code. Because of this, I wanted to make it a bit more challenging without changing the basic concepts of the game. To achieve this, I implemented the game using the API System 5 Semaphores and shared memory of Linux to manage both players' turns and the board control. There is also a new feature available at the version 3.0.0 that allows you to seach for the best move given a game state.
 
 .SH USAGE
 The game prompts the players for the coordinates of their next move. First, it asks for the row, and then the column. Let's say that a coordinate is made up of (row, column). The board display is as follows:
@@ -55,6 +55,8 @@ If we ignore the '-' symbols, we can see that the 'x' player made a move at (0,0
 .PP
 --help                   Display a help message. No more parammeters are 
                          available after this command.
+.PP 
+--search                 Search the best move for a player given a game state. 
 
 .SH SEE ALSO
 No related manuals are available.

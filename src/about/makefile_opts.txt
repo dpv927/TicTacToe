@@ -1,13 +1,17 @@
-all:            compiles the project.
+all:            Compiles the project.
 
-clean:          clean all the object files (*.o) and old executables
+clean:          Clean all the object files (*.o) and old executables
                 that were generated at previous compilations.
 
-clean-build:    this is a short and smart option to clean and compile the
+clean-build:    This is a short and smart option to clean and compile the
                 project at once. This is the same as 'clean all'.
 
-install:        compiles the project and copies it to some source folder 
-                such as ~/.local/bin/.
+install:        Compiles the project using 'clean all', copies the generated
+                executable to /usr/bin/, and the documentation to /etc/ttt and
+                the /usr/share/man/man6/ folder.
 
-help:           With this command you can display a message that indicates
-                this commands.
+uninstall:      Removes every file copied at the 'install' command, including the
+                generated folders at /etc/ttt/.
+
+help:           With this command you can display a message that display a text
+                similar to the content of this file.
