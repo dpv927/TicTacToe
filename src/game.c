@@ -32,7 +32,7 @@ struct Game game;
 struct Game* addr;
 /* global variables definition */
 
-void start_game(int mode, int maxAidepth) {
+void start_game(const int mode, const int maxAidepth) {
   int join;
   enum GameState g_state;
   struct sembuf sem_oper;
@@ -176,19 +176,19 @@ void start_game(int mode, int maxAidepth) {
   }
 }
 
-void delete_resources() {
+void sigint_handler(const int signum) {
+    delete_resources();
+    exit(signum);
+}
+
+void sigterm_handler(const int signum) {
+    delete_resources();
+    exit(signum);
+}
+
+void delete_resources(void) {
   semctl(semid, SEM_NUM, IPC_RMID, 0);
   free(arg.array);
   shmdt(addr);
   shmctl(shmid, IPC_RMID, 0);
-}
-
-void sigint_handler(int signum) {
-    delete_resources();
-    exit(signum);
-}
-
-void sigterm_handler(int signum) {
-    delete_resources();
-    exit(signum);
 }
