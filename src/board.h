@@ -3,42 +3,40 @@
 #include "game_info.h"
 
 /**
- * @brief Returns 0 if the board it not full, 1 if it is. This function
- * is used in the 'evaluateGame()' function in order to determine if a 
- * game ended up with a draw or there are more possible moves.
+ * @brief Returns 0 if the board is not full, and 1 if it is. This function
+ * is used in the 'evaluateGame()' function to determine if a game ended in a draw or if there are more possible moves.
  * 
- * @param board Array that represents the game board.
+ * @param board An array representing the game board.
  * 
- * @return Integer value that must be used as a boolean. 
- * (1 = true, 0 = false). **/
-int boardIsFull(int* board);
+ * @return An integer value used as a boolean (1 = true, 0 = false).
+ */
+int boardIsFull(const int* board);
 
 /**
- * @brief Evaluates a group of consecutive cells from
- * a board array. This function is used in 'evaluateGame()'.
+ * @brief Evaluates a group of consecutive cells in a board array. This function is used in 'evaluateGame()'.
  * 
- * @param start Start index of a cell in the board.
- * @param step In how many cells is the next consecutive cells.
- * @param board Array that represents the game board.
+ * @param start The start index of a cell in the board.
+ * @param step The step value indicating how many cells to move to reach the next consecutive cell.
+ * @param end The end index of the group of cells to be evaluated.
+ * @param board An array representing the game board.
  *
- * @returns member of the GameState enumeration. It can be 
- * G_Keep if no one wins, G_Victory if some player has 3 consecutive
- * cells in the evaluated group of cells. **/
-enum GameState evaluateInStep(int start, int step, int end, int* board);
+ * @returns A member of the GameState enumeration. It can be G_Keep if no one wins, or G_Victory if a player has 3 consecutive cells in the evaluated group of cells.
+ */
+enum GameState evaluateInStep(const int start, const int step, const int end, const int* board);
 
 /**
- * @brief Evaluates the actual state of a board. It determines if 
- * any player won, if there is a draw or there are more possible moves.
+ * @brief Evaluates the current state of a board, determining if any player has won, if there is a draw, or if there are more possible moves.
  *
- * @param board Array that represents the game board.
+ * @param board An array representing the game board.
  *
- * @return Member of the GameState enumeration. If any player won, the
- * G_Victory flag is returned. If the board is full (there are no more moves)
- * and no one won, the G_Draw flag is returned. Else, there are more possible 
- * moves in the game and no one won, so the G_Keep flag is returned. **/
-enum GameState evaluateGame(int* board);
+ * @return A member of the GameState enumeration. If any player has won, the G_Victory flag is returned. If the board is full (no more moves possible) and no player has won, the G_Draw flag is returned. Otherwise, if there are more possible moves and no player has won yet, the G_Keep flag is returned.
+ */
+enum GameState evaluateGame(const int* board);
 
 /**
-* @brief Prints the board of a game
-* @param board Game board **/
-void printBoard(struct Game g);
+ * @brief Prints the board of a game.
+ * 
+ * @param g A struct representing the game board.
+ */
+void printBoard(const struct Game g);
+

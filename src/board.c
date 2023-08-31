@@ -2,14 +2,14 @@
 #include "board.h"
 #include "board_info.h"
 
-int boardIsFull(int board[]) {
-  for (int i=0; i< BOARD_LEN; i++)
+int boardIsFull(const int board[]) {
+  for (int i = 0; i < BOARD_LEN; i++)
 	  if (board[i] == PLAYER_N)
 		  return 0;
 	return 1;
 }
 
-enum GameState evaluateInStep(int start, int step, int end, int* board) {
+enum GameState evaluateInStep(const int start, const int step, const int end, const int* board) {
   int counter = 1;
   int player = board[start];
   int actual;
@@ -33,7 +33,7 @@ enum GameState evaluateInStep(int start, int step, int end, int* board) {
   return G_Keep;
 }
 
-enum GameState evaluateGame(int* board) {
+enum GameState evaluateGame(const int* board) {
 		enum GameState result;
 
     // Diagonal left up - right down
@@ -62,9 +62,9 @@ enum GameState evaluateGame(int* board) {
 		return (boardIsFull(board))? G_Draw : G_Keep;
 }
 
-void printBoard(struct Game g) {
-  struct Player* p1 = &g.players[0];
-  struct Player* p2 = &g.players[1]; 
+void printBoard(const struct Game g) {
+  const struct Player* p1 = &g.players[0];
+  const struct Player* p2 = &g.players[1]; 
 
   printf("     0   1   2\n   ┌───┬───┬───┐ Player1 ('%c'): %s\n", p1->pl_rep, PTypes[p1->type]);
 

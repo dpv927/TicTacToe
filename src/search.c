@@ -5,7 +5,8 @@
 #include "board.h"
 #include "heuristic.h"
 
-int alphabeta(int* board, int is_maximizing, int pmaxId, int pminId, int depth, int maxdepth, int alpha, int beta) {
+int alphabeta(int* board, const int is_maximizing, const int pmaxId, const int pminId, const int depth, const int maxdepth, int alpha, int beta) {
+
   int eval = heuristic(board, pmaxId); 
   if(eval != EVAL_KEEP || depth == maxdepth) { // Terminal node
     return (eval == MAX_EVAL)? MAX_EVAL - depth :

@@ -6,7 +6,7 @@
 #include "search.h"
 #include "board_info.h"
 
-int player_asker(int player_id, int* board, int depth) {
+int player_asker(const int player_id, int* board, const int depth) {
   char input[100]; 
   char* endptr; 
 
@@ -42,7 +42,7 @@ int player_asker(int player_id, int* board, int depth) {
   return targetPos;
 }
 
-int ai_asker(int player_id, int* board, int depth) {
+int ai_asker(const int player_id, int* board, const int depth) {
   int pmax = player_id;
   int pmin = (pmax == PLAYER_2)? PLAYER_1 : PLAYER_2; 
   int best_score = INT_MIN;

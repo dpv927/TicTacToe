@@ -1,18 +1,7 @@
 #include "heuristic.h"
 #include "board.h"
 
-int heuristicInStep(int start, int step, int* board, int bias) {
- int pre_owner = 0;
-
-  for (int i = start; i <= start + step; i += step) {
-			pre_owner = board[i-step];
-			if (pre_owner == PLAYER_N || board[i] != pre_owner)
-				return EVAL_KEEP;
-		}
-		return (pre_owner == bias)? MAX_EVAL : MIN_EVAL;
-}
-
-int heuristic(int* board, int bias) {
+int heuristic(int* board, const int bias) {
   	// Diagonal left up - right down
 		int result = heuristicInStep(4, 4, board, bias);
 		if (result != EVAL_KEEP)
@@ -37,4 +26,15 @@ int heuristic(int* board, int bias) {
 				return result;
 		}
 		return (boardIsFull(board))? NO_EVAL : result;
+}
+
+int heuristicInStep(const int start, const int step, int* board, const int bias) {
+ int pre_owner = 0;
+
+  for (int i = start; i <= start + step; i += step) {
+			pre_owner = board[i-step];
+			if (pre_owner == PLAYER_N || board[i] != pre_owner)
+				return EVAL_KEEP;
+		}
+		return (pre_owner == bias)? MAX_EVAL : MIN_EVAL;
 }

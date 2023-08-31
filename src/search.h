@@ -1,23 +1,27 @@
 #pragma once
+
 /** Macros **/
 #define max(a, b) ((a) > (b) ? (a) : (b))
 #define min(a, b) ((a) < (b) ? (a) : (b))
 
 /**
- * @brief Calculates the minimax algorithm (alpha-beta variation) over a board. The algorithm
- * calculates and returns the best possible move for the player to move (AI).
+ * @brief Calculates the minimax algorithm with alpha-beta pruning over a game board.
  *
- * @see Wikipedia definition of minimax (https://en.wikipedia.org/wiki/Minimax) and its upgrade
- * called alpha-beta prunning (https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning).
+ * The algorithm calculates and returns the best possible move for the player to make (AI).
  *
- * @param board Game board.
- * @param is_maximizing Determines if the algorithm has to maximize the move.
- * @param pmaxId Id of the player to maximize.
- * @param pminId Id of the player to minimize.
- * @param depth Current node depth in the search tree.
- * @param maxdepth Maximum depth to reach in the search tree.
- * @param alpha Alpha value. Used to see if its possible to do a alpha cutoff.
- * @param beta Beta value. Used to see if its possible to do a beta cuttof.
+ * For detailed understanding, refer to the Wikipedia definitions of minimax:
+ * (https://en.wikipedia.org/wiki/Minimax) and its advanced version, alpha-beta pruning:
+ * (https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning).
  *
- * @returns Index of the best calculated move. **/
-int alphabeta(int* board, int is_maximizing, int pmaxId, int pminId, int depth, int maxdepth, int alpha, int beta);
+ * @param board The game board.
+ * @param is_maximizing Determines whether the algorithm aims to maximize the move.
+ * @param pmaxId The ID of the player to maximize.
+ * @param pminId The ID of the opponent player to minimize.
+ * @param depth The current node depth in the search tree.
+ * @param maxdepth The maximum depth to reach in the search tree.
+ * @param alpha The alpha value for alpha-beta pruning.
+ * @param beta The beta value for alpha-beta pruning.
+ *
+ * @return The index of the best-calculated move.
+ */
+int alphabeta(int* board, const int is_maximizing, const int pmaxId, const int pminId, const int depth, const int maxdepth, int alpha, int beta);

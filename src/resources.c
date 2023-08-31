@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void printdoc(char* path) {
+void printdoc(const char* path) {
   FILE *fptr;
   char c;
 

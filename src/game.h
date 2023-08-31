@@ -1,36 +1,47 @@
 #pragma once
+
 /**
- * @brief Detects a exit signal with Ctrl+C.
+ * @brief Detects an exit signal triggered by Ctrl+C.
  *
- * We need to know if a user unexpectedly closes or terminates the program in the
- * middle of a game. This is because the operating system's semaphores that are 
- * created at the beginning of the "start_game" function were originally not destroyed
- * until the end of the program, so if the user closed the application in the middle
- * of a game, they would never be destroyed. When the program is restarted, a failure
- * would occur when trying to create semaphores with the same ID as the existing ones
- * (which should have been eliminated).
+ * This function is responsible for detecting if a user unexpectedly closes or terminates the program
+ * in the middle of a game. It addresses a situation where the operating system's semaphores, created at
+ * the beginning of the "start_game" function, were originally not destroyed until the end of the program.
+ * If the user closed the application during a game, these semaphores wouldn't be destroyed, causing issues
+ * when trying to create semaphores with the same ID upon restarting the program. This function helps avoid
+ * such problems.
  *
- * @param signum Signal number. **/
-void sigint_handler(int signum);
+ * @param signum The signal number.
+ */
+void sigint_handler(const int signum);
 
 /**
- * @brief Detects a exit signal with a kill command.
- * @see sigint_handler for a further explanation.
+ * @brief Detects an exit signal triggered by a kill command.
+ * 
+ * Similar to sigint_handler, this function detects an exit signal. For further details, refer to the explanation
+ * provided in the sigint_handler function description.
  *
- * @param signum Signal number. **/
-void sigterm_handler(int signum);
+ * @param signum The signal number.
+ */
+void sigterm_handler(const int signum);
 
 /**
-* @brief Deletes every resource created in the start_game function.
-* @see start_game, sigterm_handler and sigterm_handler to see what delete_resources
-* are we talking about. **/
-void delete_resources();
+ * @brief Deletes all resources created within the start_game function.
+ * 
+ * This function is responsible for cleaning up and deleting any resources that were created during the execution
+ * of the start_game function. For additional context, refer to the start_game, sigint_handler, and sigterm_handler
+ * descriptions.
+ */
+void delete_resources(void);
 
 /**
-* @brief Starts a new game between two players.
-* The players can be two people or one person against the AI.
-
-* @param mode Game mode specified for the function. If mode
-* is 0, then a game between the AI and a player will be created, while if
-* mode is 1, a game for two players will be created. **/
-void start_game(int mode, int maxAidepth);
+ * @brief Initiates a new game between two players.
+ * 
+ * This function starts a new game, which can be a match between two human players or a game between a human player
+ * and the AI. The game mode is specified through the 'mode' parameter. When 'mode' is set to 0, a game between the AI
+ * and a human player is initiated. Conversely, if 'mode' is set to 1, a game for two human players is initiated.
+ *
+ * @param mode The game mode specified for the function. If mode is 0, a game between the AI and a human player is created. 
+ *             If mode is 1, a game for two human players is created.
+ * @param maxAidepth The maximum depth for AI decision-making (if applicable).
+ */
+void start_game(const int mode, const int maxAidepth);
