@@ -6,7 +6,7 @@
 - No dependencies
 - Best move finder
 - Multiplayer game
-    - PLayers turns syncronization with API System V
+    - Players turns syncronization with API System V
     - Linux API System V Semaphores
     - Linux API System V Shared Memory
 - Blazingly fast AI
