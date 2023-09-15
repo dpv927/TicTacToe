@@ -11,8 +11,8 @@
 
 void search(const char* gstate, const int depth) {
   // Initialize game propierties
-  struct Player p1 = { NULL, Ai, DEF_P1_REP, PLAYER_1 };
-  struct Player p2 = { NULL, Ai, DEF_P2_REP, PLAYER_2 };
+  struct Player p1 = { Ai, DEF_P1_REP, PLAYER_1 };
+  struct Player p2 = { Ai, DEF_P2_REP, PLAYER_2 };
 
   struct Game sgame;
   sgame.players[0] = p1;
@@ -20,9 +20,9 @@ void search(const char* gstate, const int depth) {
   initGameState(gstate, &sgame);
 
   // Start the search
-  int best_score = INT_MIN, score = 0, move = -1;
+  int best_score = INT_MIN, score, move = -1;
   int pmax = (sgame.players[sgame.t_index]).id;
-  int pmin = (pmax == PLAYER_1)? PLAYER_2 : PLAYER_1;
+  int pmin = P_MASK ^ pmax;
 
   printf("Searching the best move at '%s'. Player to maximize: player%d ('%c').\n", gstate, pmax, 
          sgame.players[sgame.t_index].pl_rep);
@@ -34,13 +34,12 @@ void search(const char* gstate, const int depth) {
 
   for (int i = 0; i < BOARD_LEN; i++) {
     if(sgame.board[i] == PLAYER_N) {
+
       sgame.board[i] = pmax;
-      score = alphabeta(sgame.board, 0, pmax, pmin, 1, 
-                        (depth > 9 || depth < 1)? 9 : depth, INT_MIN, INT_MAX);
+      score = alphabeta(sgame.board, 0, pmax, pmin, 1, depth, INT_MIN, INT_MAX);
       sgame.board[i] = PLAYER_N;
 
       if(score > best_score) {
-        fflush(stdout);
         printf("Info: Found new best move (%d, %d)\n", (int) (i/3), i%3);
         best_score = score;
         move = i;
@@ -60,7 +59,7 @@ void initGameState(const char* gstate, struct Game* gstruct) {
   /* A example of a gstate string is '1---122-- 1'.
    * See ttt --help or documentation for a more detailed example. */
   if(strlen(gstate) != 11) {
-    printf("Not eleven!");
+    printf("The given game string is not valid.");
     exit(1);
   }
   
@@ -69,7 +68,7 @@ void initGameState(const char* gstate, struct Game* gstruct) {
       case '-': gstruct->board[i] = PLAYER_N; break;
       case '1': gstruct->board[i] = PLAYER_1; break;
       case '2': gstruct->board[i] = PLAYER_2; break;
-      default: printf("Not a char '%c'", gstate[i]); exit(1);
+      default: printf("Not a game char '%c'", gstate[i]); exit(1);
     }
   }
   
@@ -82,7 +81,7 @@ void initGameState(const char* gstate, struct Game* gstruct) {
     switch (gstate[10]) {
       case '1': gstruct->t_index = 0; break;
       case '2': gstruct->t_index = 1; break;
-      default: printf("Not a number '%c'", gstate[10]); exit(1);
+      default: printf("Not a game char '%c'", gstate[10]); exit(1);
     }
   }
 }
