@@ -18,7 +18,9 @@
 #define SEM0 0
 #define SEM1 1
 
-/* global variables definition */
+/* ---------------------------
+ * global variables definition
+ * --------------------------- */
 int semid;
 int shmid;
 int process_id;
@@ -31,7 +33,9 @@ union semun {
 
 struct Game game;
 struct Game* addr;
-/* global variables definition */
+/* ---------------------------
+ * global variables definition
+ * --------------------------- */
 
 void start_game(const int mode, const int maxAidepth) {
   int join;
