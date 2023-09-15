@@ -66,7 +66,8 @@ void printBoard(const struct Game g) {
   const struct Player* p1 = &g.players[0];
   const struct Player* p2 = &g.players[1]; 
 
-  printf("     0   1   2\n   ┌───┬───┬───┐ Player1 ('%c'): %s\n", p1->pl_rep, PTypes[p1->type]);
+  printf("     0   1   2\n   ┌───┬───┬───┐ Player1 ('%c'): Human\n", 
+         p1->pl_rep);
 
   for (int i = 0; i < BOARD_LEN; i++) {
     if(i%3 == 0) { printf(" %d ", i/3); }
@@ -78,7 +79,7 @@ void printBoard(const struct Game g) {
       printf("│\n   ├───┼───┼───┤\n");
     }
     if (i == 2) { 
-      printf("│ Player2 ('%c'): %s\n   ├───┼───┼───┤\n", p2->pl_rep, PTypes[p2->type]); 
+      printf("│ Player2 ('%c'): %s\n   ├───┼───┼───┤\n", p2->pl_rep, (p2->type == Ai)? "Ai" : "Human"); 
     }
   }
   printf("│\n   └───┴───┴───┘\n");

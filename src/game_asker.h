@@ -9,7 +9,7 @@
  * 
  * @return The number of the square that the next move will occupy.
  */
-int player_asker(const int player_id, int* board, const int depth);
+int player_asker(const int player_id, int* board);
 
 /**
  * @brief Manages the request for the next move from the AI.

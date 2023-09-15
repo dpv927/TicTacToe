@@ -12,6 +12,7 @@
 #include "board.h"
 #include "board_info.h"
 #include "game_asker.h"
+#include "player.h"
 #define SEMKEY 175
 #define SEM_NUM 2
 #define SEM0 0
@@ -60,20 +61,18 @@ void start_game(const int mode, const int maxAidepth) {
 
   // Create the players. Player1 is human by default, Player2 can be 
   // changed with the arguments that are passed to the program.
-  enum PlyrType p2_type;
-  int (*p2_asker)(int,int*, int);
+  struct Player p1 = {
+    Human,
+    DEF_P1_REP,
+    PLAYER_1
+  };
 
-  if(mode) {
-    p2_asker = &player_asker;
-    p2_type = Human;
-  }else {
-    p2_asker = &ai_asker;
-    p2_type = Ai;
-  }
-
-  struct Player p1 = { &player_asker, Human, DEF_P1_REP, PLAYER_1 };
-  struct Player p2 = { p2_asker, p2_type, DEF_P2_REP, PLAYER_2 };
-
+  struct Player p2 = {
+    (mode)? Human : Ai,
+    DEF_P2_REP,
+    PLAYER_2
+  };
+  
   // Initialize the board and game
   game.t_index = 1;
   game.players[0] = p1;
@@ -88,7 +87,6 @@ void start_game(const int mode, const int maxAidepth) {
 
     case 0:
       // Player1 process (child) - Its the first to move
-      process_id = p1.id;
       addr[0] = game;
 
       while(1) {
@@ -113,7 +111,7 @@ void start_game(const int mode, const int maxAidepth) {
         printBoard(addr[0]);
       
         // Ask player1 the next move and apply it
-        int pos = p1.asker(process_id, addr[0].board, maxAidepth);
+        int pos = player_asker(p1.id, addr[0].board);
         addr[0].board[pos] = p1.id;
         addr[0].t_index ^= 1;
         
@@ -125,9 +123,6 @@ void start_game(const int mode, const int maxAidepth) {
     break;
 
     default:
-      // Player2 process (child) - Is the second to move 
-      process_id = p2.id;
-
       while(1) {
         // Make a WAIT to semaphore1
         sem_oper.sem_num = SEM1;
@@ -150,7 +145,9 @@ void start_game(const int mode, const int maxAidepth) {
         printBoard(addr[0]);
 
         // Ask player2 the next move and apply it 
-        int pos = p2.asker(process_id, addr[0].board, maxAidepth);
+        int pos = (mode)? player_asker(p2.id, addr[0].board)
+          : ai_asker(p2.id, addr[0].board, maxAidepth);
+
         addr[0].board[pos] = p2.id;
         addr[0].t_index ^= 1;
         
@@ -165,11 +162,12 @@ void start_game(const int mode, const int maxAidepth) {
       printf("The final board state is:\n");
       printBoard(addr[0]);
    
-      if(g_state == G_Draw) {
+      if(g_state == G_Draw)
         printf("There was a draw!");
-      } else {
-        printf("Player%d won!", (addr[0].t_index)+1);
-      }
+      else  printf("Player%d won!", (addr[0].t_index)+1);
+      
+      // Delete the game resources and wait to both 
+      // processes to finish
       delete_resources();
       wait(&join);
     break;
