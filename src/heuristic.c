@@ -1,40 +1,37 @@
+#include <stdint.h>
 #include "heuristic.h"
-#include "board.h"
 
-int heuristic(int* board, const int bias) {
-  	// Diagonal left up - right down
-		int result = heuristicInStep(4, 4, board, bias);
-		if (result != EVAL_KEEP)
-			return result;
+int heuristic(uint16_t pmax, uint16_t pmin) {
+  uint16_t shift;
+ 
+  /* See if some player won in rows */ 
+  for (uint8_t i=0; i<=6; i+=3) {
+    shift = (0x7<<i);
+    if((pmax&shift) == shift)
+      return MAX_EVAL;
+    if((pmin&shift) == shift)
+      return MIN_EVAL;
+  }
 
-		// Diagonal right up - left down
-		result = heuristicInStep(4, 2, board, bias);
-		if (result != EVAL_KEEP)
-			return result;
-
-		// All the rows
-		for (int i = 1; i <= 7; i += 3) {
-			result = heuristicInStep(i, 1, board, bias);
-			if (result != EVAL_KEEP)
-				return result;
-		}
-
-		// All the columns
-		for (int i = 3; i <= 5; i += 1) {
-			result = heuristicInStep(i, 3, board, bias);
-			if (result != EVAL_KEEP)
-				return result;
-		}
-		return (boardIsFull(board))? NO_EVAL : result;
-}
-
-int heuristicInStep(const int start, const int step, int* board, const int bias) {
- int pre_owner = 0;
-
-  for (int i = start; i <= start + step; i += step) {
-			pre_owner = board[i-step];
-			if (pre_owner == PLAYER_N || board[i] != pre_owner)
-				return EVAL_KEEP;
-		}
-		return (pre_owner == bias)? MAX_EVAL : MIN_EVAL;
+  /* See if some player won in columns */ 
+  for (uint8_t i=0; i<=2; i++) {
+    shift = (0x49<<i);
+    if((pmax&shift) == shift)
+      return MAX_EVAL;
+    if((pmin&shift) == shift)
+      return MIN_EVAL;
+     
+  }
+  
+  /* See if some player won in the diagonals. The constant 0x111
+   * represents the '\' diagonal and the 0x54 constant represents
+   * the '/' diagonal. */
+  if((pmax&0x111) == 0x111 || (pmax&0x54) == 0x54)
+    return MAX_EVAL;
+  if((pmin&0x111) == 0x111 || (pmin&0x54) == 0x54)
+    return MIN_EVAL;
+  
+  /* Board is full -> Draw. Else keep playing */
+  return ((pmin|pmax) == 0x1ff)? NO_EVAL
+    : EVAL_KEEP;
 }

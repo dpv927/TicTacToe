@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PARAMETERS_H
+#define PARAMETERS_H
 
 /**
  * Prints an error message indicating that the number of parameters given is incorrect.
@@ -29,3 +30,4 @@ void vError(const char* value, const char* parameter);
  */
 int equals(const char* param1, const char* param2);
 
+#endif // !PARAMETERS_H

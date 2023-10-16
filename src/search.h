@@ -1,4 +1,7 @@
-#pragma once
+#ifndef SEARCH_H
+#define SEARCH_H
+
+#include <stdint.h>
 
 /** Macros **/
 #define max(a, b) ((a) > (b) ? (a) : (b))
@@ -24,4 +27,6 @@
  *
  * @return The index of the best-calculated move.
  */
-int alphabeta(int* board, const int is_maximizing, const int pmaxId, const int pminId, const int depth, const int maxdepth, int alpha, int beta);
+int alphabeta(const int is_maximizing, uint16_t pmax, uint16_t pmin, const int depth, const int maxdepth, int alpha, int beta);
+
+#endif // !SEARCH_H
