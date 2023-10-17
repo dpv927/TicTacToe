@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Ofast -march=native -mtune=native
 CEXTRAFLAGS=
-SRCS=analysis.c board.c heuristic.c main.c move_asker.c parameters.c resources.c search.c sync_game.c argshand.c
+SRCS=analysis.c argshand.c board.c heuristic.c main.c move_asker.c resources.c search.c sync_game.c
 OBJS=$(SRCS:.c=.o)
 TARGET=ttt
 
