@@ -4,8 +4,10 @@
 #include "game.h"
 #include "bits.h"
 
-static const char line[] = "  +---+---+---+\n";
-static const char file[] = "    0   1   2\n";
+static const char separator[] = "  ├───┼───┼───┤\n";
+static const char top[]       = "  ┌───┬───┬───┐\n";
+static const char bottom[]    = "  └───┴───┴───┘\n";
+static const char numbers[]   = "    0   1   2\n";
 
 enum GameState evaluateGame(struct Game* g) {
   uint16_t shift;
@@ -43,9 +45,9 @@ void draw(struct Game* g) {
     squares[i] = getBit(g->p1,i)? 'x' : 
       (getBit(g->p2,i)? 'o' : ' ');
   
-  char buff[132];
+  char buff[250];
   char format[5];
-  strcpy(buff, line);
+  strcpy(buff, top);
 
   for (uint8_t i=0; i<3; i++) {
     strcat(buff, "  ");
@@ -55,8 +57,8 @@ void draw(struct Game* g) {
     }
     sprintf(format, "| %d\n", i);
     strcat(buff, format);
-    strcat(buff, line);
+    strcat(buff, i==2? bottom : separator);
   }
-  strcat(buff, file);
+  strcat(buff, numbers);
   printf("%s\n", buff);
 }
