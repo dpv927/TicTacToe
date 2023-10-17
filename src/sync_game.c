@@ -71,9 +71,6 @@ void syncronized_game(enum PlayerType p1_mode, enum PlayerType p2_mode, uint8_t 
   game.p2 = 0x0;
   game.turn = 0x1;
 
-  printf("New game.\nPlayer1: %s\nPlayer2: %s", p1_mode==Human? "Human" : "Ai", 
-         p2_mode == Human? "Human": "Ai");
-
   // With fork we create two separated processes. Those processes
   // are used to manage the players turns.
   switch(fork()) {
