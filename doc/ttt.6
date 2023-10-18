@@ -1,0 +1,117 @@
+.TH TIC-TAC-TOE 3 "October 18, 2023" "Version 3.1.0" "User Manual"
+
+.SH NAME
+Tic-tac-toe \- an app that allows one or two players to play the classic tic-tac-toe game and search the best possible move given a game state.
+
+.SH SYNOPSIS
+ttt [OPTION]
+
+.SH DESCRIPTION
+Tic Tac Toe is a very famous board game, and it is very easy to implement in code. Because of this, I wanted to make it a bit more challenging without changing the basic concepts of the game. To achieve this, I implemented the game using the API System 5 Semaphores and shared memory of Linux to manage both players' turns and the board control. Since version 3.0.0 there is a feature that allows you to seach for the best move given a game state.
+
+.PP
+If we ignore the '-' symbols, we can see that the 'x' player made a move at (0,0), and the 'o' player made a move at (2,1). NOTE: In the game, player1 is represented by 'x', and player2 is represented by 'o'.
+
+.SH OPTIONS
+
+.PP
+--versus                  Create a 1vs1 match. The type of the players
+                          can be selected with the '--p1-type' and
+                          '--p2-type' arguments.
+.PP
+  --p1-type <type>        Specifies the player type for 'player1'. There 
+                          are two possible values: "Human" and "Ai". The
+                          Human type is controlled by the user, but the
+                          Ai type is controlled by the user's machine.
+.PP
+  --p2-type <type>        Same as argument "--p1-type" but applied to 
+                          player2.
+.PP
+  --depth-Ai1 [0..9]      In case player1 is of type Ai, the depth of the
+                          search tree will be limited to the one set,
+                          the minimum being 0 and the maximum 9. Keep 
+                          in mind that the lower this parameter is, the
+                          worse the search will result in worse movements.
+.PP
+  --depth-Ai1 [0..9]      Same as argument "--depth-Ai1" but applied to 
+                          player2.
+.PP
+  --bestmove <state>      Search for the best move from a given state of 
+                          a game board, which also indicates what player
+                          has to move next. An example of a game state
+                          is "201020101 2", in which player2 has the 
+                          turn, and the characters '2' and '1' represent
+                          the players' positions on the board. The board
+                          positions are numbered from left to right and
+                          from top to bottom.      
+.PP 
+  --search-depth [0..9]   In case you use the '--bestmove' parameter, you
+                          can indicate the depth of the search tree, 
+                          limited to the one set, the minimum being 0
+                          and the maximum 9.
+.PP
+  --version               Show current ttt version information.
+.PP
+  --help                  Shows a help message.
+
+.SH 1VS1 USAGE
+In case that you want to play a 1vs1 game, the program will prompt the players for the coordinates of their next move. First, it asks for the row, and then the column. Let's say that a coordinate is made up of (row, column). The board display is as follows:
+
+.PP
+.TS
+tab(@);
+c c c .
+(0,0) (0,1) (0,2) 
+(1,0) (1,1) (1,2)
+(2,0) (2,1) (2,2)
+.TE
+
+.PP
+For example:
+
+.PP
+.TS
+tab(@);
+c c c .
+x - -  
+- - -
+- o -
+.TE
+
+.SH SEARCH USAGE
+Lets see some examples of using the '--bestmove' argument. You must know that with this command, the program will search for the best possible move from a given state of a game board and a player. You can also specify the maximum depth of the search tree with the '--search-depth'. Examples of use:
+
+.PP
+ttt --bestmove '1---122-- 1':
+
+Search for the best move at the given game state. The game state string has two parts. The first describes the current moves over the board, where each caracter defines the player that is allocated in that cell of the board ('1' = player1, '2' = player2, and '-' means that the cell is empty). 
+
+.PP
+This part describes each row of the board, from top to bottom and from  left to right. If you didn't understand this last part, the board representation of '1---122-- 1' it's the following one:
+
+.PP             
+.PP
+.TS
+tab(@);
+c c c .
+x - -  
+- x o
+o - -
+.TE
+
+.PP                            
+The second part of the string, is separated by a space and tells what player has to move next. The search will look for the best move for this player with the default search depth (9 nodes = max).
+
+.PP 
+ttt --search '2---211-- 2' --search-depth 6:
+
+Same as the last command, but this time we add the depth option to limit the search at a specific node depth. In this case, the maximum depth of the search tree will be 6 nodes.
+
+.SH SEE ALSO
+No related manuals are available.
+
+.SH BUGS
+No bugs at the moment.
+
+.SH AUTHOR
+Filipondios
