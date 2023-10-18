@@ -31,19 +31,44 @@ struct Versus {
   uint8_t used;
 };
 
-/* Checks if an argument exists in the given parameters */
-int ExistsArg(char const *str_to_find, int narg, char **arg);
+/**
+ * @brief Checks if an argument exists in the given parameters
+ * 
+ * @param str_to_find Parameter to find.
+ * @param narg Number of arguments given to the program.
+ * @param arg All the arguments given to the program.
+ *
+ * @return The index of the parameter if exists, -1 if its not found.
+ */
+int ExistsArg(char const *str_to_find, int narg, char** arg);
 
-/* Check the number of arguments */
+/* 
+ * @brief Checks the number of arguments.
+ *
+ * @param argc Number of arguments given to the program.
+ *
+ * */
 void CheckNumberArgs(int argc);
 
-/* Prints an error message due a bad argument */
+/* 
+ * @brief Prints an error message due a bad argument 
+ * */
 void BadArgument();
 
-/* Prints an error message due a wrong value for a parameter */
-void BadArguments(const char* value,const char* parameter);
+/* @brief Prints an error message due a wrong value for a 
+ * parameter.
+ *
+ * @param value Wrong value for the parameter.
+ * @parameter Given parameter.
+ * */
+void BadArguments(const char* value, const char* parameter);
 
-/* Process all the arguments and get info */
+/* @brief Processes all the arguments and ninitializes 
+ * the neccesary modules.
+ *
+ * @param argc Number of arguments given to the program.
+ * @param argv All the arguments given to the program.
+ * */
 void ProcessArguments(int argc, char** argv);
 
 #endif

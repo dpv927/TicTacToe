@@ -7,9 +7,8 @@
 /**
  * @brief Manages the request for the next move from a player.
  * 
- * @param player_id The ID of the player making the move.
- * @param board The game board represented as an array.
- * @param depth The depth used for decision-making (if applicable).
+ * @param board Player ID.
+ * @param depth Game state object.
  * 
  * @return The number of the square that the next move will occupy.
  */
@@ -18,8 +17,8 @@ uint8_t player_asker(const int pid, struct Game* g);
 /**
  * @brief Manages the request for the next move from the AI.
  * 
- * @param player_id The ID of the AI player making the move.
- * @param board The game board represented as an array.
+ * @param pmaxBoard The bitboard of the player to maximize.
+ * @param pminBoard The bitboard of the player to minimize.
  * @param depth The depth used for decision-making (if applicable).
  * 
  * @return The number of the square that the next move will occupy.

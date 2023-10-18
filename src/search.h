@@ -16,16 +16,15 @@
  * (https://en.wikipedia.org/wiki/Minimax) and its advanced version, alpha-beta pruning:
  * (https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning).
  *
- * @param board The game board.
  * @param is_maximizing Determines whether the algorithm aims to maximize the move.
- * @param pmaxId The ID of the player to maximize.
- * @param pminId The ID of the opponent player to minimize.
+ * @param pmax The bitboard of the player to maximize.
+ * @param pmin The bitboard of the opponent player to minimize.
  * @param depth The current node depth in the search tree.
  * @param maxdepth The maximum depth to reach in the search tree.
  * @param alpha The alpha value for alpha-beta pruning.
  * @param beta The beta value for alpha-beta pruning.
  *
- * @return The index of the best-calculated move.
+ * @return The value of the current game state.
  */
 int alphabeta(const int is_maximizing, uint16_t pmax, uint16_t pmin, const int depth, const int maxdepth, int alpha, int beta);
 

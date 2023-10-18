@@ -39,13 +39,10 @@ void delete_resources(void);
 /**
  * @brief Initiates a new game between two players.
  * 
- * This function starts a new game, which can be a match between two human players or a game between a human player
- * and the AI. The game mode is specified through the 'mode' parameter. When 'mode' is set to 0, a game between the AI
- * and a human player is initiated. Conversely, if 'mode' is set to 1, a game for two human players is initiated.
- *
- * @param mode The game mode specified for the function. If mode is 0, a game between the AI and a human player is created. 
- *             If mode is 1, a game for two human players is created.
- * @param maxAidepth The maximum depth for AI decision-making (if applicable).
+ * @param p1_mode Type of player for player1.
+ * @param p2_mode Type of player for player2.
+ * @param maxAidepth1 The maximum depth for player1's AI (if applicable).
+ * @param maxAidepth1 The maximum depth for player2's AI (if applicable).
  */
 void syncronized_game(enum PlayerType p1_mode, enum PlayerType p2_mode, uint8_t maxAidepth1, uint8_t maxAidepth2);
 

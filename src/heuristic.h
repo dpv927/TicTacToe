@@ -15,8 +15,8 @@
  * This function calculates and returns the heuristic value of the current
  * state of the game board.
  * 
- * @param board The game state data.
- * @param bias A bias value indicating which player the evaluation is based on.
+ * @param pmax bitboard of the player to maximize.
+ * @param pmin bitboard of the player to minimize.
  * 
  * @return The heuristic value.
  */
