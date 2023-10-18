@@ -17,15 +17,15 @@ This application is dedicated to playing games between humans and machines. The 
 
 | Argument       | Description                                                                  | 
 | -------------- | ---------------------------------------------------------------------------- |
-| --versus       | Create a new 1vs1 game. By default, both players are humans.                 |
-| --p1-type      | Specifies the player type for 'player1' at a game created with --versus      | 
-| --p2-type      | Same as --p1-type but for 'player2'                                          | 
-| --depth-Ai1    | Sets the maximum depth node at the seach tree for player1 if it's type is Ai |
-| --depth-Ai2    | Same as --depth-Ai1 but for player2                                          |
-| --bestmove     | Searches for the best move from a given state of a game                      | 
-| --search-depth | Sets the maximum depth node at the seach tree for the --bestmove mode        |
-| --version      | Show installed ttt version information.                                      |
-| --help         | Show an advanced guide for the parameters                                    |
+| ``--versus``       | Create a new 1vs1 game. By default, both players are humans.                 |
+| ``--p1-type``      | Specifies the player type for 'player1' at a game created with --versus      | 
+| ``--p2-type``      | Same as --p1-type but for 'player2'                                          | 
+| ``--depth-Ai1``    | Sets the maximum depth node at the seach tree for player1 if it's type is Ai |
+| ``--depth-Ai2``    | Same as --depth-Ai1 but for player2                                          |
+| ``--bestmove``     | Searches for the best move from a given state of a game                      | 
+| ``--search-depth`` | Sets the maximum depth node at the seach tree for the --bestmove mode        |
+| ``--version``      | Show installed ttt version information.                                      |
+| ``--help``         | Show an advanced guide for the parameters                                    |
 
 
 ## Compiling ttt
