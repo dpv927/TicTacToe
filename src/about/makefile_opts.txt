@@ -3,9 +3,6 @@ all:            Compiles the project.
 clean:          Clean all the object files (*.o) and old executables
                 that were generated at previous compilations.
 
-clean-build:    This is a short and smart option to clean and compile the
-                project at once. This is the same as 'clean all'.
-
 install:        Compiles the project using 'clean all', copies the generated
                 executable to /usr/bin/, and the documentation to /etc/ttt and
                 the /usr/share/man/man6/ folder.

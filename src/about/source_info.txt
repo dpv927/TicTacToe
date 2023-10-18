@@ -4,36 +4,27 @@ board.c       Implementation of the board functions
 board.h       Documentation and definition of all the
               board functions. 
 
-board_info.h  Information, constants and more items related
-              to a tic-tac-toe board.
-
-game.c        Implementation of the mechanic of the game.
-              The game loops and management are done here.
-
 game.h        Documentation and definition of all of the
-              functions of game.c
+              game objects.
 
-game_asker.c  Implementation of the functions that 
+bits.h        Header file with all the necessary bit operations
+              for the bitboards.
+
+move_asker.c  Implementation of the functions that 
               are responsable of generating moves
               for the players.
 
-game_asker.h  Documentation and definition of all the
-              game-asker functions.
-
-game_info.h   Definition of game constants, and the
-              structure that represents a Game.
+move_asker.h  Documentation and definition of all the
+              move-asker functions.
 
 heuristic.c   Definition of the functions that calculates a
-              heuristic value over a state of a Game board.
+              heuristic value over a state of a Game bitboard.
 
 heuristic.h   Definition of the heuristic functions and constants
               that define the values returned by those functions.
 
 Makefile      Makefile of the project. See the README.md 
               file or this file for compile options.
-
-player.h      Definition of player constants, and the
-              structure that represents a player.
 
 resources.c   Implementation of some functions that load 
               resources such as file contents and others. 
@@ -47,12 +38,20 @@ search.c      Functions that are used for the AI's best-move
 search.h      Documentation and deeefinition of all the 
               functions at search.c
 
-main.c        Main source file of the program. It contais the main() 
-              function that manages different scenarios by the parameters
+argshand.c    Function that manages different scenarios by the parameters
               that are given to the application.
+
+argshand.h    Documentation and deeefinition of all the 
+              functions at argshand.c
 
 analysis.c    Functions that are used to analize a game state and search for
               the best possible move for a player.
 
 analysis.h    Documentation and deeefinition of all the 
               functions at analysis.c
+
+sync_game.c   Implementation of the mechanic of the syncronized multiplayer game.
+              The game loops and management are done here.
+
+sync_game.h   Documentation and definition of all of the
+              functions of game.c
