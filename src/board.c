@@ -46,16 +46,16 @@ void draw(struct Game* g) {
       (getBit(g->p2,i)? 'o' : ' ');
   
   char buff[250];
-  char format[5];
+  char format[7];
   strcpy(buff, top);
 
   for (uint8_t i=0; i<3; i++) {
     strcat(buff, "  ");
     for (uint8_t j=0; j<3; j++) {
-      sprintf(format, "| %c ", squares[3*i+j]);
+      sprintf(format, "│ %c ", squares[3*i+j]);
       strcat(buff, format);
     }
-    sprintf(format, "| %d\n", i);
+    sprintf(format, "│ %d\n", i);
     strcat(buff, format);
     strcat(buff, i==2? bottom : separator);
   }
