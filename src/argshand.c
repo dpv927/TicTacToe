@@ -121,8 +121,8 @@ void ProcessArguments(int argc, char** argv) {
 
   /* ---- Start Best Move Search? ---- */
   if((param_index = ExistsArg("--bestmove", argc, argv))) {
-    if(vs_info.used) BadArgument();
-    search(argv[param_index], s_info.search_depth); }
+    if(vs_info.used || param_index == argc-1) BadArgument();
+    search(argv[param_index+1], s_info.search_depth); }
 }
 
 int ExistsArg(char const *str_to_find, int narg, char **arg) {

@@ -34,9 +34,10 @@ void search(const char* gstate, const int depth) {
 
   // Start timer
   clock_t begin = clock();
+  uint16_t state = sgame.p1|sgame.p2;
 
   for (int i = 0; i < 9; i++) {
-    if(!getBit(pmax, i)) {
+    if(!getBit(state, i)) {
       setbit(pmax, i);
       score = alphabeta(0, pmax, pmin, 1, depth, INT_MIN, INT_MAX);
       setZeroBit(pmax, i);
@@ -61,7 +62,7 @@ void initGameState(const char* gstate, struct Game* gstruct) {
   /* A example of a gstate string is '1---122-- 1'.
    * See ttt --help or documentation for a more detailed example. */
   if(strlen(gstate) != 11) {
-    printf("The given game string is not valid.");
+    printf("The given game string is not valid: '%s'", gstate);
     exit(1);
   }
   
