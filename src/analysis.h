@@ -1,5 +1,7 @@
-#pragma once
-#include "game_info.h"
+#ifndef ANALYSIS_H
+#define ANALYSIS_H
+
+#include "game.h"
 
 /* This function searches for the best move on the given board in the
  * game state string, which also includes the player who needs to maximize the next move.
@@ -16,4 +18,6 @@ void search(const char* gstate, const int depth);
  * @param gstruct A Game struct to be initialized.
  */
 void initGameState(const char* gstate, struct Game* gstruct);
+
+#endif // !ANALYSIS_H
 

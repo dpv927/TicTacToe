@@ -1,43 +1,46 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
 #include <time.h>
 #include "analysis.h"
-#include "player.h"
-#include "board_info.h"
+#include "bits.h"
 #include "search.h"
 #include "board.h"
 
 void search(const char* gstate, const int depth) {
-  // Initialize game propierties
-  struct Player p1 = { Ai, DEF_P1_REP, PLAYER_1 };
-  struct Player p2 = { Ai, DEF_P2_REP, PLAYER_2 };
-
   struct Game sgame;
-  sgame.players[0] = p1;
-  sgame.players[1] = p2;
+  sgame.p1 = 0x0;
+  sgame.p2 = 0x0;
   initGameState(gstate, &sgame);
 
   // Start the search
   int best_score = INT_MIN, score, move = -1;
-  int pmax = (sgame.players[sgame.t_index]).id;
-  int pmin = P_MASK ^ pmax;
+  uint16_t pmax, pmin;
 
-  printf("Searching the best move at '%s'. Player to maximize: player%d ('%c').\n", gstate, pmax, 
-         sgame.players[sgame.t_index].pl_rep);
+  if(sgame.turn) {
+    pmax = sgame.p2;
+    pmin = sgame.p1;
+  } else {
+    pmax = sgame.p1;
+    pmin = sgame.p2;
+  }
+
+  printf("Searching the best move at '%s'. Player to maximize: player%d ('%c').\n", gstate, sgame.turn+1, 
+         sgame.turn? 'o' : 'x');
   printf("The search is limited to %d nodes deep in the search tree.\nGiven game representation:\n", depth);
-  printBoard(sgame);
+  draw(&sgame);
 
   // Start timer
   clock_t begin = clock();
+  uint16_t state = sgame.p1|sgame.p2;
 
-  for (int i = 0; i < BOARD_LEN; i++) {
-    if(sgame.board[i] == PLAYER_N) {
-
-      sgame.board[i] = pmax;
-      score = alphabeta(sgame.board, 0, pmax, pmin, 1, depth, INT_MIN, INT_MAX);
-      sgame.board[i] = PLAYER_N;
+  for (int i = 0; i < 9; i++) {
+    if(!getBit(state, i)) {
+      setbit(pmax, i);
+      score = alphabeta(0, pmax, pmin, 1, depth, INT_MIN, INT_MAX);
+      setZeroBit(pmax, i);
 
       if(score > best_score) {
         printf("Info: Found new best move (%d, %d)\n", (int) (i/3), i%3);
@@ -59,15 +62,15 @@ void initGameState(const char* gstate, struct Game* gstruct) {
   /* A example of a gstate string is '1---122-- 1'.
    * See ttt --help or documentation for a more detailed example. */
   if(strlen(gstate) != 11) {
-    printf("The given game string is not valid.");
+    printf("The given game string is not valid: '%s'", gstate);
     exit(1);
   }
   
   for (int i = 0; i < 9; i++) {
     switch (gstate[i]) {
-      case '-': gstruct->board[i] = PLAYER_N; break;
-      case '1': gstruct->board[i] = PLAYER_1; break;
-      case '2': gstruct->board[i] = PLAYER_2; break;
+      case '-': continue; break;
+      case '1': setbit(gstruct->p1,i); break;
+      case '2': setbit(gstruct->p2,i); break;
       default: printf("Not a game char '%c'", gstate[i]); exit(1);
     }
   }
@@ -79,8 +82,8 @@ void initGameState(const char* gstate, struct Game* gstruct) {
 
   if(*endptr == '\0') {
     switch (gstate[10]) {
-      case '1': gstruct->t_index = 0; break;
-      case '2': gstruct->t_index = 1; break;
+      case '1': gstruct->turn = 0; break;
+      case '2': gstruct->turn = 1; break;
       default: printf("Not a game char '%c'", gstate[10]); exit(1);
     }
   }

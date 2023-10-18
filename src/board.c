@@ -1,86 +1,64 @@
+#include <stdint.h>
 #include <stdio.h>
-#include "board.h"
-#include "board_info.h"
+#include <string.h>
+#include "game.h"
+#include "bits.h"
 
-int boardIsFull(const int board[]) {
-  for (int i = 0; i < BOARD_LEN; i++)
-	  if (board[i] == PLAYER_N)
-		  return 0;
-	return 1;
-}
+static const char separator[] = "  ├───┼───┼───┤\n";
+static const char top[]       = "  ┌───┬───┬───┐\n";
+static const char bottom[]    = "  └───┴───┴───┘\n";
+static const char numbers[]   = "    0   1   2\n";
 
-enum GameState evaluateInStep(const int start, const int step, const int end, const int* board) {
-  int counter = 1;
-  int player = board[start];
-  int actual;
+enum GameState evaluateGame(struct Game* g) {
+  uint16_t shift;
 
-  for (int i = start + step; i <= end; i += step) {
-	  actual = board[i];
-
-    if(actual == PLAYER_N) {
-      counter = 0;
-      continue;
-    }
-    if(actual != player) {
-      counter = 1;
-      player = actual;
-      continue;
-    }
-    if(++counter == 3) {
+  /* See if some player won in rows */ 
+  for (uint8_t i=0; i<=6; i+=3) {
+    shift = (0x7<<i);
+    if((g->p1&shift) == shift || (g->p2&shift) == shift)
       return G_Victory;
-    }
   }
-  return G_Keep;
+
+  /* See if some player won in columns */ 
+  for (uint8_t i=0; i<=2; i++) {
+    shift = (0x49<<i);
+    if((g->p1&shift) == shift || (g->p2&shift) == shift)
+      return G_Victory;
+  }
+  
+  /* See if some player won in the diagonals. The constant 0x111
+   * represents the '\' diagonal and the 0x54 constant represents
+   * the '/' diagonal. */
+  if((g->p1&0x111) == 0x111 || (g->p2&0x111) == 0x111 || 
+    (g->p1&0x54) == 0x54 || (g->p2&0x54) == 0x54)
+    return G_Victory;
+  
+  /* Board is full -> Draw. Else keep playing */
+  return ((g->p1|g->p2) == 0x1ff)? G_Draw 
+    : G_Keep;
 }
 
-enum GameState evaluateGame(const int* board) {
-		enum GameState result;
+void draw(struct Game* g) {
+  char squares[9];
 
-    // Diagonal left up - right down
-    result = evaluateInStep(0, 4, 8, board);
-		if (result != G_Keep)
-			return result;
+  for (uint8_t i=0; i<9; i++)
+    squares[i] = getBit(g->p1,i)? 'x' : 
+      (getBit(g->p2,i)? 'o' : ' ');
+  
+  char buff[250];
+  char format[7];
+  strcpy(buff, top);
 
-		// Diagonal right up - left down
-		result = evaluateInStep(2, 2, 6, board);
-		if (result != G_Keep)
-			return result;
-
-		// All the rows
-		for (int i = 0; i <= 6; i += 3) {
-			result = evaluateInStep(i, 1, i+2, board);
-			if (result != G_Keep)
-				return result;
-		}
-
-		// All the columns
-		for (int i = 0; i <= 2; i ++) {
-			result = evaluateInStep(i, 3, i+6, board);
-			if (result != G_Keep)
-				return result;
-		}
-		return (boardIsFull(board))? G_Draw : G_Keep;
-}
-
-void printBoard(const struct Game g) {
-  const struct Player* p1 = &g.players[0];
-  const struct Player* p2 = &g.players[1]; 
-
-  printf("     0   1   2\n   ┌───┬───┬───┐ Player1 ('%c'): Human\n", 
-         p1->pl_rep);
-
-  for (int i = 0; i < BOARD_LEN; i++) {
-    if(i%3 == 0) { printf(" %d ", i/3); }
-
-    printf("│ %c ", (g.board[i] == p1->id)? p1->pl_rep : 
-           ((g.board[i] == p2->id)? p2->pl_rep : ' '));  
-    
-    if(i == 5) {
-      printf("│\n   ├───┼───┼───┤\n");
+  for (uint8_t i=0; i<3; i++) {
+    strcat(buff, "  ");
+    for (uint8_t j=0; j<3; j++) {
+      sprintf(format, "│ %c ", squares[3*i+j]);
+      strcat(buff, format);
     }
-    if (i == 2) { 
-      printf("│ Player2 ('%c'): %s\n   ├───┼───┼───┤\n", p2->pl_rep, (p2->type == Ai)? "Ai" : "Human"); 
-    }
+    sprintf(format, "│ %d\n", i);
+    strcat(buff, format);
+    strcat(buff, i==2? bottom : separator);
   }
-  printf("│\n   └───┴───┴───┘\n");
+  strcat(buff, numbers);
+  printf("%s\n", buff);
 }

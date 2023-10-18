@@ -1,50 +1,48 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -std=c99 -Ofast -march=native -mtune=native
-#CEXTRAFLAGS=-funroll-loops -finline-functions -fomit-frame-pointer -falign-loops -falign-labels
-SRCS=parameters.c analysis.c board.c game.c game_asker.c heuristic.c resources.c search.c main.c
+CFLAGS=-Wall -Wextra -Ofast -march=native -mtune=native
+CEXTRAFLAGS=-funroll-loops -finline-functions -fomit-frame-pointer -falign-loops -falign-labels
+SRCS=analysis.c argshand.c board.c heuristic.c main.c move_asker.c resources.c search.c sync_game.c
 OBJS=$(SRCS:.c=.o)
-MAN=../doc/ttt.6
 TARGET=ttt
+
+# Installation variables
+LOCAL_MAN_FILE="../doc/$(TARGET).6"
+LOCAL_HELP_FILE="../doc/help.txt"
+LOCAL_VERSION_FILE="../doc/version.txt"
+TARGET_EXEC_PATH="/usr/bin/$(TARGET)"
+TARGET_MAN_PATH="/usr/share/man/man6/$(TARGET).6"
+TARGET_FULL_DOC_DIR="/etc/$(TARGET)/doc/"
+TARGET_DOC_DIR="/etc/$(TARGET)"
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	@echo "Compiling the source files: $(SRCS)"
-	@echo "Executable Target: $(TARGET)"
 	$(CC) $(CFLAGS) $(CEXTRAFLAGS) $(OBJS) -o $(TARGET)
-	@echo "Finished."
 
 %.o: %.
-	@echo "Compiling .o files..."
 	$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
-	@echo "Cleaning old files..."
-	@echo "Targets: $(OBJS) $(TARGET)"
+clean: 
 	rm -f $(OBJS) $(TARGET)
-	@echo "Finished."
-
-clean-build:
-	clean all
 
 install: clean all
 	@echo "Copying the man page..."
-	sudo cp -r $(MAN) /usr/share/man/man6/
-	@echo "Copying the executable to /usr/bin/..."
-	sudo cp -r $(TARGET) /usr/bin/
-	@echo "Copiying the documentation to /etc/ttt..."
-	sudo mkdir -p /etc/ttt/doc/
-	sudo cp -r ../doc/help.txt /etc/ttt/doc/
-	sudo cp -r ../doc/version.txt /etc/ttt/doc/
+	sudo cp -r $(LOCAL_MAN_FILE) $(TARGET_MAN_PATH)
+	@echo "Copying the executable to $(TARGET_EXEC_PATH)..."
+	sudo cp -r $(TARGET) $(TARGET_EXEC_PATH)
+	@echo "Copiying the documentation to $(TARGET_DOC_DIR)..."
+	sudo mkdir -p $(TARGET_FULL_DOC_DIR)
+	sudo cp -r $(LOCAL_HELP_FILE) $(TARGET_FULL_DOC_DIR)
+	sudo cp -r $(LOCAL_VERSION_FILE) $(TARGET_FULL_DOC_DIR)
 	@echo "Finished."
 
 uninstall:
 	@echo "Removing the man page..."
-	sudo rm /usr/share/man/man6/ttt.6
+	sudo rm $(TARGET_MAN_PATH)
 	@echo "Removing the executable from /usr/bin/..."
-	sudo rm /usr/bin/$(TARGET)
+	sudo rm $(TARGET_EXEC_PATH)
 	@echo "Removing the documentation..."
-	rm -rf /etc/ttt/
+	sudo rm -rf $(TARGET_DOC_DIR)
 	@echo "Finished."
 
 help:
@@ -57,7 +55,6 @@ help:
 	@echo "help 				> Display this message."
 	@echo "all 				> Only compile."
 	@echo "clean 				> Clean the Makefile directory from old files."
-	@echo "clean-build 			> Clean and complile."
 	@echo "install 			> Compiles and installs ttt in the system."
 	@echo "uninstall			> Removes ttt if it is installed in the system."
 	@echo ""
