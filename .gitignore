@@ -1,9 +1,3 @@
-# Visual studio hidden configs
-/.vscode/
-
-# Ttt-play hidden files
-/ttt-play/src/*.o
-/ttt-play/ttt-play
-
-# Ttt-search hidden files
-/ttt-search/target/
+# Objects and the executable 
+*.o
+ttt
