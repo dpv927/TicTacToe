@@ -100,7 +100,7 @@ void syncronized_game(enum PlayerType p1_mode, enum PlayerType p2_mode, uint8_t 
           break; 
         }        
         
-        system("clear");
+        //system("clear");
         printf("The actual board state is:\n\n");
         draw(&addr[0]);
       
@@ -110,7 +110,6 @@ void syncronized_game(enum PlayerType p1_mode, enum PlayerType p2_mode, uint8_t 
 
         setbit(addr[0].p1, pos);
         addr[0].turn ^= 1;
-        draw(&addr[0]);
         
         // Do a SIGNAL to semaphore1
         sem_oper.sem_num = SEM1;
@@ -137,7 +136,7 @@ void syncronized_game(enum PlayerType p1_mode, enum PlayerType p2_mode, uint8_t 
           break; 
         }
         
-        system("clear");
+        //system("clear");
         printf("The actual board state is:\n\n");
         draw(&addr[0]);
 

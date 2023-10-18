@@ -14,12 +14,13 @@ int alphabeta(const int is_maximizing, uint16_t pmax, uint16_t pmin, const int d
   }
 
   int best_score;
+  uint16_t state = pmax|pmin;
 
   if(is_maximizing) {
     best_score = INT_MIN;
     
     for (int i = 0; i < 9; i++) {   
-      if(!getBit(pmax, i)) {
+      if(!getBit(state, i)) {
         setbit(pmax, i);
         best_score = max(alphabeta(0, pmax, pmin, depth+1, maxdepth, alpha, beta), best_score);
         setZeroBit(pmax, i);
@@ -35,7 +36,7 @@ int alphabeta(const int is_maximizing, uint16_t pmax, uint16_t pmin, const int d
     best_score = INT_MAX;
 
     for (int i = 0; i < 9; i++) {
-      if (!getBit(pmin, i)) {
+      if (!getBit(state, i)) {
         setbit(pmin, i);
         best_score = min(alphabeta(1, pmax, pmin, depth+1, maxdepth, alpha, beta), best_score);
         setZeroBit(pmin, i);

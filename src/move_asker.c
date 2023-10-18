@@ -39,11 +39,12 @@ uint8_t player_asker(const int pid, struct Game* g){
 }
 
 uint8_t ai_asker(uint16_t pmaxBoard, uint16_t pminBoard, uint8_t depth) {
+  uint16_t state = pmaxBoard|pminBoard;
   int best_score = INT_MIN;
-  int score, move = 0;
+  int score, move = 0;  
 
  for (int i = 0; i < 9; i++) {
-    if(!getBit(pmaxBoard,i)) {
+    if(!getBit(state,i)) {
 
       setbit(pmaxBoard, i);
       score = alphabeta(0, pmaxBoard, pminBoard, 1, depth, INT_MIN, INT_MAX);    
