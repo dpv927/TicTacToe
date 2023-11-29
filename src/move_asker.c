@@ -22,6 +22,12 @@ uint8_t player_asker(const int pid, struct Game* g){
 
     if (*endptr == '\0') { //Valid number
       x = atoi(input);
+
+      if(x < 0 || x > 2) {
+        printf("-\n");
+        continue;
+      }
+
     } else { // Not a number
       printf("-\n");
       continue;

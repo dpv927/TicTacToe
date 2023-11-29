@@ -100,14 +100,18 @@ void syncronized_game(enum PlayerType p1_mode, enum PlayerType p2_mode, uint8_t 
           break; 
         }        
         
-        //system("clear");
-        printf("The actual board state is:\n\n");
-        draw(&addr[0]);
-      
-        // Ask player1 the next move and apply it
-        uint8_t pos = (p1_mode == Human)? player_asker(1, &addr[0])
-          : ai_asker(addr[0].p1, addr[0].p2, maxAidepth1);
+        uint8_t pos;
 
+        if(p1_mode == Human) {
+          printf("The actual board state is:\n\n");
+          draw(&addr[0]);
+          pos = player_asker(1, &addr[0]);
+        } else {
+          pos = ai_asker(addr[0].p1, addr[0].p2, maxAidepth1);
+        }
+        
+      
+        printf("\n");
         setbit(addr[0].p1, pos);
         addr[0].turn ^= 1;
         
@@ -135,15 +139,18 @@ void syncronized_game(enum PlayerType p1_mode, enum PlayerType p2_mode, uint8_t 
           semop(semid, &sem_oper, 1);
           break; 
         }
+
+        uint8_t pos;
         
-        //system("clear");
-        printf("The actual board state is:\n\n");
-        draw(&addr[0]);
+        if(p2_mode == Human) {
+          printf("The actual board state is:\n\n");
+          draw(&addr[0]);
+          pos = player_asker(2, &addr[0]);
+        } else {
+          pos = ai_asker(addr[0].p2, addr[0].p1, maxAidepth2);
+        }
 
-        // Ask player2 the next move and apply it 
-        uint8_t pos = (p2_mode == Human)? player_asker(2, &addr[0])
-          : ai_asker(addr[0].p2, addr[0].p1, maxAidepth2);
-
+        printf("\n");
         setbit(addr[0].p2, pos);
         addr[0].turn ^= 1;
         
@@ -154,7 +161,6 @@ void syncronized_game(enum PlayerType p1_mode, enum PlayerType p2_mode, uint8_t 
       }
 
       // Finish the game 
-      system("clear");
       printf("The final board state is:\n");
       draw(&addr[0]);
    
